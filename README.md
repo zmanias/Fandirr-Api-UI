@@ -14,7 +14,7 @@ Rynn UI is a simple and easy-to-use API documentation interface built with Expre
 
 ## Live Demo
 
-Check out a live demo of Rynn UI [here](https://api.rynn-archive.my.id)
+Check out a live demo of Rynn UI [here](https://api.rynn-archive.biz.id)
 
 ## Setup
 
@@ -120,6 +120,16 @@ Here’s an example of how your settings.json file might look:
           "name": "LuminAI",
           "desc": "Talk with luminai",
           "path": "/ai/luminai?text="
+        }
+      ]
+    },
+    {
+      "name": "Random",
+      "items": [
+        {
+          "name": "Blue Archive",
+          "desc": "Blue Archive Random Images",
+          "path": "/random/ba"
         }
       ]
     },
