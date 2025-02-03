@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         return;
                     }
 
-                    baseApiUrl += `?${queryPlaceholder}=${encodeURIComponent(queryValue)}`;
+                    baseApiUrl += `${encodeURIComponent(queryValue)}`;
                     handleApiRequest(baseApiUrl, modalRefs, apiName);
                 };
             } else {
