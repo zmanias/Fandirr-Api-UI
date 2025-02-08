@@ -120,6 +120,12 @@ Here’s an example of how your settings.json file might look:
           "name": "LuminAI",
           "desc": "Talk with luminai",
           "path": "/ai/luminai?text="
+        },
+        {
+          "name": "HydroMind",
+          "desc": "Talk with hydromind",
+          "path": "/ai/hydromind?text=&model=",
+          "innerDesc": "See the list of supported AI models here: https://mind.hydrooo.web.id"
         }
       ]
     },
@@ -136,11 +142,6 @@ Here’s an example of how your settings.json file might look:
     {
       "name": "Search Tools",
       "items": [
-        {
-          "name": "Bing",
-          "desc": "Web search",
-          "path": "/search/bing?q="
-        },
         {
           "name": "YouTube",
           "desc": "Video search",
