@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             setImageSize();
             window.addEventListener('resize', setImageSize);
         }
-
+        
         setContent('page', 'textContent', settings.name || "Rynn UI");
         setContent('header', 'textContent', settings.name || "Rynn UI");
         setContent('name', 'textContent', settings.name || "Rynn UI");
@@ -210,7 +210,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         async function handleApiRequest(apiUrl, modalRefs, apiName) {
             modalRefs.spinner.classList.remove('d-none');
             modalRefs.content.classList.add('d-none');
-            modalRefs.submitBtn.disabled = true;
 
             try {
                 const response = await fetch(apiUrl);
@@ -245,7 +244,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             } finally {
                 modalRefs.spinner.classList.add('d-none');
                 modalRefs.content.classList.remove('d-none');
-                modalRefs.submitBtn.disabled = false;
             }
         }
     } catch (error) {
