@@ -43,7 +43,7 @@ Your API documentation should now be available at `http://localhost:4000`.
 
 ## Customization
 
-![Layout](https://files.catbox.moe/sls0qq.png)
+![Layout](https://files.catbox.moe/bjazqb.png)
 
 You can easily customize the UI by editing the `settings.json` file. Below is a breakdown of the configurable fields:
 
