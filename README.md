@@ -91,7 +91,7 @@ Here’s an example of how your settings.json file might look:
   "header": {
     "status": "Online!",
     "imageSrc": [
-      "https://media2.giphy.com/media/1ZlXGtKFZvsfS/giphy.gif?cid=6c09b952mmmh5uklxc3bsgfqpp7y74esne956uh8gqb560hn&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g"
+      "https://media4.giphy.com/media/l0Iy33dWjmywkCnNS/giphy.gif?cid=6c09b952p3mt40j1mgznfi9rwwtccbjl7mtc2kvfugymeinr&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g"
     ],
     "imageSize": {
       "mobile": "80%",
