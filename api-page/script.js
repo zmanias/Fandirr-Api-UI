@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const innerDescDiv = document.createElement('div');
                     innerDescDiv.className = 'text-muted mt-2';
                     innerDescDiv.style.fontSize = '13px';
-                    innerDescDiv.textContent = currentItem.innerDesc;
+                    innerDescDiv.innerHTML = currentItem.innerDesc.replace(/\n/g, '<br>');
                     paramContainer.appendChild(innerDescDiv);
                 }
 
