@@ -14,7 +14,7 @@ Rynn UI is a simple and easy-to-use API documentation interface built with Expre
 
 ## Live Demo
 
-Check out a live demo of Rynn UI [here (Railway)](https://api.rynn-archive.biz.id) or [here (Vercel)](https://rynnn-ui.vercel.app)
+Check out a live demo of Rynn UI [here](https://api.rynn-archive.biz.id)
 
 ## Setup
 
