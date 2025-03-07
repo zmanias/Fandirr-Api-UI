@@ -41,7 +41,7 @@ Check out a live demo of Rynn UI [here](https://rynnn-ui.vercel.app)
    ```bash
    npm start
    ```
-Your API documentation should now be available at `http://localhost:4000`.
+Your API documentation should now be available at `http://localhost:<PORT>`.
 
 ## Customization
 
