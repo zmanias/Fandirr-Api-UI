@@ -1,31 +1,15 @@
 {
-  "name": "Rynn Api's",
-  "version": "Rynn UI",
-  "description": "Simple and Easy-to-Use API Documentation",
+  "name": "Falcon-Api",
+  "version": "v1.0.0",
+  "description": "Simple and easy to use API.",
+  "bannerImage": "/src/banner.jpg",
   "header": {
-    "status": "Online!",
-    "imageSrc": [
-      "https://media4.giphy.com/media/l0Iy33dWjmywkCnNS/giphy.gif?cid=6c09b952p3mt40j1mgznfi9rwwtccbjl7mtc2kvfugymeinr&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g"
-    ],
-    "imageSize": {
-      "mobile": "80%",
-      "tablet": "40%",
-      "desktop": "40%"
-    }
+    "status": "Online!"
   },
   "apiSettings": {
-    "creator": "Rynn"
+    "creator": "FlowFalcon", 
+    "apikey": ["falcon-api"]
   },
-  "links": [
-    {
-      "name": "Source Code",
-      "url": "https://github.com/rynxzyy/Rynn-UI"
-    },
-    {
-      "name": "Contact Me",
-      "url": "https://wa.me/6285173370004"
-    }
-  ],
   "categories": [
     {
       "name": "AI (Artificial Intelligence)",
@@ -33,13 +17,20 @@
         {
           "name": "LuminAI",
           "desc": "Talk with luminai",
-          "path": "/ai/luminai?text="
+          "path": "/ai/luminai?text=",
+          "status": "ready",
+          "params": {
+            "text": "Text for luminai to respond to",
+          }
         },
         {
-          "name": "HydroMind",
-          "desc": "Talk with hydromind",
-          "path": "/ai/hydromind?text=&model=",
-          "innerDesc": "See the list of supported AI models here: https://mind.hydrooo.web.id"
+          "name": "Deepseek",
+          "desc": "Deepseek ai",
+          "path": "/ai/deepseek?text=",
+          "status": "ready",
+          "params": {
+            "text": "Teks atau perintah untuk chat AI Deepseek"
+          }
         }
       ]
     },
@@ -49,7 +40,8 @@
         {
           "name": "Blue Archive",
           "desc": "Blue Archive Random Images",
-          "path": "/random/ba"
+          "path": "/random/ba",
+          "status": "ready"
         }
       ]
     },
@@ -59,9 +51,13 @@
         {
           "name": "YouTube",
           "desc": "Video search",
-          "path": "/search/youtube?q="
+          "path": "/search/youtube?q=",
+          "status": "ready",
+          "params": {
+            "q": "Search query"
+          }
         }
       ]
-    }
+    }               
   ]
 }
