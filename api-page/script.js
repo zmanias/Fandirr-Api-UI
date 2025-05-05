@@ -3,6 +3,80 @@ document.addEventListener('DOMContentLoaded', async () => {
     const body = document.body;
     body.classList.add("no-scroll");
 
+    // Animated loading dots
+    const loadingDotsAnimation = setInterval(() => {
+        const loadingDots = document.querySelector(".loading-dots");
+        if (loadingDots) {
+            if (loadingDots.textContent === '...') {
+                loadingDots.textContent = '.';
+            } else {
+                loadingDots.textContent += '.';
+            }
+        }
+    }, 500);
+
+    // Check for saved theme preference
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('themeToggleBtn').innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    // Theme toggle functionality
+    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+        
+        // Update icon with animation
+        const btn = document.getElementById('themeToggleBtn');
+        btn.classList.add('theme-toggle-spin');
+        setTimeout(() => {
+            btn.innerHTML = isDarkMode ? 
+                '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            setTimeout(() => {
+                btn.classList.remove('theme-toggle-spin');
+            }, 150);
+        }, 150);
+    });
+
+    // Clear search button functionality
+    document.getElementById('clearSearch').addEventListener('click', () => {
+        const searchInput = document.getElementById('searchInput');
+        searchInput.value = '';
+        searchInput.focus();
+        // Trigger input event to update the search results
+        searchInput.dispatchEvent(new Event('input'));
+    });
+
+    // Copy to clipboard functionality
+    document.getElementById('copyEndpoint').addEventListener('click', () => {
+        copyToClipboard('apiEndpoint');
+    });
+    
+    document.getElementById('copyResponse').addEventListener('click', () => {
+        copyToClipboard('apiResponseContent');
+    });
+
+    function copyToClipboard(elementId) {
+        const element = document.getElementById(elementId);
+        const text = element.textContent;
+        
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = elementId === 'apiEndpoint' ? 
+                document.getElementById('copyEndpoint') : 
+                document.getElementById('copyResponse');
+            
+            // Show success animation
+            btn.innerHTML = '<i class="fas fa-check"></i>';
+            btn.classList.add('copy-success');
+            
+            setTimeout(() => {
+                btn.innerHTML = '<i class="far fa-copy"></i>';
+                btn.classList.remove('copy-success');
+            }, 1500);
+        });
+    }
+
     try {
         const settings = await fetch('/src/settings.json').then(res => res.json());
 
@@ -10,94 +84,184 @@ document.addEventListener('DOMContentLoaded', async () => {
             const element = document.getElementById(id);
             if (element) element[property] = value;
         };
-
-        const randomImageSrc =
-            Array.isArray(settings.header.imageSrc) && settings.header.imageSrc.length > 0
-                ? settings.header.imageSrc[Math.floor(Math.random() * settings.header.imageSrc.length)]
-                : "";
-
-        const dynamicImage = document.getElementById('dynamicImage');
-        if (dynamicImage) {
-            dynamicImage.src = randomImageSrc;
-
-            const setImageSize = () => {
-                const screenWidth = window.innerWidth;
-                if (screenWidth < 768) {
-                    dynamicImage.style.maxWidth = settings.header.imageSize.mobile || "80%";
-                } else if (screenWidth < 1200) {
-                    dynamicImage.style.maxWidth = settings.header.imageSize.tablet || "40%";
-                } else {
-                    dynamicImage.style.maxWidth = settings.header.imageSize.desktop || "40%";
-                }
-                dynamicImage.style.height = "auto";
-            };
-
-            setImageSize();
-            window.addEventListener('resize', setImageSize);
-        }
         
-        setContent('page', 'textContent', settings.name || "Rynn UI");
-        setContent('header', 'textContent', settings.name || "Rynn UI");
-        setContent('name', 'textContent', settings.name || "Rynn UI");
-        setContent('version', 'textContent', settings.version || "v1.0 Beta");
+        // Set page content from settings
+        setContent('page', 'textContent', settings.name || "Falcon-Api");
+        setContent('wm', 'textContent', `© ${new Date().getFullYear()} ${settings.apiSettings.creator}. All rights reserved.` || `© ${new Date().getFullYear()} FlowFalcon. All rights reserved.`);
+        setContent('header', 'textContent', settings.name || "Falcon-Api");
+        setContent('name', 'textContent', settings.name || "Falcon-Api");
+        setContent('version', 'textContent', settings.version || "v1.0");
         setContent('versionHeader', 'textContent', settings.header.status || "Online!");
-        setContent('description', 'textContent', settings.description || "Simple API's");
+        setContent('description', 'textContent', settings.description || "Simple and easy to use API.");
 
-        const apiLinksContainer = document.getElementById('apiLinks');
-        if (apiLinksContainer && settings.links?.length) {
-            settings.links.forEach(({ url, name }) => {
-                const link = Object.assign(document.createElement('a'), {
-                    href: url,
-                    textContent: name,
-                    target: '_blank',
-                    className: 'lead'
-                });
-                apiLinksContainer.appendChild(link);
-            });
+        // Set banner image
+        const dynamicImage = document.getElementById('dynamicImage');
+        if (dynamicImage && settings.bannerImage) {
+            dynamicImage.src = settings.bannerImage;
         }
 
+        // Create API content
         const apiContent = document.getElementById('apiContent');
-        settings.categories.forEach((category) => {
+        
+        settings.categories.forEach((category, categoryIndex) => {
             const sortedItems = category.items.sort((a, b) => a.name.localeCompare(b.name));
-            const categoryContent = sortedItems.map((item, index, array) => {
-                const isLastItem = index === array.length - 1;
-                const itemClass = `col-md-6 col-lg-4 api-item ${isLastItem ? 'mb-4' : 'mb-2'}`;
-                return `
-                    <div class="${itemClass}" data-name="${item.name}" data-desc="${item.desc}">
-                        <div class="hero-section d-flex align-items-center justify-content-between" style="height: 70px;">
-                            <div>
-                                <h5 class="mb-0" style="font-size: 18px;">${item.name}</h5>
-                                <p class="text-muted mb-0" style="font-size: 0.8rem;">${item.desc}</p>
-                            </div>
-                            <button class="btn btn-dark btn-sm get-api-btn" data-api-path="${item.path}" data-api-name="${item.name}" data-api-desc="${item.desc}">
-                                GET
-                            </button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            apiContent.insertAdjacentHTML('beforeend', `<h3 class="mb-3 category-header" style="font-size: 22px;">${category.name}</h3><div class="row">${categoryContent}</div>`);
+            
+            const categorySection = document.createElement('div');
+            categorySection.className = 'category-section';
+            categorySection.dataset.category = category.name.toLowerCase();
+            
+            const categoryHeader = document.createElement('h3');
+            categoryHeader.className = 'category-header';
+            categoryHeader.textContent = category.name;
+            categorySection.appendChild(categoryHeader);
+            
+            const itemsGrid = document.createElement('div');
+            itemsGrid.className = 'api-grid';
+            
+            sortedItems.forEach((item, index) => {
+                const itemCard = document.createElement('div');
+                itemCard.className = 'api-item';
+                itemCard.dataset.name = item.name.toLowerCase();
+                itemCard.dataset.desc = item.desc.toLowerCase();
+                itemCard.style.animationDelay = `${(index * 0.05) + (categoryIndex * 0.1)}s`;
+                
+                const cardContent = document.createElement('div');
+                cardContent.className = 'hero-section';
+                
+                const infoDiv = document.createElement('div');
+                
+                const itemTitle = document.createElement('h5');
+                itemTitle.textContent = item.name;
+                
+                const itemDesc = document.createElement('p');
+                itemDesc.className = 'text-muted';
+                itemDesc.textContent = item.desc;
+                
+                infoDiv.appendChild(itemTitle);
+                infoDiv.appendChild(itemDesc);
+                
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'api-actions';
+                
+                const getBtn = document.createElement('button');
+                getBtn.className = 'get-api-btn';
+                getBtn.textContent = 'GET';
+                getBtn.dataset.apiPath = item.path;
+                getBtn.dataset.apiName = item.name;
+                getBtn.dataset.apiDesc = item.desc;
+                
+                // Add API status indicator
+                const statusIndicator = document.createElement('div');
+                statusIndicator.className = 'api-status';
+                
+                // Set status based on item.status (or default to "ready")
+                const status = item.status || "ready";
+                let statusClass, statusIcon;
+                
+                switch(status) {
+                    case "error":
+                        statusClass = "status-error";
+                        statusIcon = "fa-exclamation-circle";
+                        break;
+                    case "update":
+                        statusClass = "status-update";
+                        statusIcon = "fa-arrow-up";
+                        break;
+                    default: // "ready"
+                        statusClass = "status-ready";
+                        statusIcon = "fa-circle";
+                }
+                
+                statusIndicator.classList.add(statusClass);
+                const icon = document.createElement('i');
+                icon.className = `fas ${statusIcon}`;
+                statusIndicator.appendChild(icon);
+                
+                const statusText = document.createElement('span');
+                statusText.textContent = status;
+                statusIndicator.appendChild(statusText);
+                
+                actionsDiv.appendChild(getBtn);
+                actionsDiv.appendChild(statusIndicator);
+                
+                cardContent.appendChild(infoDiv);
+                cardContent.appendChild(actionsDiv);
+                
+                itemCard.appendChild(cardContent);
+                itemsGrid.appendChild(itemCard);
+            });
+            
+            categorySection.appendChild(itemsGrid);
+            apiContent.appendChild(categorySection);
         });
 
+        // Search functionality
         const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearch');
+        
         searchInput.addEventListener('input', () => {
             const searchTerm = searchInput.value.toLowerCase();
+            
+            // Show/hide clear button based on search input
+            if (searchTerm.length > 0) {
+                clearSearchBtn.style.opacity = '1';
+                clearSearchBtn.style.pointerEvents = 'auto';
+            } else {
+                clearSearchBtn.style.opacity = '0';
+                clearSearchBtn.style.pointerEvents = 'none';
+            }
+            
             const apiItems = document.querySelectorAll('.api-item');
-            const categoryHeaders = document.querySelectorAll('.category-header');
+            const categorySections = document.querySelectorAll('.category-section');
+            let hasResults = false;
 
             apiItems.forEach(item => {
-                const name = item.getAttribute('data-name').toLowerCase();
-                const desc = item.getAttribute('data-desc').toLowerCase();
-                item.style.display = (name.includes(searchTerm) || desc.includes(searchTerm)) ? '' : 'none';
+                const name = item.dataset.name;
+                const desc = item.dataset.desc;
+                
+                if (name.includes(searchTerm) || desc.includes(searchTerm)) {
+                    item.style.display = '';
+                    hasResults = true;
+                } else {
+                    item.style.display = 'none';
+                }
             });
 
-            categoryHeaders.forEach(header => {
-                const categoryRow = header.nextElementSibling;
-                const visibleItems = categoryRow.querySelectorAll('.api-item:not([style*="display: none"])');
-                header.style.display = visibleItems.length ? '' : 'none';
+            categorySections.forEach(section => {
+                const visibleItems = section.querySelectorAll('.api-item[style=""]');
+                if (visibleItems.length) {
+                    section.style.display = '';
+                } else {
+                    section.style.display = 'none';
+                }
             });
+            
+            // Handle no results
+            const existingNoResults = document.getElementById('noResultsMessage');
+            if (existingNoResults) {
+                existingNoResults.remove();
+            }
+            
+            if (!hasResults && searchTerm.length > 0) {
+                const noResultsMsg = document.createElement('div');
+                noResultsMsg.id = 'noResultsMessage';
+                noResultsMsg.className = 'no-results-message';
+                noResultsMsg.innerHTML = `
+                    <i class="fas fa-search"></i>
+                    <p>No results found for "<span>${searchTerm}</span>"</p>
+                    <button id="clearSearchFromMsg" class="btn">Clear Search</button>
+                `;
+                apiContent.appendChild(noResultsMsg);
+                
+                document.getElementById('clearSearchFromMsg').addEventListener('click', () => {
+                    searchInput.value = '';
+                    searchInput.dispatchEvent(new Event('input'));
+                    searchInput.focus();
+                });
+            }
         });
 
+        // API Button click handler
         document.addEventListener('click', event => {
             if (!event.target.classList.contains('get-api-btn')) return;
 
@@ -107,18 +271,21 @@ document.addEventListener('DOMContentLoaded', async () => {
                 label: document.getElementById('apiResponseModalLabel'),
                 desc: document.getElementById('apiResponseModalDesc'),
                 content: document.getElementById('apiResponseContent'),
+                container: document.getElementById('responseContainer'),
                 endpoint: document.getElementById('apiEndpoint'),
                 spinner: document.getElementById('apiResponseLoading'),
                 queryInputContainer: document.getElementById('apiQueryInputContainer'),
                 submitBtn: document.getElementById('submitQueryBtn')
             };
 
+            // Reset modal
             modalRefs.label.textContent = apiName;
             modalRefs.desc.textContent = apiDesc;
             modalRefs.content.textContent = '';
             modalRefs.endpoint.textContent = '';
             modalRefs.spinner.classList.add('d-none');
             modalRefs.content.classList.add('d-none');
+            modalRefs.container.classList.add('d-none');
             modalRefs.endpoint.classList.add('d-none');
 
             modalRefs.queryInputContainer.innerHTML = '';
@@ -129,43 +296,66 @@ document.addEventListener('DOMContentLoaded', async () => {
             let hasParams = params.toString().length > 0;
 
             if (hasParams) {
+                // Create input fields for parameters
                 const paramContainer = document.createElement('div');
                 paramContainer.className = 'param-container';
 
-                const paramsArray = Array.from(params.keys());
+                const formTitle = document.createElement('h6');
+                formTitle.className = 'param-form-title';
+                formTitle.innerHTML = '<i class="fas fa-sliders-h"></i> Parameters';
+                paramContainer.appendChild(formTitle);
                 
-                paramsArray.forEach((param, index) => {
+                Array.from(params.keys()).forEach(param => {
                     const paramGroup = document.createElement('div');
-                    paramGroup.className = index < paramsArray.length - 1 ? 'mb-2' : '';
+                    paramGroup.className = 'param-group';
 
+                    const labelContainer = document.createElement('div');
+                    labelContainer.className = 'param-label-container';
+                    
+                    const label = document.createElement('label');
+                    label.className = 'form-label';
+                    label.textContent = param;
+                    label.htmlFor = `param-${param}`;
+                    
+                    const requiredSpan = document.createElement('span');
+                    requiredSpan.className = 'required-indicator';
+                    requiredSpan.textContent = '*';
+                    label.appendChild(requiredSpan);
+                    
+                    labelContainer.appendChild(label);
+                    
+                    // Add parameter description tooltip if available
+                    const currentItem = settings.categories
+                        .flatMap(category => category.items)
+                        .find(item => item.path === apiPath);
+                    
+                    if (currentItem && currentItem.params && currentItem.params[param]) {
+                        const tooltipIcon = document.createElement('i');
+                        tooltipIcon.className = 'fas fa-info-circle param-info';
+                        tooltipIcon.title = currentItem.params[param];
+                        labelContainer.appendChild(tooltipIcon);
+                    }
+                    
+                    paramGroup.appendChild(labelContainer);
+                    
                     const inputField = document.createElement('input');
                     inputField.type = 'text';
-                    inputField.className = 'form-control';
+                    inputField.className = 'custom-input';
+                    inputField.id = `param-${param}`;
                     inputField.placeholder = `Enter ${param}...`;
                     inputField.dataset.param = param;
-
                     inputField.required = true;
                     inputField.addEventListener('input', validateInputs);
-
+                    
                     paramGroup.appendChild(inputField);
                     paramContainer.appendChild(paramGroup);
                 });
-                
-                const currentItem = settings.categories
-                    .flatMap(category => category.items)
-                    .find(item => item.path === apiPath);
-
-                if (currentItem && currentItem.innerDesc) {
-                    const innerDescDiv = document.createElement('div');
-                    innerDescDiv.className = 'text-muted mt-2';
-                    innerDescDiv.style.fontSize = '13px';
-                    innerDescDiv.innerHTML = currentItem.innerDesc.replace(/\n/g, '<br>');
-                    paramContainer.appendChild(innerDescDiv);
-                }
 
                 modalRefs.queryInputContainer.appendChild(paramContainer);
                 modalRefs.submitBtn.classList.remove('d-none');
+                modalRefs.submitBtn.disabled = true;
 
+                // Submit button handler
                 modalRefs.submitBtn.onclick = async () => {
                     const inputs = modalRefs.queryInputContainer.querySelectorAll('input');
                     const newParams = new URLSearchParams();
@@ -181,35 +371,46 @@ document.addEventListener('DOMContentLoaded', async () => {
                         }
                     });
 
-                    if (!isValid) {
-                        modalRefs.content.textContent = 'Please fill in all required fields.';
-                        modalRefs.content.classList.remove('d-none');
-                        return;
-                    }
+                    if (!isValid) return;
+
+                    // Show loading animation
+                    modalRefs.submitBtn.disabled = true;
+                    modalRefs.submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
 
                     const apiUrlWithParams = `${window.location.origin}${apiPath.split('?')[0]}?${newParams.toString()}`;
                     
-                    modalRefs.queryInputContainer.innerHTML = '';
-                    modalRefs.submitBtn.classList.add('d-none');
-                    handleApiRequest(apiUrlWithParams, modalRefs, apiName);
+                    modalRefs.queryInputContainer.style.display = 'none';
+                    modalRefs.submitBtn.style.display = 'none';
+                    handleApiRequest(apiUrlWithParams, modalRefs);
                 };
             } else {
-                handleApiRequest(baseApiUrl, modalRefs, apiName);
+                handleApiRequest(baseApiUrl, modalRefs);
             }
 
             modal.show();
         });
 
+        // Input validation
         function validateInputs() {
             const submitBtn = document.getElementById('submitQueryBtn');
             const inputs = document.querySelectorAll('.param-container input');
             const isValid = Array.from(inputs).every(input => input.value.trim() !== '');
-            submitBtn.disabled = !isValid;
+            
+            if (isValid) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+            
+            // Remove validation error on input
+            this.classList.remove('is-invalid');
         }
 
-        async function handleApiRequest(apiUrl, modalRefs, apiName) {
+        // Handle API request
+        async function handleApiRequest(apiUrl, modalRefs) {
             modalRefs.spinner.classList.remove('d-none');
-            modalRefs.content.classList.add('d-none');
+            modalRefs.endpoint.textContent = apiUrl;
+            modalRefs.endpoint.classList.remove('d-none');
 
             try {
                 const response = await fetch(apiUrl);
@@ -220,50 +421,97 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 const contentType = response.headers.get('Content-Type');
                 if (contentType && contentType.startsWith('image/')) {
+                    // Handle image response
                     const blob = await response.blob();
                     const imageUrl = URL.createObjectURL(blob);
 
                     const img = document.createElement('img');
                     img.src = imageUrl;
-                    img.alt = apiName;
+                    img.alt = 'API Response Image';
+                    img.className = 'response-image';
                     img.style.maxWidth = '100%';
-                    img.style.height = 'auto';
-                    img.style.borderRadius = '5px';
 
                     modalRefs.content.innerHTML = '';
                     modalRefs.content.appendChild(img);
                 } else {
+                    // Handle JSON response
                     const data = await response.json();
-                    modalRefs.content.textContent = JSON.stringify(data, null, 2);
+                    const formattedJson = syntaxHighlight(JSON.stringify(data, null, 2));
+                    modalRefs.content.innerHTML = formattedJson;
                 }
 
-                modalRefs.endpoint.textContent = apiUrl;
-                modalRefs.endpoint.classList.remove('d-none');
+                modalRefs.container.classList.remove('d-none');
+                modalRefs.content.classList.remove('d-none');
             } catch (error) {
-                modalRefs.content.textContent = `Error: ${error.message}`;
+                // Error display
+                modalRefs.content.innerHTML = `
+                    <div class="error-container">
+                        <div class="error-icon"><i class="fas fa-exclamation-circle"></i></div>
+                        <div class="error-message">
+                            <h6>Error Occurred</h6>
+                            <p>${error.message}</p>
+                        </div>
+                    </div>
+                `;
+                modalRefs.container.classList.remove('d-none');
+                modalRefs.content.classList.remove('d-none');
             } finally {
                 modalRefs.spinner.classList.add('d-none');
-                modalRefs.content.classList.remove('d-none');
             }
+        }
+        
+        // JSON syntax highlighting
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let cls = 'json-number';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-boolean';
+                } else if (/null/.test(match)) {
+                    cls = 'json-null';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
         }
     } catch (error) {
         console.error('Error loading settings:', error);
-    } finally {
+        
+        // Show error notification
+        const errorNotification = document.createElement('div');
+        errorNotification.className = 'error-notification';
+        errorNotification.innerHTML = `
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>Failed to load settings: ${error.message}</p>
+            <button class="close-notification"><i class="fas fa-times"></i></button>
+        `;
+        document.body.appendChild(errorNotification);
+        
+        // Add notification close button functionality
+        errorNotification.querySelector('.close-notification').addEventListener('click', () => {
+            errorNotification.classList.add('fade-out');
+            setTimeout(() => errorNotification.remove(), 300);
+        });
+        
+        // Auto-hide after 5 seconds
         setTimeout(() => {
-            loadingScreen.style.display = "none";
-            body.classList.remove("no-scroll");
-        }, 2000);
-    }
-});
-
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    const navbarBrand = document.querySelector('.navbar-brand');
-    if (window.scrollY > 0) {
-        navbarBrand.classList.add('visible');
-        navbar.classList.add('scrolled');
-    } else {
-        navbarBrand.classList.remove('visible');
-        navbar.classList.remove('scrolled');
+            errorNotification.classList.add('fade-out');
+            setTimeout(() => errorNotification.remove(), 300);
+        }, 5000);
+    } finally {
+        // Hide loading screen
+        clearInterval(loadingDotsAnimation);
+        setTimeout(() => {
+            loadingScreen.classList.add('fade-out');
+            setTimeout(() => {
+                loadingScreen.style.display = "none";
+                body.classList.remove("no-scroll");
+            }, 500);
+        }, 1000);
     }
 });
