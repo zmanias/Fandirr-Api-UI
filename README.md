@@ -2,7 +2,7 @@
 
 A modern, clean, and user-friendly interface for browsing and testing Falcon API endpoints.
 
-![Falcon API UI Screenshot](iamge.png)
+![Falcon API UI Screenshot](image.png)
 
 ## Features
 
