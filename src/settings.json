@@ -1,5 +1,5 @@
 {
-  "name": "Falcon-Api UI",
+  "name": "Fandirr-Offc UI",
   "version": "v1.0.0",
   "description": "Simple and easy to use API.",
   "bannerImage": "/src/banner.jpg",
@@ -7,7 +7,7 @@
     "status": "Online!"
   },
   "apiSettings": {
-    "creator": "FlowFalcon", 
+    "creator": "FandirrStore", 
     "apikey": ["falcon-api"]
   },
   "categories": [
