@@ -1,63 +1,51 @@
 const express = require('express');
 const axios = require('axios');
-const cheerio = require('cheerio');
 
 module.exports = function(app) {
 
-async function igstalkv2(query) {
-  const endpoint = 'https://privatephotoviewer.com/wp-json/instagram-viewer/v1/fetch-profile';
-  const payload = { find: query };
-  const headers = {
-    'Content-Type': 'application/json',
-    'Accept': '*/*',
-    'X-Requested-With': 'XMLHttpRequest',
-    'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36',
-    'Referer': 'https://privatephotoviewer.com/'
-  };
-
-  const { data } = await axios.post(endpoint, payload, { headers });
-  const html = data.html;
-  const $ = cheerio.load(html);
-
-  let profilePic = $('#profile-insta').find('.col-md-4 img').attr('src');
-  if (profilePic && profilePic.startsWith('//')) {
-    profilePic = 'https:' + profilePic;
-  }
-  const name = $('#profile-insta').find('.col-md-8 h4.text-muted').text().trim();
-  const username = $('#profile-insta').find('.col-md-8 h5.text-muted').text().trim();
-  const stats = {};
-
-  $('#profile-insta')
-    .find('.col-md-8 .d-flex.justify-content-between.my-3 > div')
-    .each((i, el) => {
-      const statValue = $(el).find('strong').text().trim();
-      const statLabel = $(el).find('span.text-muted').text().trim().toLowerCase();
-      if (statLabel.includes('posts')) stats.posts = statValue;
-      if (statLabel.includes('followers')) stats.followers = statValue;
-      if (statLabel.includes('following')) stats.following = statValue;
-    });
-
-  const bio = $('#profile-insta').find('.col-md-8 p').text().trim();
-
-  return {
-    name,
-    username,
-    profilePic,
-    posts: stats.posts,
-    followers: stats.followers,
-    following: stats.following,
-    bio
-  };
-}
 app.get('/stalk/ig', async (req, res) => {
-  const { username } = req.query;
-  if (!username) return res.status(400).json({ success: false, message: 'Masukkan parameter ?username=' });
+  const username = req.query.username;
+
+  if (!username) {
+    return res.status(400).json({ success: false, message: 'Username parameter is required.' });
+  }
+
+  const fandirrApiUrl = `https://api.fandirr.web.id/api/stalk/ig?username=${username}`;
 
   try {
-    const data = await igstalkv2(username);
-    res.json({ success: true, result: data });
-  } catch (err) {
-    res.status(500).json({ success: false, message: 'Gagal mengambil data akun Instagram.' });
+    const response = await axios.get(fandirrApiUrl);
+    const fandirrData = response.data;
+
+    // Check if the Fandirr API returned a successful response and has the expected structure
+    if (fandirrData.success && fandirrData.result) {
+      const { name, username, profilePic, posts, followers, following, bio } = fandirrData.result;
+
+      // Construct the desired response format
+      const customResponse = {
+        success: true,
+        result: {
+          name: name,
+          username: username, // Fandirr API might return without '@', if so, you might want to prepend it here
+          profilePic: profilePic,
+          posts: posts,
+          followers: followers,
+          following: following,
+          bio: bio
+        }
+      };
+      res.json(customResponse);
+    } else {
+      // Handle cases where Fandirr API indicates an error or unexpected structure
+      res.status(500).json({ success: false, message: 'Failed to retrieve data from Fandirr API or unexpected response format.' });
+    }
+
+  } catch (error) {
+    console.error('Error fetching data from Fandirr API:', error.message);
+    res.status(500).json({ success: false, message: 'Internal server error while fetching Instagram data.' });
   }
+});
+
+app.listen(port, () => {
+  console.log(`Proxy API listening at http://localhost:${port}`);
 });
 }
