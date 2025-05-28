@@ -3,8 +3,7 @@ import multer from 'multer';
 import fetch from 'node-fetch';
 import axios from 'axios';
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+module.exports = function(app) {
 
 // Setup multer untuk menerima upload file
 const upload = multer({ storage: multer.memoryStorage() });
@@ -68,8 +67,4 @@ app.get('/api/image-to-prompt-url', async (req, res) => {
     res.status(500).json({ error: 'Gagal mendeteksi dari URL: ' + err.message });
   }
 });
-
-// Jalankan server
-app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
-});
+}
