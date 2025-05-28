@@ -15,7 +15,6 @@ async function igstalkv2(query) {
     'Referer': 'https://privatephotoviewer.com/'
   };
 
-
   const { data } = await axios.post(endpoint, payload, { headers });
   const html = data.html;
   const $ = cheerio.load(html);
@@ -49,7 +48,8 @@ async function igstalkv2(query) {
     following: stats.following,
     bio
   };
-app.get('/stalk/ig', async (req, res) => {
+}
+app.get('/api/stalk/ig', async (req, res) => {
   const { username } = req.query;
   if (!username) return res.status(400).json({ success: false, message: 'Masukkan parameter ?username=' });
 
@@ -60,5 +60,4 @@ app.get('/stalk/ig', async (req, res) => {
     res.status(500).json({ success: false, message: 'Gagal mengambil data akun Instagram.' });
   }
 });
-}
 }
