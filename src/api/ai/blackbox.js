@@ -80,7 +80,7 @@ async function blackbox(queryText) { // Mengubah nama parameter menjadi queryTex
 
 // Definisikan _endpoint_ API
 // Ini akan merespons permintaan GET seperti: http://localhost:3000/api/blackbox?text=your_query_here
-app.get('/api/blackbox', async (req, res) => {
+app.get('/ai/blackbox', async (req, res) => {
     const inputText = req.query.text; // Mengambil 'text' dari parameter query
 
     // Validasi dasar
