@@ -93,7 +93,7 @@
         {
           "name": "Image To Text",
           "desc": "Ubah Gambar Menjadi Text",
-          "path": "/imgcreator/imgtotext?url=",
+          "path": "",
           "status": "ready",
           "params": {
             "url": "Masukan URL nya"
@@ -109,6 +109,20 @@
           }
         }
         ]
+    },
+    {
+      "name": "IMG Creator",
+      "items": [
+        {
+          "name": "Img To Prompt",
+          "desc": "Deteksi Gambar Menjadi Sebuah Perintah",
+          "path": "/imgcreator/imgtotext?url=",
+          "status": "ready",
+          "params": {
+            "url": "Search query"
+          }
+        }
+      ]
     },
     {
       "name": "Stalk (Kepoin)",
