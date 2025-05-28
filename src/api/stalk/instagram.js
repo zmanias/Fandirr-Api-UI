@@ -48,9 +48,6 @@ async function igstalkv2(query) {
     following: stats.following,
     bio
   };
-}
-
-///ENDPOINT IG STALK
 app.get('/stalk/ig', async (req, res) => {
   const { username } = req.query;
   if (!username) return res.status(400).json({ success: false, message: 'Masukkan parameter ?username=' });
