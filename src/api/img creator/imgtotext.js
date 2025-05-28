@@ -48,7 +48,7 @@ app.post('/api/image-to-prompt', upload.single('image'), async (req, res) => {
 });
 
 // Endpoint 2: Kirim gambar lewat URL
-app.get('/api/image-to-prompt-url', async (req, res) => {
+app.get('/imgcreator/imgtotext', async (req, res) => {
   const { url, model = 'general', language = 'en' } = req.query;
 
   if (!url) {
