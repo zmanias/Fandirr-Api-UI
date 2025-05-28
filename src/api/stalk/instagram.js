@@ -44,8 +44,4 @@ app.get('/stalk/ig', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal server error while fetching Instagram data.' });
   }
 });
-
-app.listen(port, () => {
-  console.log(`Proxy API listening at http://localhost:${port}`);
-});
 }
