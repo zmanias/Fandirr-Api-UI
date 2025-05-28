@@ -108,7 +108,7 @@
           "name": "Capcut",
           "desc": "Kepoin Cangcut Orang",
           "path": "/stalk/capcut?url=",
-          "status": "eror",
+          "status": "error",
           "params": {
             "url": "Masukan URL Nya"
           }
