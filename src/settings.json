@@ -2,7 +2,7 @@
   "name": "Fandirr-Offc UI",
   "version": "v1.0.0",
   "description": "Simple and easy to use API.",
-  "bannerImage": "/src/banner.jpg",
+  "bannerImage": "/src/banner_fandirr.jpg",
   "header": {
     "status": "Online!"
   },
