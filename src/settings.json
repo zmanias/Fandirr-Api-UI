@@ -123,6 +123,15 @@
           }
         },
         {
+          "name": "Lirik",
+          "desc": "Pengen Karaokean Yha Bang?",
+          "path": "/stalk/lirik?q=",
+          "status": "ready",
+          "params": {
+            "q": "Masukan Judul Lagu Nya"
+          }
+        },
+        {
           "name": "Free Fire",
           "desc": "Cek ID Free Fire",
           "path": "/stalk/ff?id=",
