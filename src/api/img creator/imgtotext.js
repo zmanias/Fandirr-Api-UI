@@ -1,14 +1,15 @@
 import express from 'express';
 import multer from 'multer';
 import fetch from 'node-fetch';
-import fs from 'fs';
+import axios from 'axios';
 
-module.exports = function(app) {
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Setup multer untuk menerima file upload
+// Setup multer untuk menerima upload file
 const upload = multer({ storage: multer.memoryStorage() });
 
-// Fungsi imagepromptguru
+// Fungsi untuk memproses gambar ke imagepromptguru
 const imagepromptguru = async (buffer, options = {}) => {
   const image = 'data:image/jpeg;base64,' + buffer.toString('base64');
   const { model = 'general', language = 'en' } = options;
@@ -30,7 +31,7 @@ const imagepromptguru = async (buffer, options = {}) => {
   return await response.json();
 };
 
-// Endpoint untuk REST API
+// Endpoint 1: Upload file
 app.post('/api/image-to-prompt', upload.single('image'), async (req, res) => {
   const buffer = req.file?.buffer;
   const { model, language } = req.body;
@@ -46,4 +47,29 @@ app.post('/api/image-to-prompt', upload.single('image'), async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-}
+
+// Endpoint 2: Kirim gambar lewat URL
+app.get('/api/image-to-prompt-url', async (req, res) => {
+  const { url, model = 'general', language = 'en' } = req.query;
+
+  if (!url) {
+    return res.status(400).json({ error: 'Parameter url diperlukan.' });
+  }
+
+  try {
+    // Unduh gambar dari URL
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
+    const buffer = Buffer.from(response.data);
+
+    // Proses ke API
+    const result = await imagepromptguru(buffer, { model, language });
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: 'Gagal mendeteksi dari URL: ' + err.message });
+  }
+});
+
+// Jalankan server
+app.listen(PORT, () => {
+  console.log(`Server berjalan di http://localhost:${PORT}`);
+});
