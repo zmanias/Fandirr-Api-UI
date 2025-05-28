@@ -59,6 +59,20 @@
           }
         }
       ]
-    }               
+    },
+    {
+      "name": "Stalk (Kepoin)",
+      "items": [
+        {
+          "name": "Instagram",
+          "desc": "Kepoin Username Orang",
+          "path": "/stalk/ig?username=",
+          "status": "ready",
+          "params": {
+            "username": "Masukan Username Nya"
+          }
+        }
+        ]
+    }
   ]
 }
