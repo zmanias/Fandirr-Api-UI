@@ -67,7 +67,7 @@
           "name": "Instagram",
           "desc": "Kepoin Username Orang",
           "path": "/stalk/ig?username=",
-          "status": "ready",
+          "status": "error",
           "params": {
             "username": "Masukan Username Nya"
           }
