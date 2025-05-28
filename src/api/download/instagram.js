@@ -57,7 +57,7 @@ async function yt5sIo(url) {
 }
 
 // Endpoint API untuk mengambil video
-app.get("/api/igdl", async (req, res) => {
+app.get("/download/instagram", async (req, res) => {
     const { url } = req.query;
     if (!url) {
         return res.status(400).json({ error: "Parameter 'url' diperlukan." });
