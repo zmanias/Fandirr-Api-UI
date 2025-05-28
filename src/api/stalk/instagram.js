@@ -49,7 +49,7 @@ async function igstalkv2(query) {
     bio
   };
 }
-app.get('/api/stalk/ig', async (req, res) => {
+app.get('/stalk/ig', async (req, res) => {
   const { username } = req.query;
   if (!username) return res.status(400).json({ success: false, message: 'Masukkan parameter ?username=' });
 
