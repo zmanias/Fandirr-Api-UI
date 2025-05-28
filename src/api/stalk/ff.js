@@ -37,7 +37,7 @@ async function ffstalk(id) {
 }
 
 // Endpoint /api/stalk/ff
-app.get('/api/stalk/ff', async (req, res) => {
+app.get('/stalk/ff', async (req, res) => {
   const { id } = req.query;
 
   if (!id) {
