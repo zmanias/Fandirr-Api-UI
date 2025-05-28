@@ -119,7 +119,7 @@
           "path": "/imgcreator/imgtotext?url=",
           "status": "ready",
           "params": {
-            "url": "Search query"
+            "url": "Masukan URL Gambar Nya"
           }
         }
       ]
