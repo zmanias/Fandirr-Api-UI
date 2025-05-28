@@ -80,6 +80,15 @@
           "params": {
             "url": "Masukan URL nya"
           }
+        },
+        {
+          "name": "Instagram",
+          "desc": "Download Reel/Video IG",
+          "path": "/download/instagram?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
         }
         ]
     },
