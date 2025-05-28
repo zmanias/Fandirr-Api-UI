@@ -105,6 +105,15 @@
       "name": "Stalk (Kepoin)",
       "items": [
         {
+          "name": "Capcut",
+          "desc": "Kepoin Cangcut Orang",
+          "path": "/stalk/capcut?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL Nya"
+          }
+        },
+        {
           "name": "Instagram",
           "desc": "Kepoin Username Orang",
           "path": "/stalk/ig?username=",
