@@ -61,6 +61,20 @@
       ]
     },
     {
+      "name": "Download Tools",
+      "items": [
+        {
+          "name": "Facebook",
+          "desc": "Download Reel/Video FB",
+          "path": "/download/facebook?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
+        }
+        ]
+    },
+    {
       "name": "Stalk (Kepoin)",
       "items": [
         {
