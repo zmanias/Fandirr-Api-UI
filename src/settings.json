@@ -71,6 +71,15 @@
           "params": {
             "username": "Masukan Username"
           }
+        },
+        {
+          "name": "Free Fire",
+          "desc": "Cek ID Free Fire",
+          "path": "/stalk/ff?id=",
+          "status": "ready",
+          "params": {
+            "id": "Masukan ID Free Fire"
+          }
         }
         ]
     }
