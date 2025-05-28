@@ -14,6 +14,7 @@ async function igstalkv2(query) {
     'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Mobile Safari/537.36',
     'Referer': 'https://privatephotoviewer.com/'
   };
+}
 
   const { data } = await axios.post(endpoint, payload, { headers });
   const html = data.html;
@@ -59,5 +60,4 @@ app.get('/stalk/ig', async (req, res) => {
     res.status(500).json({ success: false, message: 'Gagal mengambil data akun Instagram.' });
   }
 });
-}
 }
