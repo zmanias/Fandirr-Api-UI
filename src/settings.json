@@ -119,6 +119,15 @@
       "name": "Stalk (Kepoin)",
       "items": [
         {
+          "name": "Jadwal Sholat",
+          "desc": "Cek Jadwal Sholat Sesuai Kota",
+          "path": "/stalk/jadwalsholat?kota=",
+          "status": "ready",
+          "params": {
+            "kota": "Masukan Nama Kota"
+          }
+        },
+        {
           "name": "Capcut",
           "desc": "Kepoin Cangcut Orang",
           "path": "/stalk/capcut?url=",
