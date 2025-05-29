@@ -66,6 +66,15 @@
           "params": {
             "q": "Search query"
           }
+        },
+        {
+          "name": "GetModsApk",
+          "desc": "Pencarian Aplikasi Mod",
+          "path": "/search/getmodsapk?query=",
+          "status": "ready",
+          "params": {
+            "query": "Cari Aplikasinya"
+          }
         }
       ]
     },
