@@ -48,7 +48,7 @@ async function generateStory(question) {
 }
 
 // Endpoint REST API
-app.post('/api/story', async (req, res) => {
+app.post('/stalk/aistory', async (req, res) => {
   const question = req.body.question || req.query.question;
 
   if (!question) {
