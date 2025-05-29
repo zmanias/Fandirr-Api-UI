@@ -35,7 +35,7 @@ const jadwalSholat = {
 };
 
 // Endpoint API
-app.get('/stalk/jadwal-sholat', async (req, res) => {
+app.get('/stalk/jadwalsholat', async (req, res) => {
   const { kota } = req.query;
 
   if (!kota) {
