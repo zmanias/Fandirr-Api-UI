@@ -3,8 +3,10 @@ const axios = require('axios');
 
 module.exports = function(app) {
 
+app.use(express.json()); // Untuk parsing JSON body
+
 async function generateStory(question) {
-  const { data } = await axios.get(
+  let { data } = await axios.get(
     'https://aistorygenerator.co/index.php?wpaicg_stream=yes&' +
     new URLSearchParams({
       question,
@@ -22,7 +24,7 @@ async function generateStory(question) {
       nonce: 'edb9335bee'
     }),
     {
-      headers: { referer: 'https://aistorygenerator.co/' },
+      headers: { 'referer': 'https://aistorygenerator.co/' },
       responseType: 'stream'
     }
   );
@@ -45,12 +47,12 @@ async function generateStory(question) {
   return story;
 }
 
-// Endpoint GET
-app.get('/ai/aistory', async (req, res) => {
-  const { question } = req.query;
+// Endpoint REST API
+app.post('/api/story', async (req, res) => {
+  const question = req.body.question || req.query.question;
 
   if (!question) {
-    return res.status(400).json({ error: 'Parameter "question" wajib diisi.' });
+    return res.status(400).json({ error: 'Parameter "question" diperlukan.' });
   }
 
   try {
