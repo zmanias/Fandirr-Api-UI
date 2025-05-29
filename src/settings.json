@@ -17,10 +17,10 @@
         {
           "name": "AI STORY",
           "desc": "Bercerita Bersama AI",
-          "path": "/ai/aistory?q=",
+          "path": "/ai/aistory?question=",
           "status": "ready",
           "params": {
-            "q": "Apa Yang Mau Ai Buatkan Cerita Nya?"
+            "question": "Apa Yang Mau Ai Buatkan Cerita Nya?"
           }
         },
         {
