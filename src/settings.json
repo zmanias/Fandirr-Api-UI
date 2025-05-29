@@ -15,15 +15,6 @@
       "name": "AI (Artificial Intelligence)",
       "items": [
         {
-          "name": "AI STORY",
-          "desc": "Bercerita Bersama AI",
-          "path": "/ai/aistory?question=",
-          "status": "ready",
-          "params": {
-            "question": "Apa Yang Mau Ai Buatkan Cerita Nya?"
-          }
-        },
-        {
           "name": "LuminAI",
           "desc": "Talk with luminai",
           "path": "/ai/luminai?text=",
