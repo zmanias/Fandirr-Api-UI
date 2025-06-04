@@ -211,6 +211,15 @@
           "params": {
             "id": "Masukan ID Free Fire"
           }
+        },
+        {
+          "name": "Freepik",
+          "desc": "Detail Dari Freepik",
+          "path": "/stalk/freepik?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan url nya"
+          }
         }
         ]
     }
