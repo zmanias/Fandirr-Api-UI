@@ -62,7 +62,7 @@ async function saveweb2zip(url, options = {}) {
     }
 }
 
-app.post('/api/saveweb', async (req, res) => {
+app.post('/download/saveweb', async (req, res) => {
     const { url, options } = req.body;
 
     if (!url) {
