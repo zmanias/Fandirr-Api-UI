@@ -121,6 +121,15 @@
           "params": {
             "url": "Masukan URL Gambar Nya"
           }
+        },
+        {
+          "name": "Brat",
+          "desc": "Bukan video Barat:v",
+          "path": "/imgcreator/brat?text=",
+          "status": "ready",
+          "params": {
+            "text": "Masukan Text Nya"
+          }
         }
       ]
     },
