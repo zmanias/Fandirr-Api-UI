@@ -132,11 +132,11 @@
         },
         {
           "name": "Freepik",
-          "desc": "Pencarian Gambar",
+          "desc": "Download Gambar Freepik",
           "path": "/download/freepik?url=",
           "status": "ready",
           "params": {
-            "q": "Cari Gambarnya"
+            "url": "Masukan Url Dari Pencarian Freepik"
           }
         }
         ]
