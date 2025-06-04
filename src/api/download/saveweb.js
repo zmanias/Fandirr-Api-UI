@@ -64,7 +64,7 @@ async function saveweb2zip(url, options = {}) {
 }
 
 // Endpoint GET
-app.get('/api/saveweb', async (req, res) => {
+app.get('/download/saveweb', async (req, res) => {
     const { url, renameAssets, saveStructure, alternativeAlgorithm, mobileVersion } = req.query;
 
     if (!url) return res.status(400).json({ error: 'Parameter ?url= diperlukan' });
