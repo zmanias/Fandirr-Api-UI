@@ -1,5 +1,7 @@
-import express from 'express';
-import axios from 'axios';
+// saveweb-get.js
+const express = require('express');
+const axios = require('axios');
+const app = express();
 
 module.exports = function(app) {
 
@@ -26,7 +28,7 @@ async function saveweb2zip(url, options = {}) {
                 'content-type': 'application/json',
                 origin: 'https://saveweb2zip.com',
                 referer: 'https://saveweb2zip.com/',
-                'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36'
+                'user-agent': 'Mozilla/5.0'
             }
         });
 
@@ -37,7 +39,7 @@ async function saveweb2zip(url, options = {}) {
                     'content-type': 'application/json',
                     origin: 'https://saveweb2zip.com',
                     referer: 'https://saveweb2zip.com/',
-                    'user-agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36'
+                    'user-agent': 'Mozilla/5.0'
                 }
             });
 
@@ -55,25 +57,28 @@ async function saveweb2zip(url, options = {}) {
 
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
-
     } catch (error) {
         console.error(error.message);
         throw new Error('No result found');
     }
 }
 
-app.post('/download/saveweb', async (req, res) => {
-    const { url, options } = req.body;
+// Endpoint GET
+app.get('/api/saveweb', async (req, res) => {
+    const { url, renameAssets, saveStructure, alternativeAlgorithm, mobileVersion } = req.query;
 
-    if (!url) {
-        return res.status(400).json({ error: 'Missing "url" parameter.' });
-    }
+    if (!url) return res.status(400).json({ error: 'Parameter ?url= diperlukan' });
 
     try {
-        const result = await saveweb2zip(url, options || {});
+        const result = await saveweb2zip(url, {
+            renameAssets: renameAssets === 'true',
+            saveStructure: saveStructure === 'true',
+            alternativeAlgorithm: alternativeAlgorithm === 'true',
+            mobileVersion: mobileVersion === 'true'
+        });
         res.json(result);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 });
 }
