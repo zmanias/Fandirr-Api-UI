@@ -8,8 +8,6 @@ import { tmpdir } from 'os';
 
 module.exports = function(app) {
 
-app.use(express.urlencoded({ extended: true }));
-
 const fname = fileURLToPath(import.meta.url);
 const dname = path.dirname(fname);
 
