@@ -8,7 +8,6 @@ import { tmpdir } from 'os';
 
 module.exports = function(app) {
 
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const fname = fileURLToPath(import.meta.url);
