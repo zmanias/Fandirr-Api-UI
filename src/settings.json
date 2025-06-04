@@ -100,12 +100,16 @@
           }
         },
         {
-          "name": "Save Web",
-          "desc": "Copy Web Dengan Url",
-          "path": "/download/saveweb?url=",
+          "name": "Save Web To Zip",
+          "desc": "Simpan web ke zip menggunakan URL",
+          "path": "/download/saveweb?url=&renameAssets=&saveStructure=&alternativeAlgorithm=&mobileVersion=",
           "status": "ready",
           "params": {
-            "url": "Masukan URL nya"
+            "url": "Masukan URL Web Nya",
+            "renameAssets": "Pilih True/False",
+            "saveStructure": "Pilih True/False",
+            "alternativeAlgorithm": "Pilih True/False",
+            "mobileVersion": "Pilih True/False"
           }
         },
         {
