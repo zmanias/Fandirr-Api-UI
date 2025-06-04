@@ -75,6 +75,15 @@
           "params": {
             "query": "Cari Aplikasinya"
           }
+        },
+        {
+          "name": "Freepik",
+          "desc": "Pencarian Gambar",
+          "path": "/search/freepik?q=",
+          "status": "ready",
+          "params": {
+            "q": "Cari Gambarnya"
+          }
         }
       ]
     },
