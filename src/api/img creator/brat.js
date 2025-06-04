@@ -38,7 +38,7 @@ const cwebp = async (input, output) => {
 };
 
 // Endpoint API
-app.get('/sticker/brat', async (req, res) => {
+app.get('/imgcreator/brat', async (req, res) => {
     const text = req.query.text;
     if (!text) return res.status(400).json({ error: 'Parameter ?text= wajib diisi' });
 
