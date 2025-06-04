@@ -129,6 +129,15 @@
           "params": {
             "url": "Masukan URL nya"
           }
+        },
+        {
+          "name": "Freepik",
+          "desc": "Pencarian Gambar",
+          "path": "/download/freepik?url=",
+          "status": "ready",
+          "params": {
+            "q": "Cari Gambarnya"
+          }
         }
         ]
     },
