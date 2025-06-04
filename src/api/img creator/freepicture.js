@@ -74,7 +74,7 @@ const freepik = {
 };
 
 // Endpoint: /api/freepik/search?q=
-app.get('/api/freepik/search', async (req, res) => {
+app.get('/search/freepik', async (req, res) => {
     try {
         const q = req.query.q;
         const result = await freepik.search(q);
@@ -85,7 +85,7 @@ app.get('/api/freepik/search', async (req, res) => {
 });
 
 // Endpoint: /api/freepik/detail?url=
-app.get('/api/freepik/detail', async (req, res) => {
+app.get('/stalk/freepik', async (req, res) => {
     try {
         const url = req.query.url;
         const result = await freepik.detail(url);
@@ -96,7 +96,7 @@ app.get('/api/freepik/detail', async (req, res) => {
 });
 
 // Endpoint: /api/freepik/download?url=
-app.get('/api/freepik/download', async (req, res) => {
+app.get('/download/freepik', async (req, res) => {
     try {
         const url = req.query.url;
         const result = await freepik.download(url);
