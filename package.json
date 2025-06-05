@@ -1,7 +1,7 @@
 {
   "name": "rynn-ui",
   "version": "1.0.0",
-  "description": "A simple and customizable API documentation interface built with Express.js.",
+  "description": "Pusat Penyedia Rest Api Terbaik",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
