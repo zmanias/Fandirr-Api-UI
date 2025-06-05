@@ -162,7 +162,7 @@
           "name": "Detail GetModsApk",
           "desc": "Cek detail GetModsApk sebelum download",
           "path": "/stalk/getmodsapk?url=",
-          "status": "ready",
+          "status": "error",
           "params": {
             "url": "Masukan Url Dari GetModsApk"
           }
@@ -189,7 +189,7 @@
           "name": "Instagram",
           "desc": "Kepoin Username Orang",
           "path": "/stalk/ig?username=",
-          "status": "ready",
+          "status": "error",
           "params": {
             "username": "Masukan Username Nya"
           }
