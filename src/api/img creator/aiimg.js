@@ -27,7 +27,7 @@ const sizeList = {
 };
 
 // Endpoint: POST /generate
-app.post('/generate', async (req, res) => {
+app.post('/imgcreator/aiimg', async (req, res) => {
   // Ambil dari query string dulu, jika tidak ada baru dari body
   const prompt = req.query.prompt || req.body.prompt;
   const style = (req.query.style || req.body.style || '').toLowerCase();
