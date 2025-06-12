@@ -1,8 +1,7 @@
 import express from 'express';
 import axios from 'axios';
 
-
-app.use(express.json());
+module.exports = function(app) {
 
 const styleList = [
   'default', 'ghibli', 'cyberpunk', 'anime',
@@ -106,3 +105,4 @@ app.post('/generate', async (req, res) => {
     });
   }
 });
+      }
