@@ -170,15 +170,6 @@
       "name": "Stalk (Kepoin)",
       "items": [
         {
-          "name": "Detail GetModsApk",
-          "desc": "Cek detail GetModsApk sebelum download",
-          "path": "/stalk/getmodsapk?url=",
-          "status": "error",
-          "params": {
-            "url": "Masukan Url Dari GetModsApk"
-          }
-        },
-        {
           "name": "Jadwal Sholat",
           "desc": "Cek Jadwal Sholat Sesuai Kota",
           "path": "/stalk/jadwalsholat?kota=",
