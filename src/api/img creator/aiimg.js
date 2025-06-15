@@ -34,7 +34,7 @@ const sizeList = {
 }
 
 // Endpoint: /api/deepimg?prompt=Gambar kucing&model=2&size=3:2
-app.get('/api/deepimg', async (req, res) => {
+app.get('/imgcreator/aiimg', async (req, res) => {
   const prompt = req.query.prompt
   const model = parseInt(req.query.model) || 0
   const size = req.query.size || '3:2'
