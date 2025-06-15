@@ -91,7 +91,7 @@
           "path": "/search/an1?query=",
           "status": "ready",
           "params": {
-            "q": "Cari Aplikasinya"
+            "query": "Cari Aplikasinya"
           }
         },
       ]
