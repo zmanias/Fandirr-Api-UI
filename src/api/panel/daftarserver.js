@@ -1,74 +1,50 @@
-const express = require("express");
-const fetch = require("node-fetch");
-const router = express.Router();
+const express = require("express"); const fetch = require("node-fetch"); const app = express(); const PORT = process.env.PORT || 3000;
 
 module.exports = function(app) {
 
-router.get("/panel/listserver", async (req, res) => {
-  try {
-    const { index, domain, plta, pltc } = req.query;
+app.get("/panel/listserver", async (req, res) => { const { domain, plta, pltc } = req.query;
 
-    if (!index || !domain || !plta || !pltc) {
-      return res.status(400).json({ error: "Param index, domain, plta, dan pltc wajib diisi!" });
-    }
+if (!domain || !plta || !pltc) { return res.status(400).json({ error: "Parameter 'domain', 'plta', dan 'pltc' wajib diisi!", }); }
 
-    const domainUrl = domain.startsWith("http") ? domain : `https://${domain}`;
-    
-    // Ambil daftar server
-    const serverRes = await fetch(`${domainUrl}/api/application/servers?page=1`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${plta}`,
-      },
-    });
+const domainUrl = domain.startsWith("http") ? domain : https://${domain};
 
-    const serverJson = await serverRes.json();
-    const servers = serverJson.data;
+try { const serverRes = await fetch(${domainUrl}/api/application/servers?page=1, { method: "GET", headers: { Accept: "application/json", "Content-Type": "application/json", Authorization: Bearer ${plta}, }, });
 
-    if (!servers || servers.length < 1) {
-      return res.json({ message: `Tidak ada panel di server ${index}` });
-    }
+const serverJson = await serverRes.json();
+const servers = serverJson.data;
 
-    let messageText = `── List server panel pterodactyl server ${index} ──\n`;
+if (!servers || servers.length < 1) {
+  return res.json({ message: `❌ Tidak ada server panel ditemukan.` });
+}
 
-    for (const server of servers) {
-      const s = server.attributes;
+let messageText = `📋 List Server Panel\n`;
 
-      const resourceRes = await fetch(`${domainUrl}/api/client/servers/${s.uuid.split("-")[0]}/resources`, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${pltc}`,
-        },
-      });
+for (const server of servers) {
+  const s = server.attributes;
 
-      const resourceData = await resourceRes.json();
-      const status = resourceData.attributes?.current_state || s.status;
+  const resourceRes = await fetch(`${domainUrl}/api/client/servers/${s.uuid.split("-")[0]}/resources`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${pltc}`,
+    },
+  });
 
-      const formatLimit = (val) => {
-        if (val === 0) return "Unlimited";
-        const gb = parseInt(val / 1000);
-        return gb >= 1 ? `${gb}GB` : `${val}MB`;
-      };
+  const resourceData = await resourceRes.json();
+  const status = resourceData?.attributes?.current_state || s.status;
 
-      messageText += `
-ID       : ${s.id}
-Nama     : ${s.name}
-Ram      : ${formatLimit(s.limits.memory)}
-CPU      : ${s.limits.cpu === 0 ? "Unlimited" : s.limits.cpu + "%"}
-Disk     : ${formatLimit(s.limits.disk)}
-Status   : ${status}
-Created  : ${s.created_at.split("T")[0]}
-`;
-    }
+  const toGB = (val) => {
+    if (val === 0) return "Unlimited";
+    return val >= 1000 ? `${Math.floor(val / 1000)}GB` : `${val}MB`;
+  };
 
-    return res.json({ message: messageText.trim() });
-  } catch (err) {
-    return res.status(500).json({ error: "Terjadi kesalahan", detail: err.message });
-  }
-});
+  messageText += `\n🆔 ID        : ${s.id}\n📛 Nama      : ${s.name}\n📦 Ram       : ${toGB(s.limits.memory)}\n💽 Disk      : ${toGB(s.limits.disk)}\n🧠 CPU       : ${s.limits.cpu === 0 ? "Unlimited" : s.limits.cpu + "%"}\n📅 Created   : ${s.created_at.split("T")[0]}\n⚙️ Status    : ${status}\n`;
+}
 
-module.exports = router;
+return res.json({ message: messageText.trim() });
+
+} catch (err) { return res.status(500).json({ error: "Terjadi kesalahan", detail: err.message, }); } });
+
+app.listen(PORT, () => { console.log(Server berjalan di port ${PORT}); });
+m
