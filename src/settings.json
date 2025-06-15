@@ -17,14 +17,14 @@
         {
           "name": "Buat Server",
           "desc": "Membuat Server Menggunakan Rest Api",
-          "path": "/panel/create-server?plan=&domain=&apikeys=&nestid=&egg=&loc=&username=",
+          "path": "/panel/create-server?plan=&domain=&plta=&egg=&nestid=&loc=&username=",
           "status": "ready",
           "params": {
             "plan": "Berapa GB",
             "domain": "Masukan domain panel nya",
-            "apikeys": "Masukan PLTA kamu",
-            "nestid": "ID egg kamu",
-            "egg": "ID sub egg",
+            "plta": "Masukan PLTA kamu",
+            "egg": "ID Sub Egg",
+            "nestid": "ID Egg",
             "loc": "ID Location",
             "username": "Masukan Username nya"
           }
