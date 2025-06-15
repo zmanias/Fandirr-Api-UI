@@ -29,7 +29,7 @@
             "username": "Masukan Username nya"
           }
         },
-       {
+        {
           "name": "Lihat Server",
           "desc": "Melihat Server Menggunakan Rest Api",
           "path": "/panel/listserver?domain=&plta=&pltc=",
@@ -41,6 +41,7 @@
             "pltc": "Masukan PLTC Kamu"
           }
         }
+      ]
     },
     {
       "name": "AI (Artificial Intelligence)",
