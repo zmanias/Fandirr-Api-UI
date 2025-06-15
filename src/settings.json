@@ -234,7 +234,7 @@
         },
         {
           "name": "An1 Com",
-          "desc": "Pencarian Aplikasi Mod Dari Web an1.com",
+          "desc": "Melihat detail dari url AN1.com",
           "path": "/stalk/an1?url=",
           "status": "ready",
           "params": {
