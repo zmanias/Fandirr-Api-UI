@@ -164,12 +164,12 @@
         },
         {
           "name": "AI Image",
-          "desc": "Ai to Img dengan style kece",
+          "desc": "Ai to Img dengan model kece",
           "path": "/imgcreator/aiimg?prompt=&style=&size=",
           "status": "ready",
           "params": {
             "prompt": "Masukan Prompt Nya",
-            "style": "Masukan Style Nya",
+            "model": "Pilih model dari nomer 1-9",
             "size": "Pilih Size"
           }
         }
