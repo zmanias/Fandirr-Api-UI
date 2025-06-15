@@ -45,6 +45,4 @@ for (const server of servers) {
 return res.json({ message: messageText.trim() });
 
 } catch (err) { return res.status(500).json({ error: "Terjadi kesalahan", detail: err.message, }); } });
-
-app.listen(PORT, () => { console.log(Server berjalan di port ${PORT}); });
-m
+}
