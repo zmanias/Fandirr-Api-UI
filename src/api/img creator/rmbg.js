@@ -6,7 +6,7 @@ const stream = require('stream')
 module.exports = function(app) {
 
 // Endpoint: /api/removal?image_url=https://example.com/image.jpg
-app.get('/api/removal', async (req, res) => {
+app.get('/imgcreator/rmbg', async (req, res) => {
   const imageUrl = req.query.image_url
   if (!imageUrl) {
     return res.status(400).json({ error: 'Parameter "image_url" wajib disediakan.' })
