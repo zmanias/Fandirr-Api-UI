@@ -6,9 +6,6 @@ import cors from 'cors';
 module.exports = function(app) {
 const baseUrl = 'https://an1.com/';
 
-app.use(cors());
-app.use(express.json());
-
 async function scrapeAn1(searchQuery) {
   const results = [];
 
