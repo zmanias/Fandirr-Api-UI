@@ -138,15 +138,6 @@
           "params": {
             "url": "Masukan URL nya"
           }
-        },
-        {
-          "name": "Freepik",
-          "desc": "Download Gambar Freepik",
-          "path": "/download/freepik?url=",
-          "status": "ready",
-          "params": {
-            "url": "Masukan Url Dari Pencarian Freepik"
-          }
         }
         ]
     },
