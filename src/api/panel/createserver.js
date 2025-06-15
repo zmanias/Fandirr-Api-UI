@@ -25,7 +25,7 @@ const planSpecs = {
   "unlimited": { ram: "0", disk: "0", cpu: "0" }
 };
 
-app.get('/create-server', async (req, res) => {
+app.get('/panel/create-server', async (req, res) => {
   const { plan, domain, apikeys, nestid, egg, loc, username } = req.query;
 
   if (!plan || !domain || !apikeys || !nestid || !egg || !loc || !username)
