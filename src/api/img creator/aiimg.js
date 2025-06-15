@@ -3,6 +3,18 @@ const axios = require('axios')
 
 module.exports = function(app) {
 
+const styleList = [
+  'default',
+  'ghibli',
+  'cyberpunk',
+  'anime',
+  'portrait',
+  'chibi',
+  'pixel art',
+  'oil painting',
+  '3d'
+]
+
 const stylePrompt = {
   default: '-style Realism',
   ghibli: '-style Ghibli Art',
@@ -21,17 +33,18 @@ const sizeList = {
   '2:3': '720x1080'
 }
 
+// Endpoint: /api/deepimg?prompt=Gambar kucing&model=2&size=3:2
 app.get('/imgcreator/aiimg', async (req, res) => {
   const prompt = req.query.prompt
-  const model = req.query.model?.toLowerCase() || 'default'
+  const model = parseInt(req.query.model) || 0
   const size = req.query.size || '3:2'
 
   if (!prompt) {
     return res.status(400).json({ error: 'Parameter prompt wajib diisi.' })
   }
 
-  if (!stylePrompt[model]) {
-    return res.status(400).json({ error: `Model tidak valid. Pilihan: ${Object.keys(stylePrompt).join(', ')}` })
+  if (model < 0 || model >= styleList.length) {
+    return res.status(400).json({ error: `Model tidak valid. Pilih angka 0-${styleList.length - 1}` })
   }
 
   if (!sizeList[size]) {
@@ -48,7 +61,8 @@ app.get('/imgcreator/aiimg', async (req, res) => {
     Math.floor(Math.random() * 16).toString(16)
   ).join('')
 
-  const fullPrompt = `${prompt} ${stylePrompt[model]}`
+  const styleKey = styleList[model]
+  const fullPrompt = `${prompt} ${stylePrompt[styleKey]}`
 
   const payload = {
     device_id,
@@ -73,7 +87,7 @@ app.get('/imgcreator/aiimg', async (req, res) => {
 
     res.json({
       status: 'success',
-      model,
+      model: styleKey,
       size: sizeList[size],
       url: imageUrl
     })
@@ -82,4 +96,7 @@ app.get('/imgcreator/aiimg', async (req, res) => {
     res.status(500).json({ error: detail })
   }
 })
-}
+
+app.listen(port, () => {
+  console.log(`✅ Server DeepImg berjalan di http://localhost:${port}`)
+})
