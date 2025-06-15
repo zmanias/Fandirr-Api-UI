@@ -1,9 +1,10 @@
-import express from 'express';
-import fetch from 'node-fetch';
-import cheerio from 'cheerio';
-import cors from 'cors';
+const express = require('express');
+const fetch = require('node-fetch');
+const cheerio = require('cheerio');
+const cors = require('cors');
 
 module.exports = function(app) {
+const app = express();
 const baseUrl = 'https://an1.com/';
 
 async function scrapeAn1(searchQuery) {
@@ -55,8 +56,7 @@ async function scrapeAn1(searchQuery) {
   }
 }
 
-// 🔍 API Endpoint
-app.get('/search/an1', async (req, res) => {
+app.get('/api/search', async (req, res) => {
   const { query } = req.query;
   if (!query) return res.status(400).json({ error: 'Query parameter is required' });
 
