@@ -4,7 +4,6 @@ import cheerio from 'cheerio';
 import cors from 'cors';
 
 module.exports = function(app) {
-const app = express();
 const baseUrl = 'https://an1.com/';
 
 async function scrapeAn1(searchQuery) {
