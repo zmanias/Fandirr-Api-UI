@@ -28,8 +28,7 @@
             "loc": "ID Location",
             "username": "Masukan Username nya"
           }
-        }
-      ],
+        },
        {
           "name": "Lihat Server",
           "desc": "Melihat Server Menggunakan Rest Api",
