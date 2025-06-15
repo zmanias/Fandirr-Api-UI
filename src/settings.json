@@ -165,7 +165,7 @@
         {
           "name": "AI Image",
           "desc": "Ai to Img dengan model kece",
-          "path": "/imgcreator/aiimg?prompt=&style=&size=",
+          "path": "/imgcreator/aiimg?prompt=&model=&size=",
           "status": "ready",
           "params": {
             "prompt": "Masukan Prompt Nya",
