@@ -96,7 +96,4 @@ app.get('/imgcreator/aiimg', async (req, res) => {
     res.status(500).json({ error: detail })
   }
 })
-
-app.listen(port, () => {
-  console.log(`✅ Server DeepImg berjalan di http://localhost:${port}`)
-})
+}
