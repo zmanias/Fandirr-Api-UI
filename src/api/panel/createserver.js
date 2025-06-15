@@ -1,7 +1,6 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const crypto = require('crypto');
-const fs = require('fs');
 
 module.exports = function(app) {
 
@@ -9,7 +8,7 @@ module.exports = function(app) {
 const capital = (text) => text.charAt(0).toUpperCase() + text.slice(1);
 const tanggal = (timestamp) => new Date(timestamp).toISOString().split("T")[0];
 
-// Map spesifikasi paket
+// Spesifikasi berdasarkan plan
 const planSpecs = {
   "1gb": { ram: "1000", disk: "1000", cpu: "40" },
   "2gb": { ram: "2000", disk: "1000", cpu: "60" },
@@ -25,14 +24,16 @@ const planSpecs = {
   "unlimited": { ram: "0", disk: "0", cpu: "0" }
 };
 
-app.get('/panel/create-server', async (req, res) => {
-  const { plan, domain, apikeys, nestid, egg, loc, username } = req.query;
+app.get('/create-server', async (req, res) => {
+  const { plan, domain, plta, egg, nestid, loc, username } = req.query;
 
-  if (!plan || !domain || !apikeys || !nestid || !egg || !loc || !username)
-    return res.status(400).send("❌ Parameter tidak lengkap. Gunakan: plan, domain, apikeys, nestid, egg, loc, username");
+  // Validasi
+  if (!plan || !domain || !plta || !egg || !nestid || !loc || !username) {
+    return res.status(400).json({ error: "❌ Parameter tidak lengkap. Gunakan: plan, domain, plta, egg, nestid, loc, username" });
+  }
 
   const specs = planSpecs[plan.toLowerCase()];
-  if (!specs) return res.status(400).send("❌ Plan tidak valid.");
+  if (!specs) return res.status(400).json({ error: "❌ Plan tidak valid." });
 
   const email = `${username}@gmail.com`;
   const name = `${capital(username)} Server`;
@@ -40,12 +41,12 @@ app.get('/panel/create-server', async (req, res) => {
 
   try {
     // Buat user
-    const userRes = await fetch(`${domain}/api/application/users`, {
+    const createUser = await fetch(`${domain}/api/application/users`, {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apikeys}`
+        "Authorization": `Bearer ${plta}`
       },
       body: JSON.stringify({
         email,
@@ -57,29 +58,29 @@ app.get('/panel/create-server', async (req, res) => {
       })
     });
 
-    const userData = await userRes.json();
+    const userData = await createUser.json();
     if (userData.errors) return res.status(500).json(userData.errors[0]);
 
     const userId = userData.attributes.id;
 
-    // Ambil startup command
-    const eggRes = await fetch(`${domain}/api/application/nests/${nestid}/eggs/${egg}`, {
+    // Get startup command
+    const eggInfo = await fetch(`${domain}/api/application/nests/${nestid}/eggs/${egg}`, {
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apikeys}`
+        "Authorization": `Bearer ${plta}`
       }
     });
-    const eggData = await eggRes.json();
+    const eggData = await eggInfo.json();
     const startup = eggData.attributes.startup;
 
-    // Buat server
-    const serverRes = await fetch(`${domain}/api/application/servers`, {
+    // Create server
+    const createServer = await fetch(`${domain}/api/application/servers`, {
       method: "POST",
       headers: {
-        Accept: "application/json",
+        "Accept": "application/json",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apikeys}`
+        "Authorization": `Bearer ${plta}`
       },
       body: JSON.stringify({
         name,
@@ -114,10 +115,10 @@ app.get('/panel/create-server', async (req, res) => {
       })
     });
 
-    const serverData = await serverRes.json();
+    const serverData = await createServer.json();
     if (serverData.errors) return res.status(500).json(serverData.errors[0]);
 
-    const teks = `*Data Akun Panel Kamu 📦*
+    const responseText = `*DATA AKUN PANEL KAMU 📦*
 
 📡 ID Server: ${serverData.attributes.id}
 🌐 Login: ${domain}
@@ -125,21 +126,33 @@ app.get('/panel/create-server', async (req, res) => {
 🔐 Password: ${password}
 🗓️ Created: ${userData.attributes.created_at.split("T")[0]}
 
-🌐 Spesifikasi Server:
-- Ram: ${specs.ram == "0" ? "Unlimited" : specs.ram + "MB"}
-- Disk: ${specs.disk == "0" ? "Unlimited" : specs.disk + "MB"}
-- CPU: ${specs.cpu == "0" ? "Unlimited" : specs.cpu + "%"}
+🌐 Spesifikasi:
+- RAM : ${specs.ram === "0" ? "Unlimited" : specs.ram + " MB"}
+- Disk: ${specs.disk === "0" ? "Unlimited" : specs.disk + " MB"}
+- CPU : ${specs.cpu === "0" ? "Unlimited" : specs.cpu + "%"}
 
-📄 Masa aktif panel 1 bulan
-📄 Simpan data ini sebaik mungkin
-📄 Garansi pembelian 15 hari (1x replace)
-📄 Claim garansi wajib membawa bukti chat pembelian`;
+📌 Syarat & Ketentuan:
+- Masa aktif 1 bulan
+- Garansi 15 hari (1x replace)
+- Simpan data ini baik-baik`;
 
-    return res.json({ status: "success", data: { teks, username, password } });
+    return res.json({
+      status: "success",
+      data: {
+        id: serverData.attributes.id,
+        domain,
+        username,
+        password,
+        plan,
+        created: userData.attributes.created_at,
+        specs,
+        info: responseText
+      }
+    });
 
   } catch (err) {
     console.error(err);
-    return res.status(500).send("❌ Terjadi kesalahan saat memproses permintaan.");
+    return res.status(500).json({ error: "❌ Terjadi kesalahan saat membuat server." });
   }
 });
 }
