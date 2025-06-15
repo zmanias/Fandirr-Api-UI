@@ -108,6 +108,15 @@
             "url": "Masukan URL nya"
           }
         },
+        
+          "name": "AN1 COM",
+          "desc": "Download Aplikasi Dari Url AN1.com",
+          "path": "/download/an1?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
+        },
         {
           "name": "Save Web To Zip",
           "desc": "Simpan web ke zip menggunakan URL",
