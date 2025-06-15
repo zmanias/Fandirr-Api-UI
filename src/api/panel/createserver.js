@@ -142,7 +142,4 @@ app.get('/panel/create-server', async (req, res) => {
     return res.status(500).send("❌ Terjadi kesalahan saat memproses permintaan.");
   }
 });
-
-app.listen(port, () => {
-  console.log(`✅ Server running at http://localhost:${port}`);
-});
+}
