@@ -2,7 +2,6 @@ import express from 'express';
 import axios from 'axios';
 
 module.exports = function(app) {
-app.use(express.json());
 
 const styleList = [
   'default', 'ghibli', 'cyberpunk', 'anime',
