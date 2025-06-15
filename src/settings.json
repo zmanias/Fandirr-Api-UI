@@ -29,7 +29,22 @@
             "username": "Masukan Username nya"
           }
         }
-      ]
+      ],
+       {
+          "name": "Lihat Server",
+          "desc": "Melihat Server Menggunakan Rest Api",
+          "path": "/panel/listserver?domain=&plta=&pltc=",
+          "status": "ready",
+          "params": {
+            "plan": "Berapa GB",
+            "domain": "Masukan domain panel nya",
+            "plta": "Masukan PLTA kamu",
+            "egg": "ID Sub Egg",
+            "nestid": "ID Egg",
+            "loc": "ID Location",
+            "username": "Masukan Username nya"
+          }
+        }
     },
     {
       "name": "AI (Artificial Intelligence)",
