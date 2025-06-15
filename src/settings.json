@@ -224,15 +224,6 @@
           }
         },
         {
-          "name": "Freepik",
-          "desc": "Detail Dari Freepik",
-          "path": "/stalk/freepik?url=",
-          "status": "ready",
-          "params": {
-            "url": "Masukan url nya"
-          }
-        },
-        {
           "name": "An1 Com",
           "desc": "Melihat detail dari url AN1.com",
           "path": "/stalk/an1?url=",
