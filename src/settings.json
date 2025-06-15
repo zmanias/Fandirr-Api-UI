@@ -231,6 +231,15 @@
           "params": {
             "url": "Masukan url nya"
           }
+        },
+        {
+          "name": "An1 Com",
+          "desc": "Pencarian Aplikasi Mod Dari Web an1.com",
+          "path": "/stalk/an1?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL dari Search AN1.com"
+          }
         }
         ]
     }
