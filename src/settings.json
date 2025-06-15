@@ -154,6 +154,15 @@
           }
         },
         {
+          "name": "Remove Background",
+          "desc": "Hapus Latar Belakang Pada Gambar Kamu",
+          "path": "/imgcreator/rmbg?image_url=",
+          "status": "ready",
+          "params": {
+            "image_url": "Masukan URL Gambar Nya"
+          }
+        },
+        {
           "name": "AI Image",
           "desc": "Ai to Img dengan style kece",
           "path": "/imgcreator/aiimg?prompt=&style=&size=",
