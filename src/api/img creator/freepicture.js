@@ -69,7 +69,7 @@ const freepik = {
 // ==================== ENDPOINT ROUTES ====================
 
 // Search: /api/freepik/search?q=design
-app.get('/api/freepik/search', async (req, res) => {
+app.get('/search/freepik', async (req, res) => {
   try {
     const q = req.query.q;
     if (!q) return res.status(400).json({ error: 'Parameter q wajib diisi' });
