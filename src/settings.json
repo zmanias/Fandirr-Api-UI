@@ -16,11 +16,17 @@
       "items": [
         {
           "name": "Buat Server",
-          "desc": "Talk with luminai",
-          "path": "/ai/luminai?text=",
+          "desc": "Membuat Server Menggunakan Rest Api",
+          "path": "/panel/create-server?plan=&domain=&apikeys=&nestid=&egg=&loc=&username=",
           "status": "ready",
           "params": {
-            "text": "Text for luminai to respond to"
+            "plan": "Berapa GB",
+            "domain": "Masukan domain panel nya",
+            "apikeys": "Masukan PLTA kamu",
+            "nestid": "Text for luminai to respond to",
+            "egg": "Text for luminai to respond to",
+            "loc": "Text for luminai to respond to",
+            "username": "Masukan Username nya"
           }
         }
       ]
