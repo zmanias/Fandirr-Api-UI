@@ -12,6 +12,20 @@
   },
   "categories": [
     {
+      "name": "Panel Pterodactyl",
+      "items": [
+        {
+          "name": "Buat Server",
+          "desc": "Talk with luminai",
+          "path": "/ai/luminai?text=",
+          "status": "ready",
+          "params": {
+            "text": "Text for luminai to respond to"
+          }
+        }
+      ]
+    },
+    {
       "name": "AI (Artificial Intelligence)",
       "items": [
         {
