@@ -1,53 +1,49 @@
 const express = require('express')
 const axios = require('axios')
-const fs = require('fs')
-const path = require('path')
 const FormData = require('form-data')
+const stream = require('stream')
 
 module.exports = function(app) {
-app.use(express.urlencoded({ extended: true }))
 
-// GET /api/removal?image_url=https://example.com/image.jpg
-app.get('/imgcreator/rmbg', async (req, res) => {
+// Endpoint: /api/removal?image_url=https://example.com/image.jpg
+app.get('/api/removal', async (req, res) => {
   const imageUrl = req.query.image_url
   if (!imageUrl) {
     return res.status(400).json({ error: 'Parameter "image_url" wajib disediakan.' })
   }
 
-  const tmpDir = './tmp'
-  if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir)
-
-  const filename = path.join(tmpDir, `${Date.now()}.jpg`)
-
   try {
-    // Download gambar dari URL
+    // Unduh gambar langsung sebagai buffer
     const response = await axios.get(imageUrl, { responseType: 'arraybuffer' })
-    fs.writeFileSync(filename, response.data)
+    const imageBuffer = Buffer.from(response.data)
 
-    // Siapkan FormData
+    // Siapkan readable stream dari buffer (tanpa file)
+    const bufferStream = new stream.PassThrough()
+    bufferStream.end(imageBuffer)
+
+    // Kirim ke API abella.icu
     const form = new FormData()
-    form.append('image', fs.createReadStream(filename))
+    form.append('image', bufferStream, {
+      filename: 'image.jpg',
+      contentType: response.headers['content-type']
+    })
 
-    // Kirim ke abella.icu
     const { data } = await axios.post('https://www.abella.icu/removal-bg', form, {
       headers: form.getHeaders()
     })
 
-    // Hasil URL dari response
-    const resultUrl = data?.data?.previewUrl
-    if (!resultUrl) throw new Error('Gagal mendapatkan hasil dari abella.icu')
+    const previewUrl = data?.data?.previewUrl
+    if (!previewUrl) {
+      throw new Error('Gagal mendapatkan hasil dari abella.icu')
+    }
 
-    // Kirim URL hasil ke klien
     res.json({
       status: 'success',
-      result: resultUrl
+      result: previewUrl
     })
   } catch (err) {
     console.error(err)
-    res.status(500).json({ error: err.message || 'Terjadi kesalahan saat memproses gambar.' })
-  } finally {
-    // Hapus file sementara
-    if (fs.existsSync(filename)) fs.unlinkSync(filename)
+    res.status(500).json({ error: err.message || 'Ups! Gagal memproses gambar.' })
   }
 })
 }
