@@ -39,10 +39,7 @@
             "plan": "Berapa GB",
             "domain": "Masukan domain panel nya",
             "plta": "Masukan PLTA kamu",
-            "egg": "ID Sub Egg",
-            "nestid": "ID Egg",
-            "loc": "ID Location",
-            "username": "Masukan Username nya"
+            "pltc": "Masukan PLTC Kamu"
           }
         }
     },
