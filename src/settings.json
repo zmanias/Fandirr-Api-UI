@@ -23,9 +23,9 @@
             "plan": "Berapa GB",
             "domain": "Masukan domain panel nya",
             "apikeys": "Masukan PLTA kamu",
-            "nestid": "Text for luminai to respond to",
-            "egg": "Text for luminai to respond to",
-            "loc": "Text for luminai to respond to",
+            "nestid": "ID egg kamu",
+            "egg": "ID sub egg",
+            "loc": "ID Location",
             "username": "Masukan Username nya"
           }
         }
