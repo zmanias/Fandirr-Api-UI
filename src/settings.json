@@ -86,8 +86,8 @@
           }
         },
         {
-          "name": "An1.Com",
-          "desc": "Pencarian Aplikasi Mod Dari Web an1.com",
+          "name": "An1 Com",
+          "desc": "Pencarian Aplikasi Mod Dari Web an1 com",
           "path": "/search/an1?query=",
           "status": "ready",
           "params": {
