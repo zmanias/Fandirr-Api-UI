@@ -1,13 +1,19 @@
-import express from 'express';
-import axios from 'axios';
+const express = require('express')
+const axios = require('axios')
 
 module.exports = function(app) {
-app.use(express.json());
 
 const styleList = [
-  'default', 'ghibli', 'cyberpunk', 'anime',
-  'portrait', 'chibi', 'pixel art', 'oil painting', '3d'
-];
+  'default',
+  'ghibli',
+  'cyberpunk',
+  'anime',
+  'portrait',
+  'chibi',
+  'pixel art',
+  'oil painting',
+  '3d'
+]
 
 const stylePrompt = {
   default: '-style Realism',
@@ -19,91 +25,75 @@ const stylePrompt = {
   'pixel art': '-style Pixel Art',
   'oil painting': '-style Oil Painting',
   '3d': '-style 3D'
-};
+}
 
 const sizeList = {
   '1:1': '1024x1024',
   '3:2': '1080x720',
   '2:3': '720x1080'
-};
+}
 
-// Endpoint: POST /generate
-app.post('/imgcreator/aiimg', async (req, res) => {
-  // Ambil dari query string dulu, jika tidak ada baru dari body
-  const prompt = req.query.prompt || req.body.prompt;
-  const style = (req.query.style || req.body.style || '').toLowerCase();
-  const size = req.query.size || req.body.size;
+// Endpoint: /api/deepimg?prompt=Gambar kucing&model=2&size=3:2
+app.get('/api/deepimg', async (req, res) => {
+  const prompt = req.query.prompt
+  const model = parseInt(req.query.model) || 0
+  const size = req.query.size || '3:2'
 
-  // Validasi
-  if (!prompt || !style || !size) {
-    return res.status(400).json({
-      error: 'Field prompt, style, dan size wajib diisi.',
-      example: {
-        prompt: 'kucing lucu di luar angkasa',
-        style: 'anime',
-        size: '1:1'
-      }
-    });
+  if (!prompt) {
+    return res.status(400).json({ error: 'Parameter prompt wajib diisi.' })
   }
 
-  if (!styleList.includes(style)) {
-    return res.status(400).json({
-      error: `Style '${style}' tidak dikenali.`,
-      availableStyles: styleList
-    });
+  if (model < 0 || model >= styleList.length) {
+    return res.status(400).json({ error: `Model tidak valid. Pilih angka 0-${styleList.length - 1}` })
   }
 
   if (!sizeList[size]) {
-    return res.status(400).json({
-      error: `Ukuran '${size}' tidak tersedia.`,
-      availableSizes: Object.keys(sizeList)
-    });
+    return res.status(400).json({ error: `Size tidak valid. Pilihan: ${Object.keys(sizeList).join(', ')}` })
   }
 
   const headers = {
     'content-type': 'application/json',
     origin: 'https://deepimg.ai',
     referer: 'https://deepimg.ai/'
-  };
+  }
 
   const device_id = Array.from({ length: 32 }, () =>
     Math.floor(Math.random() * 16).toString(16)
-  ).join('');
+  ).join('')
+
+  const styleKey = styleList[model]
+  const fullPrompt = `${prompt} ${stylePrompt[styleKey]}`
 
   const payload = {
     device_id,
-    prompt: `${prompt} ${stylePrompt[style]}`,
+    prompt: fullPrompt,
     size: sizeList[size],
     n: '1',
     output_format: 'png'
-  };
+  }
 
   try {
-    const response = await axios.post(
+    const result = await axios.post(
       'https://api-preview.apirouter.ai/api/v1/deepimg/flux-1-dev',
       payload,
       { headers }
-    );
+    )
 
-    const imageUrl = response.data?.data?.images?.[0]?.url;
+    const imageUrl = result.data?.data?.images?.[0]?.url
 
-    if (!imageUrl) throw new Error('Gagal mendapatkan gambar.');
+    if (!imageUrl) {
+      return res.status(500).json({ error: 'Gagal mendapatkan URL gambar.' })
+    }
 
-    return res.json({
-      message: 'Berhasil membuat gambar.',
-      data: {
-        prompt,
-        style,
-        size,
-        imageUrl
-      }
-    });
-
+    res.json({
+      status: 'success',
+      model: styleKey,
+      size: sizeList[size],
+      url: imageUrl
+    })
   } catch (error) {
-    return res.status(500).json({
-      error: 'Gagal memproses permintaan.',
-      details: error?.response?.data || error.message
-    });
+    const detail = error.response?.data || error.message
+    res.status(500).json({ error: detail })
   }
-});
-      }
+})
+}
