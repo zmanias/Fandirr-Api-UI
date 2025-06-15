@@ -93,7 +93,7 @@ app.get('/stalk/freepik', async (req, res) => {
 });
 
 // Download: /api/freepik/download?url=https://www.freepik.com/free-photo/...
-app.get('/api/freepik/download', async (req, res) => {
+app.get('/download/freepik', async (req, res) => {
   try {
     const url = req.query.url;
     if (!url) return res.status(400).json({ error: 'Parameter url wajib diisi' });
