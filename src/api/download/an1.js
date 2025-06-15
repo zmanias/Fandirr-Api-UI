@@ -28,7 +28,7 @@ async function scrapeAn1Download(url) {
 }
 
 // Endpoint: /api/an1/download?url=
-app.get('/api/an1/download', async (req, res) => {
+app.get('/download/an1', async (req, res) => {
   const { url } = req.query;
 
   if (!url || !url.startsWith('http')) {
