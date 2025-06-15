@@ -4,7 +4,6 @@ const cheerio = require('cheerio');
 const cors = require('cors');
 
 module.exports = function(app) {
-const PORT = process.env.PORT || 3000;
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36';
 
