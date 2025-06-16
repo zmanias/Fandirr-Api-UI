@@ -28,7 +28,7 @@
             "loc": "ID Location",
             "username": "Masukan Username nya"
           }
-        },
+        }
         {
           "name": "Daftar Server Panel",
           "desc": "Daftar Semua Server Pada Pterodactyl",
