@@ -12,6 +12,26 @@
   },
   "categories": [
     {
+      "name": "Panel Pterodactyl",
+      "items": [
+        {
+          "name": "Buat Server",
+          "desc": "Membuat Server Menggunakan Rest Api",
+          "path": "/panel/create-server?plan=&domain=&plta=&egg=&nestid=&loc=&username=",
+          "status": "ready",
+          "params": {
+            "plan": "Berapa GB",
+            "domain": "Masukan domain panel nya",
+            "plta": "Masukan PLTA kamu",
+            "egg": "ID Sub Egg",
+            "nestid": "ID Egg",
+            "loc": "ID Location",
+            "username": "Masukan Username nya"
+          }
+        }
+      ]
+    },
+    {
       "name": "AI (Artificial Intelligence)",
       "items": [
         {
