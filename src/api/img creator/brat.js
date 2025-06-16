@@ -13,7 +13,7 @@ try {
     console.error("PENTING: Gagal memuat font 'arial.ttf'.");
 }
 
-app.get('/api/brat', (req, res) => {
+app.get('/imgcreator/brat', (req, res) => {
     const text = req.query.text || 'hallo';
     
     // Ukuran gambar tetap 500x500
