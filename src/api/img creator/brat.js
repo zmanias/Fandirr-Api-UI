@@ -1,4 +1,4 @@
-// server.js - Diperbarui dengan Word Wrap
+// server.js - Disempurnakan dengan Font Dinamis untuk Teks Sangat Panjang
 
 const express = require('express');
 const { createCanvas, registerFont } = require('canvas');
@@ -13,7 +13,7 @@ try {
     console.error("PENTING: Gagal memuat font 'arial.ttf'.");
 }
 
-app.get('/imgcreator/brat', (req, res) => {
+app.get('/imagecreator/brat', (req, res) => {
     const text = req.query.text || 'hallo';
     
     // Pengaturan gambar
@@ -28,52 +28,64 @@ app.get('/imgcreator/brat', (req, res) => {
     context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
-    // Pengaturan Teks
+    // Pengaturan Teks dasar
     context.fillStyle = 'black';
     context.textAlign = 'left';
     context.textBaseline = 'top';
-    const fontSize = 80; // Kita atur ukuran font yang lebih tetap untuk multi-baris
-    context.font = `${fontSize}px Arial`;
 
     // =================================================================
-    // --- LOGIKA BARU: WORD WRAP UNTUK TEKS PANJANG ---
+    // --- LOGIKA BARU: FONT DINAMIS & WORD WRAP ---
     // =================================================================
-    
-    // 1. Tentukan lebar maksimal untuk teks dan tinggi per baris
-    const maxWidth = width - (padding * 2);
-    const lineHeight = fontSize * 1.2; // Jarak antar baris (1.2x ukuran font)
 
-    // 2. Pisahkan teks menjadi kata-kata
-    const words = text.split(' ');
-    let currentLine = '';
-    const lines = [];
+    let fontSize = 100; // Mulai dengan ukuran font terbesar
+    let lines;
 
-    // 3. Loop setiap kata untuk membentuk baris
-    for (let i = 0; i < words.length; i++) {
-        const word = words[i];
-        const testLine = currentLine + word + ' ';
-        const metrics = context.measureText(testLine);
-        const testWidth = metrics.width;
+    // Loop untuk menemukan ukuran font yang pas
+    do {
+        // Atur ulang font dengan ukuran yang mungkin lebih kecil
+        context.font = `${fontSize}px Arial`;
 
-        // Jika lebar tes melebihi batas DAN baris saat ini tidak kosong
-        if (testWidth > maxWidth && currentLine.length > 0) {
-            lines.push(currentLine.trim()); // Simpan baris yang sudah pas
-            currentLine = word + ' ';   // Mulai baris baru dengan kata saat ini
-        } else {
-            currentLine = testLine; // Jika masih muat, tambahkan kata ke baris saat ini
+        // 1. Jalankan logika Word Wrap dengan font size saat ini
+        const lineHeight = fontSize * 1.2;
+        const maxWidth = width - (padding * 2);
+        const words = text.split(' ');
+        let currentLine = '';
+        lines = []; // Kosongkan array baris untuk percobaan baru
+
+        for (const word of words) {
+            const testLine = currentLine + word + ' ';
+            const metrics = context.measureText(testLine);
+
+            if (metrics.width > maxWidth && currentLine.length > 0) {
+                lines.push(currentLine.trim());
+                currentLine = word + ' ';
+            } else {
+                currentLine = testLine;
+            }
         }
-    }
-    lines.push(currentLine.trim()); // Simpan sisa baris terakhir
+        lines.push(currentLine.trim());
+
+        // 2. Cek apakah total tinggi teks melebihi tinggi gambar
+        const totalTextBlockHeight = lines.length * lineHeight;
+        if (totalTextBlockHeight > height - (padding * 2)) {
+            fontSize -= 5; // Jika terlalu tinggi, kecilkan font dan ulangi loop
+        } else {
+            break; // Jika sudah pas, keluar dari loop
+        }
+
+    } while (fontSize > 10); // Batas ukuran font terkecil agar tidak terjadi infinite loop
+
 
     // =================================================================
-    // --- LOGIKA MENGGAMBAR BARIS DEMI BARIS ---
+    // --- MENGGAMBAR HASIL AKHIR ---
     // =================================================================
+    const finalLineHeight = fontSize * 1.2;
     const x = padding;
     const y = padding;
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        const drawY = y + (i * lineHeight); // Hitung posisi Y untuk setiap baris
+        const drawY = y + (i * finalLineHeight);
         context.fillText(line, x, drawY);
     }
 
