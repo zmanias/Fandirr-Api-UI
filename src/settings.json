@@ -308,7 +308,8 @@
           "status": "ready",
           "params": {
             "text": "Masukan Text Yang Mau Di Terjemahkan",
-            "target": "Pilih Faithful, Fluid, Creative, Custom"
+            "target": "Masukan Bahasa Yang Mau Di Terjemahkan (in, en, ph dll)",
+            "mode": "Pilih Faithful, Fluid, Creative, Custom"
           }
         }
         ]
