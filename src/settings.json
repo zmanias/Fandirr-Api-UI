@@ -297,6 +297,21 @@
           }
         }
         ]
+    },
+    {
+      "name": "Tools",
+      "items": [
+        {
+          "name": "Translate By Lara",
+          "desc": "Terjemahkan Bahasa Anda Pakai Ini",
+          "path": "/tools/translate-lara?text=&target=&mode=",
+          "status": "ready",
+          "params": {
+            "text": "Masukan Text Yang Mau Di Terjemahkan",
+            "target": "Pilih Faithful, Fluid, Creative, Custom"
+          }
+        }
+        ]
     }
   ]
 }
