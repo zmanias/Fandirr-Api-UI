@@ -35,7 +35,7 @@
           "path": "/panel/listpanel?domain=&plta=&pltc=",
           "status": "ready",
           "params": {
-            "domain": "Masukan perintah/text nya",
+            "domain": "Masukan Nama Domainnya",
             "plta": "Masukan PLTA nya",
             "pltc": "Masukan PLTC nya"
           }
