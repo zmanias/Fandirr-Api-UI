@@ -236,6 +236,15 @@
             "model": "Pilih model dari nomer 1-9",
             "size": "Pilih Size"
           }
+        },
+        {
+          "name": "Upscale/HD",
+          "desc": "Gambar anda burik? Solusi nya HD in aja bang:v",
+          "path": "/imgcreator/upscale?image_url=",
+          "status": "ready",
+          "params": {
+            "image_url": "Masukan URL Gambar"
+          }
         }
       ]
     },
