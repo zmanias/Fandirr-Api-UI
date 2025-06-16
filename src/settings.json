@@ -63,7 +63,7 @@
             "skipServer": "Masukan ID Server yang Terkecuali",
             "skipUser": "Masukan ID User yang Terkecuali"
           }
-        },
+        }
       ]
     },
     {
