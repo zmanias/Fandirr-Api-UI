@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 
 module.exports = function(app) {
 
-app.get('/api/snaptok', async (req, res) => {
+app.get('/download/tiktok', async (req, res) => {
   const { url } = req.query;
 
   if (!url || !/^https:\/\/(vt|www)\.tiktok\.com/.test(url)) {
