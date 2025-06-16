@@ -37,7 +37,7 @@ app.get('/imgcreator/brat', (req, res) => {
     // --- LOGIKA BARU: FONT DINAMIS & WORD WRAP ---
     // =================================================================
 
-    let fontSize = 200; // Mulai dengan ukuran font terbesar
+    let fontSize = 150; // Mulai dengan ukuran font terbesar
     let lines;
 
     // Loop untuk menemukan ukuran font yang pas
