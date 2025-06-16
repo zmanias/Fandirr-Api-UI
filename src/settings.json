@@ -51,7 +51,19 @@
             "pltc": "Masukan PLTC nya",
             "id": "Masukan ID server yang mau di hapus"
           }
-        }
+        },
+        {
+          "name": "Hapus Semua Server Dan User",
+          "desc": "Hapus Semua Server dan User Nya",
+          "path": "/panel/deletefull?domain=&plta=&skipServer=&skipUser=",
+          "status": "ready",
+          "params": {
+            "domain": "Masukan Nama Domainnya",
+            "plta": "Masukan PLTA nya",
+            "skipServer": "Masukan ID Server yang Terkecuali",
+            "skipUser": "Masukan ID User yang Terkecuali"
+          }
+        },
       ]
     },
     {
