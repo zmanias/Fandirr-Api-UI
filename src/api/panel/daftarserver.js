@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 
 module.exports = function(app) {
 
-app.get("/listpanel", async (req, res) => {
+app.get("/panel/listpanel", async (req, res) => {
   const { domain, plta, pltc } = req.query;
 
   if (!domain || !plta || !pltc) {
