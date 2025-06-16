@@ -137,7 +137,7 @@
       "name": "Download Tools",
       "items": [
         {
-          "name": "AIO(All In One)",
+          "name": "AIO (All In One)",
           "desc": "Download Semua Vidio Sosmed Di Sini",
           "path": "/download/aio?url=",
           "status": "ready",
@@ -319,6 +319,15 @@
             "text": "Masukan Text Yang Mau Di Terjemahkan",
             "target": "Masukan Bahasa Yang Mau Di Terjemahkan (in, en, ph dll)",
             "mode": "Pilih Faithful, Fluid, Creative, Custom"
+          }
+        },
+        {
+          "name": "SSWEB (Screenshot Web)",
+          "desc": "Screenshot Sebuah Web Menggunakan URL",
+          "path": "/tools/ssweb?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL WEB nya"
           }
         }
         ]
