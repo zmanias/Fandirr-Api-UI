@@ -28,7 +28,16 @@
             "loc": "ID Location",
             "username": "Masukan Username nya"
           }
-        }
+        },
+        {
+          "name": "Daftar Server Panel",
+          "desc": "AI Buatan BlackBox",
+          "path": "/ai/blackbox?text=",
+          "status": "ready",
+          "params": {
+            "text": "Masukan perintah/text nya"
+          }
+        },
       ]
     },
     {
