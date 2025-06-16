@@ -123,15 +123,6 @@
           }
         },
         {
-          "name": "GetModsApk",
-          "desc": "Pencarian Aplikasi Mod",
-          "path": "/search/getmodsapk?query=",
-          "status": "ready",
-          "params": {
-            "query": "Cari Aplikasinya"
-          }
-        },
-        {
           "name": "An1 Com",
           "desc": "Pencarian Aplikasi Mod Dari Web an1.com",
           "path": "/search/an1?query=",
