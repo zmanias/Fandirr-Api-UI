@@ -163,6 +163,15 @@
             "url": "Masukan URL nya"
           }
         },
+         {
+          "name": "TikTok",
+          "desc": "Download Reel/Video Dari TikTok",
+          "path": "/download/tiktok?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
+        },
         {
           "name": "AN1 COM",
           "desc": "Download Aplikasi Dari Url AN1.com",
