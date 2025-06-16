@@ -209,6 +209,15 @@
       "name": "IMG Creator",
       "items": [
         {
+          "name": "BRAT",
+          "desc": "Brat Bret Brot",
+          "path": "/imgcreator/brat?text=",
+          "status": "ready",
+          "params": {
+            "text": "Masukan Tulisannya"
+          }
+        },
+        {
           "name": "Img To Prompt",
           "desc": "Deteksi Gambar Menjadi Sebuah Perintah",
           "path": "/imgcreator/imgtotext?url=",
