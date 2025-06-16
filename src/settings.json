@@ -39,7 +39,19 @@
             "plta": "Masukan PLTA nya",
             "pltc": "Masukan PLTC nya"
           }
-        }
+        },
+        {
+          "name": "Hapus Server Panel",
+          "desc": "Hapus Server Pada Pterodactyl",
+          "path": "/panel/delpanel?domain=&plta=&pltc=&id=",
+          "status": "ready",
+          "params": {
+            "domain": "Masukan Nama Domainnya",
+            "plta": "Masukan PLTA nya",
+            "pltc": "Masukan PLTC nya",
+            "id": "Masukan ID server yang mau di hapus"
+          }
+        },
       ]
     },
     {
