@@ -24,4 +24,4 @@ module.exports = function(app) {
             res.status(500).json({ status: false, error: error.message });
         }
     });
-};
+}
