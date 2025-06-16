@@ -1,4 +1,4 @@
-// server.js - Diperbarui untuk posisi Kiri Atas
+// server.js - Diperbarui dengan Word Wrap
 
 const express = require('express');
 const { createCanvas, registerFont } = require('canvas');
@@ -16,40 +16,68 @@ try {
 app.get('/imgcreator/brat', (req, res) => {
     const text = req.query.text || 'hallo';
     
-    // Ukuran gambar tetap 500x500
+    // Pengaturan gambar
     const width = 500;
     const height = 500;
+    const padding = 25;
 
     const canvas = createCanvas(width, height);
     const context = canvas.getContext('2d');
 
-    // Menggambar background putih
+    // Latar belakang putih
     context.fillStyle = 'white';
     context.fillRect(0, 0, width, height);
 
-    // Pengaturan properti teks
+    // Pengaturan Teks
     context.fillStyle = 'black';
-    context.textAlign = 'left'; // Horizontal di kiri
+    context.textAlign = 'left';
+    context.textBaseline = 'top';
+    const fontSize = 80; // Kita atur ukuran font yang lebih tetap untuk multi-baris
+    context.font = `${fontSize}px Arial`;
 
-    // --- PERUBAHAN 1: Mengubah baseline vertikal ke atas ---
-    context.textBaseline = 'top'; 
+    // =================================================================
+    // --- LOGIKA BARU: WORD WRAP UNTUK TEKS PANJANG ---
+    // =================================================================
+    
+    // 1. Tentukan lebar maksimal untuk teks dan tinggi per baris
+    const maxWidth = width - (padding * 2);
+    const lineHeight = fontSize * 1.2; // Jarak antar baris (1.2x ukuran font)
 
-    // Menyesuaikan ukuran font secara dinamis
-    let fontSize = 100;
-    const padding = 25; // Jarak dari tepi
-    do {
-        context.font = `${fontSize}px Arial`;
-        fontSize -= 2;
-    } while (context.measureText(text).width > width - (padding * 2));
+    // 2. Pisahkan teks menjadi kata-kata
+    const words = text.split(' ');
+    let currentLine = '';
+    const lines = [];
 
-    // --- PERUBAHAN 2: Mengatur posisi Y ke atas ---
-    const x = padding; // Posisi X tetap di kiri
-    const y = padding; // Posisi Y sekarang di atas (ditambah padding)
+    // 3. Loop setiap kata untuk membentuk baris
+    for (let i = 0; i < words.length; i++) {
+        const word = words[i];
+        const testLine = currentLine + word + ' ';
+        const metrics = context.measureText(testLine);
+        const testWidth = metrics.width;
 
-    // Menulis teks ke canvas
-    context.fillText(text, x, y);
+        // Jika lebar tes melebihi batas DAN baris saat ini tidak kosong
+        if (testWidth > maxWidth && currentLine.length > 0) {
+            lines.push(currentLine.trim()); // Simpan baris yang sudah pas
+            currentLine = word + ' ';   // Mulai baris baru dengan kata saat ini
+        } else {
+            currentLine = testLine; // Jika masih muat, tambahkan kata ke baris saat ini
+        }
+    }
+    lines.push(currentLine.trim()); // Simpan sisa baris terakhir
 
-    // Membuat Buffer dari canvas dan mengirimnya
+    // =================================================================
+    // --- LOGIKA MENGGAMBAR BARIS DEMI BARIS ---
+    // =================================================================
+    const x = padding;
+    const y = padding;
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const drawY = y + (i * lineHeight); // Hitung posisi Y untuk setiap baris
+        context.fillText(line, x, drawY);
+    }
+
+    // Kirim hasil gambar
     const buffer = canvas.toBuffer('image/png');
     res.setHeader('Content-Type', 'image/png');
     res.send(buffer);
