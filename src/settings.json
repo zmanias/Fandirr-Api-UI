@@ -137,6 +137,15 @@
       "name": "Download Tools",
       "items": [
         {
+          "name": "AIO(All In One)",
+          "desc": "Download Semua Vidio Sosmed Di Sini",
+          "path": "/download/aio?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
+       },
+        {
           "name": "Facebook",
           "desc": "Download Reel/Video FB",
           "path": "/download/facebook?url=",
