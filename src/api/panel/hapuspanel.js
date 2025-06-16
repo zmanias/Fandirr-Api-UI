@@ -3,68 +3,16 @@ const fetch = require('node-fetch');
 
 module.exports = function(app) {
 
-app.post('/panel/delpanel', async (req, res) => {
-  const { domain, plta, pltc, id } = req.body;
+app.get('/panel/delpanel', async (req, res) => {
+  const { domain, plta, pltc, id } = req.query;
 
   if (!domain || !plta || !pltc) {
     return res.status(400).json({ error: 'Parameter domain, plta, dan pltc wajib diisi' });
   }
 
-  // Jika tidak ada ID, tampilkan list panel
-  if (!id) {
-    try {
-      const panelRes = await fetch(`${domain}/api/application/servers?page=1`, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${plta}`,
-        },
-      });
-
-      const panelData = await panelRes.json();
-      const servers = panelData.data;
-
-      if (!servers || servers.length < 1) {
-        return res.json({ message: 'Tidak ada server panel.' });
-      }
-
-      const list = await Promise.all(
-        servers.map(async (server) => {
-          const s = server.attributes;
-
-          const resourceRes = await fetch(`${domain}/api/client/servers/${s.uuid.split('-')[0]}/resources`, {
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${pltc}`,
-            },
-          });
-
-          const resourceData = await resourceRes.json();
-          const status = resourceData?.attributes?.current_state || s.status;
-
-          return {
-            id: s.id,
-            name: s.name,
-            ram: s.limits.memory === 0 ? 'Unlimited' : `${Math.round(s.limits.memory / 1024)}GB`,
-            cpu: s.limits.cpu === 0 ? 'Unlimited' : `${s.limits.cpu}%`,
-            disk: s.limits.disk === 0 ? 'Unlimited' : `${Math.round(s.limits.disk / 1024)}GB`,
-            status,
-          };
-        })
-      );
-
-      return res.json({ serverList: list });
-    } catch (err) {
-      return res.status(500).json({ error: 'Gagal mengambil data server panel', details: err.message });
-    }
-  }
-
-  // Jika ada ID, hapus server dan user terkait
   try {
-    const serversRes = await fetch(`${domain}/api/application/servers?page=1`, {
+    // Ambil semua server
+    const f = await fetch(`${domain}/api/application/servers?page=1`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -73,25 +21,53 @@ app.post('/panel/delpanel', async (req, res) => {
       },
     });
 
-    const serversData = await serversRes.json();
-    const servers = serversData.data;
+    const data = await f.json();
+    const servers = data.data;
 
-    let foundServer;
-    let serverName;
-
-    for (const server of servers) {
-      const s = server.attributes;
-      if (parseInt(id) === s.id) {
-        foundServer = s;
-        serverName = s.name;
-        break;
-      }
+    if (!servers || servers.length < 1) {
+      return res.json({ message: 'Tidak ada server panel.' });
     }
 
-    if (!foundServer) return res.status(404).json({ error: 'Server panel tidak ditemukan!' });
+    // Jika tidak ada parameter id, tampilkan daftar server
+    if (!id) {
+      const list = await Promise.all(
+        servers.map(async (s) => {
+          const attr = s.attributes;
+
+          const resource = await fetch(`${domain}/api/client/servers/${attr.uuid.split('-')[0]}/resources`, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${pltc}`,
+            },
+          });
+
+          const data = await resource.json();
+          const status = data?.attributes?.current_state || attr.status;
+
+          return {
+            id: attr.id,
+            name: attr.name,
+            ram: attr.limits.memory === 0 ? 'Unlimited' : `${Math.round(attr.limits.memory / 1024)}GB`,
+            cpu: attr.limits.cpu === 0 ? 'Unlimited' : `${attr.limits.cpu}%`,
+            disk: attr.limits.disk === 0 ? 'Unlimited' : `${Math.round(attr.limits.disk / 1024)}GB`,
+            status,
+          };
+        })
+      );
+
+      return res.json({ serverList: list });
+    }
+
+    // Jika ada id, hapus server dan user
+    const target = servers.find((s) => parseInt(id) === s.attributes.id);
+    if (!target) return res.status(404).json({ error: 'Server panel tidak ditemukan' });
+
+    const name = target.attributes.name.toLowerCase();
 
     // Hapus server
-    await fetch(`${domain}/api/application/servers/${foundServer.id}`, {
+    await fetch(`${domain}/api/application/servers/${id}`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
@@ -100,7 +76,7 @@ app.post('/panel/delpanel', async (req, res) => {
       },
     });
 
-    // Cari dan hapus user
+    // Cari user dengan nama depan = nama server, lalu hapus
     const usersRes = await fetch(`${domain}/api/application/users?page=1`, {
       method: 'GET',
       headers: {
@@ -112,12 +88,10 @@ app.post('/panel/delpanel', async (req, res) => {
 
     const usersData = await usersRes.json();
     const users = usersData.data;
-    const targetUser = users.find(
-      (user) => user.attributes.first_name.toLowerCase() === foundServer.name.toLowerCase()
-    );
 
-    if (targetUser) {
-      await fetch(`${domain}/api/application/users/${targetUser.attributes.id}`, {
+    const user = users.find((u) => u.attributes.first_name.toLowerCase() === name);
+    if (user) {
+      await fetch(`${domain}/api/application/users/${user.attributes.id}`, {
         method: 'DELETE',
         headers: {
           Accept: 'application/json',
@@ -127,9 +101,9 @@ app.post('/panel/delpanel', async (req, res) => {
       });
     }
 
-    return res.json({ message: `Berhasil menghapus server panel ${serverName}` });
+    return res.json({ message: `Berhasil menghapus server panel ${target.attributes.name}` });
   } catch (error) {
-    return res.status(500).json({ error: 'Terjadi kesalahan saat menghapus server panel', details: error.message });
+    return res.status(500).json({ error: 'Terjadi kesalahan', details: error.message });
   }
 });
 }
