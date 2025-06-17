@@ -242,7 +242,7 @@
           "status": "ready",
           "params": {
             "text": "Masukan Text Nya, Gunakan tanda | sebagai garis baru",
-            "no": "Nomer buku(Pakai tanda - jika tidaknmau di isi)",
+            "no": "Nomer buku(Pakai tanda - jika tidak mau di isi)",
             "date": "Masukan tanggal buat tulis nya(Opsional)"
           }
         },
