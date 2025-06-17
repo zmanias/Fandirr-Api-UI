@@ -236,6 +236,15 @@
           }
         },
         {
+          "name": "Nulis Buku",
+          "desc": "Nulis Di Buku Via Digital:v",
+          "path": "/imgcreator/nulis?text=&no=&date=",
+          "status": "ready",
+          "params": {
+            "text": "Masukan Text Nya"
+          }
+        },
+        {
           "name": "AI Image",
           "desc": "Ai to Img dengan model kece",
           "path": "/imgcreator/aiimg?prompt=&model=&size=",
