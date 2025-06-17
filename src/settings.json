@@ -241,7 +241,9 @@
           "path": "/imgcreator/nulis?text=&no=&date=",
           "status": "ready",
           "params": {
-            "text": "Masukan Text Nya"
+            "text": "Masukan Text Nya, Gunakan tanda | sebagai garis baru",
+            "no": "Nomer buku(Pakai tanda - jika tidaknmau di isi)",
+            "date": "Masukan tanggal buat tulis nya(Opsional)"
           }
         },
         {
