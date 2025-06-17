@@ -11,7 +11,7 @@ try {
     console.log("Font arial.ttf tidak ditemukan, menggunakan font default.");
 }
 
-app.get('/api/nulis', async (req, res) => {
+app.get('/imgcreator/nulis', async (req, res) => {
     try {
         const text = req.query.text || '';
         const no = req.query.no || '';
