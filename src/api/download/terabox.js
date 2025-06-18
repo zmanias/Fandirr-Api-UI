@@ -5,7 +5,7 @@ const cors = require('cors');
 module.exports = function(app) {
 
 // Endpoint Terabox
-app.get('/terabox', async (req, res) => {
+app.get('/download/terabox', async (req, res) => {
   const link = req.query.url;
 
   if (!link) return res.status(400).json({ error: '❌ Parameter url wajib diisi.' });
