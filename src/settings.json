@@ -84,7 +84,7 @@
           "params": {
             "domain": "Masukan Nama Domainnya",
             "plta": "Masukan PLTA nya",
-            "except_user": "Masukan ID Server yang akan di hapus(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
+            "except_user": "Masukan ID User yang tidak boleh di hapus(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
           }
         }
       ]
