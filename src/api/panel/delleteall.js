@@ -1,6 +1,7 @@
 const express = require('express');
 const fetch = require('node-fetch');
-const app = express();
+
+module.exports = function(app) {
 
 app.get('/panel/delleteall', async (req, res) => {
   const { domain, plta, pltc, except } = req.query;
@@ -79,8 +80,4 @@ app.get('/panel/delleteall', async (req, res) => {
     return res.status(500).json({ error: 'Terjadi kesalahan', details: error.message });
   }
 });
-
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`✅ Server berjalan di http://localhost:${PORT}`);
-});
+}
