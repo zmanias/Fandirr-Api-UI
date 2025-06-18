@@ -61,7 +61,7 @@
             "domain": "Masukan Nama Domainnya",
             "plta": "Masukan PLTA nya",
             "pltc": "Masukan PLTA nya",
-            "except": "Masukan ID User yang Terkecuali"
+            "except": "Masukan ID User yang Terkecuali(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
           }
         }
       ]
