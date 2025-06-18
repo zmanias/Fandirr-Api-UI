@@ -53,15 +53,27 @@
           }
         },
         {
-          "name": "Hapus Server Borongan",
-          "desc": "Hapus Semua Server dan User Nya, Bisa Di Borong",
+          "name": "Hapus Semua Server",
+          "desc": "Hapus Semua Server Dengan ID yang di catat",
+          "path": "/panel/hapusserverid?domain=&plta=&pltc=&only=",
+          "status": "ready",
+          "params": {
+            "domain": "Masukan Nama Domainnya",
+            "plta": "Masukan PLTA nya",
+            "pltc": "Masukan PLTC nya",
+            "only": "Masukan ID Server yang akan di hapus(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
+          }
+        },
+        {
+          "name": "Hapus Server ID Tertentu",
+          "desc": "Hapus Semua Server dan User Terkeecuali ID Tertentu yang gaboleh di hapus",
           "path": "/panel/delleteall?domain=&plta=&pltc=&except=",
           "status": "ready",
           "params": {
             "domain": "Masukan Nama Domainnya",
             "plta": "Masukan PLTA nya",
-            "pltc": "Masukan PLTA nya",
-            "except": "Masukan ID Server yang Mau di hapus borongannya(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
+            "pltc": "Masukan PLTC nya",
+            "except": "Masukan ID Server yang Tidak Boleh di hapus(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
           }
         }
       ]
