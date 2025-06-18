@@ -55,13 +55,13 @@
         {
           "name": "Hapus Semua Server Dan User",
           "desc": "Hapus Semua Server dan User Nya",
-          "path": "/panel/deletefull?domain=&plta=&skipServer=&skipUser=",
+          "path": "/panel/delleteall?domain=&plta=&pltc=&except=",
           "status": "ready",
           "params": {
             "domain": "Masukan Nama Domainnya",
             "plta": "Masukan PLTA nya",
-            "skipServer": "Masukan ID Server yang Terkecuali",
-            "skipUser": "Masukan ID User yang Terkecuali"
+            "pltc": "Masukan PLTA nya",
+            "except": "Masukan ID User yang Terkecuali"
           }
         }
       ]
