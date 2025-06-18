@@ -174,7 +174,7 @@
         },
         {
           "name": "Terabox",
-          "desc": "Download Dari Url Terabox Di Sinj",
+          "desc": "Download Dari Url Terabox Di Sini",
           "path": "/download/terabox?url=",
           "status": "ready",
           "params": {
