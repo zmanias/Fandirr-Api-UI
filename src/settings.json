@@ -53,15 +53,15 @@
           }
         },
         {
-          "name": "Hapus Semua Server Dan User",
-          "desc": "Hapus Semua Server dan User Nya",
+          "name": "Hapus Server Borongan",
+          "desc": "Hapus Semua Server dan User Nya, Bisa Di Borong",
           "path": "/panel/delleteall?domain=&plta=&pltc=&except=",
           "status": "ready",
           "params": {
             "domain": "Masukan Nama Domainnya",
             "plta": "Masukan PLTA nya",
             "pltc": "Masukan PLTA nya",
-            "except": "Masukan ID User yang Terkecuali(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
+            "except": "Masukan ID Server yang Mau di hapus borongannya(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
           }
         }
       ]
