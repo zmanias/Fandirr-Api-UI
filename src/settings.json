@@ -66,7 +66,7 @@
         },
         {
           "name": "Hapus Server ID Tertentu",
-          "desc": "Hapus Semua Server dan User Terkeecuali ID Tertentu yang gaboleh di hapus",
+          "desc": "Hapus Semua Server dan User Terkecuali ID Tertentu yang gaboleh di hapus",
           "path": "/panel/delleteall?domain=&plta=&pltc=&except=",
           "status": "ready",
           "params": {
@@ -74,6 +74,17 @@
             "plta": "Masukan PLTA nya",
             "pltc": "Masukan PLTC nya",
             "except": "Masukan ID Server yang Tidak Boleh di hapus(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
+          }
+        },
+        {
+          "name": "Hapus Semua User",
+          "desc": "Hapus Semua User Terkecuali ID yang di catat",
+          "path": "/panel/delusers?domain=&plta=&except_user=",
+          "status": "ready",
+          "params": {
+            "domain": "Masukan Nama Domainnya",
+            "plta": "Masukan PLTA nya",
+            "except_user": "Masukan ID Server yang akan di hapus(Gunakan tanda , Untuk pemisah contoh : 1,2,3)"
           }
         }
       ]
