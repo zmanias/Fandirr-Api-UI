@@ -109,19 +109,7 @@
           "params": {
             "text": "Masukan perintah/text nya"
           }
-        },
-       {
-          "name": "HydroMind",
-          "desc": "See the list of supported AI models here: https://mind.hydrooo.web.id",
-          "path": "/ai/hydromind?text=&model=",
-          "status": "ready",
-          "params": {
-            "text": "Teks atau perintah untuk chat AI",
-            "model":"1See the list of supported AI models here: https://mind.hydrooo.web.id"
-          }
         }
-      ]
-    },
     {
       "name": "Random",
       "items": [
