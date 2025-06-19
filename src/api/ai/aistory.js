@@ -3,8 +3,6 @@ const axios = require('axios');
 
 module.exports = function(app) {
 
-app.use(express.json()); // Untuk parsing JSON body
-
 async function generateStory(question) {
   let { data } = await axios.get(
     'https://aistorygenerator.co/index.php?wpaicg_stream=yes&' +
