@@ -234,6 +234,15 @@
           "params": {
             "url": "Masukan URL nya"
           }
+        },
+        {
+          "name": "Mediafire",
+          "desc": "Download Mediafire Via API",
+          "path": "/download/mediafire?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
         }
         ]
     },
