@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = function(app) {
 
 // REST API endpoint - GET
-app.get('/api/hitamkan', async (req, res) => {
+app.get('/imgcreator/hitamkan', async (req, res) => {
   const { imageUrl } = req.query;
 
   if (!imageUrl) {
