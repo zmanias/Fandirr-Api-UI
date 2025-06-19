@@ -258,6 +258,15 @@
           }
         },
         {
+          "name": "Hitamkan",
+          "desc": "Hitamkan Warna Kulit",
+          "path": "/imgcreator/hitamkan?imageUrl=",
+          "status": "ready",
+          "params": {
+            "imageUrl": "Masukan Link Gambar nya"
+          }
+        },
+        {
           "name": "Img To Prompt",
           "desc": "Deteksi Gambar Menjadi Sebuah Perintah",
           "path": "/imgcreator/imgtotext?url=",
