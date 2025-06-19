@@ -109,6 +109,15 @@
           "params": {
             "text": "Masukan perintah/text nya"
           }
+        },
+        {
+          "name": "Ai Story",
+          "desc": "Buat Story Kamu Menggunakan AI",
+          "path": "/ai/aistory?question=",
+          "status": "ready",
+          "params": {
+            "question": "Masukan perintah question nya"
+          }
         }
       ]
     },
