@@ -152,6 +152,15 @@
           "params": {
             "query": "Cari Aplikasinya"
           }
+        },
+        {
+          "name": "XNXX",
+          "desc": "Video search",
+          "path": "/search/xnxx?q=",
+          "status": "ready",
+          "params": {
+            "q": "Search query"
+          }
         }
       ]
     },
@@ -238,6 +247,15 @@
           "name": "Mediafire",
           "desc": "Download Mediafire Via API",
           "path": "/download/mediafire?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
+        },
+        {
+          "name": "XNXX",
+          "desc": "Download video Dari Url Xnxx",
+          "path": "/download/xnxxx?url=",
           "status": "ready",
           "params": {
             "url": "Masukan URL nya"
