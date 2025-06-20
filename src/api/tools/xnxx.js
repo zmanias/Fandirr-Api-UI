@@ -68,7 +68,7 @@ class Xnxx {
 
 const xnxx = new Xnxx();
 
-app.get('/api/xnxx/search', async (req, res) => {
+app.get('/search/xnxx', async (req, res) => {
   const { q } = req.query;
   if (!q) return res.status(400).json({ error: 'Parameter "q" wajib diisi.' });
 
@@ -80,7 +80,7 @@ app.get('/api/xnxx/search', async (req, res) => {
   }
 });
 
-app.get('/api/xnxx/download', async (req, res) => {
+app.get('/download/xnxx', async (req, res) => {
   const { url } = req.query;
   if (!url) return res.status(400).json({ error: 'Parameter "url" wajib diisi.' });
 
