@@ -255,7 +255,7 @@
         {
           "name": "XNXX",
           "desc": "Download video Dari Url Xnxx",
-          "path": "/download/xnxxx?url=",
+          "path": "/download/xnxx?url=",
           "status": "ready",
           "params": {
             "url": "Masukan URL nya"
