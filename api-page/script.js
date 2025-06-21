@@ -355,7 +355,14 @@ parallaxEffect();
                     </button>
                 </div>
             `;
-        } else {
+        }
+        // Hitung dan tampilkan statistik
+        const totalCategories = settings.categories.length;
+        const totalEndpoints = settings.categories.reduce((acc, category) => acc + category.items.length, 0);
+
+        setContent('totalCategories', 'textContent', totalCategories);
+        setContent('totalEndpoints', 'textContent', `${totalEndpoints}+`);
+        else {
             settings.categories.forEach((category, categoryIndex) => {
                 // Sort items alphabetically
                 const sortedItems = category.items.sort((a, b) => a.name.localeCompare(b.name));
