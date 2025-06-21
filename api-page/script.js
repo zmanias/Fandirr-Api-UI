@@ -549,18 +549,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     const categorySections = document.querySelectorAll('.category-section');
     let totalResults = 0;
 
-    // Loop 1: Sembunyikan atau tampilkan setiap item API berdasarkan pencarian
-    apiItems.forEach(item => {
-        const name = item.dataset.name.toLowerCase();
-        
-        // --- PERUBAHAN ADA DI SINI ---
-        // Hanya mencari berdasarkan nama item
-        if (name.includes(searchTerm)) {
-            item.style.display = ''; // Tampilkan item jika cocok
-        } else {
-            item.style.display = 'none'; // Sembunyikan item jika tidak cocok
-        }
-    });
+  // Kode Baru (Mencari berdasarkan nama item DAN nama kategori)
+apiItems.forEach(item => {
+    const name = item.dataset.name.toLowerCase();
+    const category = item.dataset.category.toLowerCase(); // Ambil nama kategori dari dataset
+    
+    // Periksa apakah pencarian cocok dengan nama item ATAU nama kategori
+    if (name.includes(searchTerm) || category.includes(searchTerm)) {
+        item.style.display = ''; // Tampilkan item jika cocok
+    } else {
+        item.style.display = 'none'; // Sembunyikan jika tidak cocok
+    }
+});
 
     // Loop 2: Sembunyikan atau tampilkan seluruh bagian kategori
     categorySections.forEach(section => {
