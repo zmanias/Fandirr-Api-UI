@@ -145,22 +145,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Improved clear search button functionality
     // Kode Final untuk Tombol Clear Search
+// Kode Baru dengan Perbaikan Visual
 document.getElementById('clearSearch').addEventListener('click', (event) => {
     const searchInput = document.getElementById('searchInput');
-    const clearButton = event.currentTarget;
     
     if (searchInput.value.length > 0) {
         searchInput.value = '';
         searchInput.dispatchEvent(new Event('input', { bubbles: true }));
         searchInput.focus();
-        
-        // Nonaktifkan sementara interaksi mouse untuk mereset status :hover
-        clearButton.style.pointerEvents = 'none';
-        
-        // Aktifkan kembali setelah jeda singkat
-        setTimeout(() => {
-            clearButton.style.pointerEvents = 'auto';
-        }, 150); // Jeda 150 milidetik
+
+        // TAMBAHKAN BARIS INI: Lepaskan fokus dari tombol 'x'
+        event.currentTarget.blur();
     }
 });
 
