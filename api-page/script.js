@@ -149,6 +149,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (searchInput.value.length > 0) {
             searchInput.value = '';
             searchInput.focus();
+            //Baru
+            event.currentTarget.blur();
             // Trigger input event to update the search results
             searchInput.dispatchEvent(new Event('input'));
             // Add haptic feedback animation
