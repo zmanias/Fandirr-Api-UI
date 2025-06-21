@@ -221,6 +221,51 @@ document.getElementById('clearSearch').addEventListener('click', () => {
 });
     try {
         // Fetch settings with improved error handling
+        // --- KODE BARU UNTUK TAMPILAN KEREN ---
+
+// Fungsi untuk efek mengetik
+function typeEffect(element, text, speed) {
+    element.classList.add('typing');
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        } else {
+            element.classList.remove('typing');
+        }
+    }
+    type();
+}
+
+// Fungsi untuk efek 3D Parallax pada banner
+function parallaxEffect() {
+    const container = document.getElementById('parallax-container');
+    const element = document.getElementById('parallax-element');
+
+    if(container) {
+        container.addEventListener('mousemove', (e) => {
+            let rect = container.getBoundingClientRect();
+            let x = e.clientX - rect.left - rect.width / 2;
+            let y = e.clientY - rect.top - rect.height / 2;
+
+            let rotateY = (x / rect.width) * 30; // Max rotasi 15 derajat
+            let rotateX = -(y / rect.height) * 30;
+
+            element.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            element.style.transform = 'rotateY(0) rotateX(0)';
+        });
+    }
+}
+
+// Panggil fungsi parallax
+parallaxEffect();
+
+// --- AKHIR DARI KODE BARU ---
         const settingsResponse = await fetch('/src/settings.json');
         
         if (!settingsResponse.ok) {
