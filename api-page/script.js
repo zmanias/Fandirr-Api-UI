@@ -286,14 +286,16 @@ parallaxEffect();
         setContent('wm', 'textContent', `© ${currentYear} ${settings.apiSettings?.creator || 'FlowFalcon'}. All rights reserved.`);
         setContent('header', 'textContent', settings.name, "Skyzopedia UI");
         // Hapus/Komentari baris setContent('name', ...) yang lama
-const nameElement = document.getElementById('name');
-if (nameElement) {
-    nameElement.innerHTML = ''; // Kosongkan dulu
-    typeEffect(nameElement, settings.name || "Fandirr - API", 80);
-}
+        const nameElement = document.getElementById('name');
+        if (nameElement) {
+            nameElement.innerHTML = ''; // Kosongkan dulu
+           typeEffect(nameElement, settings.name || "Fandirr - API", 80);
+        }
         setContent('sideNavName', 'textContent', settings.name || "API");
         setContent('version', 'textContent', settings.version, "v1.0");
         setContent('versionHeader', 'textContent', settings.header?.status, "Active!");
+        // Untuk mengisi status di bento box
+        setContent('apiStatusText', 'textContent', settings.header?.status || "Online!");
         setContent('description', 'textContent', settings.description, "Simple API's");
 
         // Set banner image with improved error handling
