@@ -332,6 +332,15 @@
           "params": {
             "image_url": "Masukan URL Gambar"
           }
+        },
+        {
+          "name": "IMGLARGER",
+          "desc": "Untuk Memperbesar Gambar, Memperjelas Gambar Dan Menajamkan Gambar",
+          "path": "/imgcreator/imglarger?imageUrl=&type=&scale",
+          "status": "ready",
+          "params": {
+            "image_url": "Masukan URL Gambar"
+          }
         }
       ]
     },
