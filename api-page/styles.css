@@ -1589,4 +1589,9 @@ input:checked + .slider:before {
         min-width: unset;
         width: calc(100% - 40px);
     }
+    
+}
+/* Class khusus untuk menyembunyikan item dari hasil pencarian */
+.hidden-by-search {
+    display: none !important;
 }
