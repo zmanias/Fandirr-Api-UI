@@ -468,7 +468,8 @@ a:hover {
     border-radius: 50%;
 }
 
-.clear-search:hover {
+/* Hover hanya aktif jika tidak ada class .no-hover */
+.clear-search:not(.no-hover):hover {
     color: var(--primary-color);
     background-color: var(--highlight-color);
 }
