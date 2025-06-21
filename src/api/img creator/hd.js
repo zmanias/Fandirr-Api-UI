@@ -4,7 +4,7 @@ const FormData = require('form-data')
 
 module.exports = function(app) {
 
-app.get('/imgcreator/upscale', async (req, res) => {
+app.get('/imgcreator/hd', async (req, res) => {
   const imageUrl = req.query.image_url
 
   if (!imageUrl) {
