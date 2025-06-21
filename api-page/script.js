@@ -777,7 +777,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             modalRefs.endpoint.classList.remove('d-none');
             
             const typingSpeed = 20; // ms per character
-            const endpointText = apiUrl;
+            const endpointText = decodeURIComponent(apiUrl);
             let charIndex = 0;
             
             const typeEndpoint = () => {
