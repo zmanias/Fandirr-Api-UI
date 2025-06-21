@@ -568,6 +568,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             modalRefs.submitBtn.classList.add('d-none');
             modalRefs.submitBtn.disabled = true;
             modalRefs.submitBtn.classList.remove('btn-active');
+            ///Baru
+            modalRefs.submitBtn.innerHTML = '<span>Submit</span><i class="fas fa-paper-plane"></i>';
 
             let baseApiUrl = `${window.location.origin}${apiPath}`;
             let params = new URLSearchParams(apiPath.split('?')[1]);
