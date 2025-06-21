@@ -221,51 +221,6 @@ document.getElementById('clearSearch').addEventListener('click', () => {
 });
     try {
         // Fetch settings with improved error handling
-        // --- KODE BARU UNTUK TAMPILAN KEREN ---
-
-// Fungsi untuk efek mengetik
-function typeEffect(element, text, speed) {
-    element.classList.add('typing');
-    let i = 0;
-    function type() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        } else {
-            element.classList.remove('typing');
-        }
-    }
-    type();
-}
-
-// Fungsi untuk efek 3D Parallax pada banner
-function parallaxEffect() {
-    const container = document.getElementById('parallax-container');
-    const element = document.getElementById('parallax-element');
-
-    if(container) {
-        container.addEventListener('mousemove', (e) => {
-            let rect = container.getBoundingClientRect();
-            let x = e.clientX - rect.left - rect.width / 2;
-            let y = e.clientY - rect.top - rect.height / 2;
-
-            let rotateY = (x / rect.width) * 30; // Max rotasi 15 derajat
-            let rotateX = -(y / rect.height) * 30;
-
-            element.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-        });
-
-        container.addEventListener('mouseleave', () => {
-            element.style.transform = 'rotateY(0) rotateX(0)';
-        });
-    }
-}
-
-// Panggil fungsi parallax
-parallaxEffect();
-
-// --- AKHIR DARI KODE BARU ---
         const settingsResponse = await fetch('/src/settings.json');
         
         if (!settingsResponse.ok) {
@@ -947,98 +902,214 @@ parallaxEffect();
             
             typeEndpoint();
 
-            try {
-                // Add request timeout for better UX
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
-                
-                const response = await fetch(apiUrl, { 
-                    signal: controller.signal 
-                }).catch(error => {
-                    if (error.name === 'AbortError') {
-                        throw new Error('Request timed out. Please try again.');
-                    }
-                    throw error;
-                });
-                
-                clearTimeout(timeoutId);
+             // GANTI SELURUH BLOK 'try' LAMA ANDA DENGAN YANG INI
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText || 'Unknown error'}`);
+try {
+    // ======================================================
+    // BAGIAN 1: DEFINISI FUNGSI-FUNGSI BARU
+    // Kita definisikan semua fungsi di sini terlebih dahulu.
+    // ======================================================
+
+    // Fungsi untuk efek mengetik
+    function typeEffect(element, text, speed) {
+        if (!element) return; // Pengaman jika elemen tidak ditemukan
+        element.classList.add('typing');
+        let i = 0;
+        element.innerHTML = ''; // Pastikan kosong sebelum memulai
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            } else {
+                element.classList.remove('typing');
+            }
+        }
+        type();
+    }
+
+    // Fungsi untuk efek 3D Parallax pada banner
+    function parallaxEffect() {
+        const container = document.getElementById('parallax-container');
+        const element = document.getElementById('parallax-element');
+
+        // Pengaman: Hanya jalankan jika elemennya ada
+        if (container && element) {
+            container.addEventListener('mousemove', (e) => {
+                let rect = container.getBoundingClientRect();
+                let x = e.clientX - rect.left - rect.width / 2;
+                let y = e.clientY - rect.top - rect.height / 2;
+                let rotateY = (x / rect.width) * 20; // Mengurangi intensitas rotasi
+                let rotateX = -(y / rect.height) * 20;
+                element.style.transform = `perspective(1000px) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                element.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+            });
+        }
+    }
+
+    // ======================================================
+    // BAGIAN 2: PROSES UTAMA (FETCH DATA)
+    // ======================================================
+
+    const settingsResponse = await fetch('/src/settings.json');
+    if (!settingsResponse.ok) {
+        throw new Error(`Failed to load settings: ${settingsResponse.status}`);
+    }
+    const settings = await settingsResponse.json();
+
+    // ======================================================
+    // BAGIAN 3: SET KONTEN DAN PANGGIL FUNGSI
+    // Kita panggil semua fungsi di sini, SETELAH data 'settings' siap.
+    // ======================================================
+
+    const setContent = (id, property, value, fallback = '') => {
+        const element = document.getElementById(id);
+        if (element) element[property] = value || fallback;
+    };
+
+    // Panggil efek mengetik untuk judul
+    typeEffect(document.getElementById('name'), settings.name || "Fandirr - API", 80);
+
+    // Set konten statis lainnya
+    const currentYear = new Date().getFullYear();
+    setContent('page', 'textContent', settings.name, "Falcon-Api");
+    setContent('wm', 'textContent', `© ${currentYear} ${settings.apiSettings?.creator || 'FlowFalcon'}. All rights reserved.`);
+    setContent('version', 'textContent', settings.version, "v1.0");
+    setContent('versionHeader', 'textContent', settings.header?.status, "Active!");
+    setContent('description', 'textContent', settings.description, "Simple API's");
+    setContent('apiStatusText', 'textContent', settings.header?.status || "Online!");
+
+    // Set banner image
+    const dynamicImage = document.getElementById('dynamicImage');
+    if (dynamicImage && settings.bannerImage) {
+        dynamicImage.src = settings.bannerImage;
+    }
+
+    // Set links
+    const apiLinksContainer = document.getElementById('apiLinks');
+    if (apiLinksContainer && settings.links?.length) {
+        apiLinksContainer.innerHTML = '';
+        settings.links.forEach(({ url, name }) => {
+            const link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank';
+            link.innerHTML = `<i class="fas fa-external-link-alt"></i> ${name}`;
+            apiLinksContainer.appendChild(link);
+        });
+    }
+
+    // Hitung dan tampilkan statistik
+    if (settings.categories) {
+        const totalCategories = settings.categories.length;
+        const totalEndpoints = settings.categories.reduce((acc, category) => acc + category.items.length, 0);
+        setContent('totalCategories', 'textContent', totalCategories);
+        setContent('totalEndpoints', 'textContent', `${totalEndpoints}+`);
+    }
+
+    // Buat konten API (kategori dan item)
+    const apiContent = document.getElementById('apiContent');
+    if (apiContent && settings.categories?.length) {
+        // ... (seluruh kode untuk membuat kategori dan item API tetap di sini)
+        settings.categories.forEach((category, categoryIndex) => {
+            const sortedItems = category.items.sort((a, b) => a.name.localeCompare(b.name));
+            const categoryElement = document.createElement('div');
+            categoryElement.className = 'category-section';
+            categoryElement.dataset.categoryName = category.name.toLowerCase();
+            categoryElement.style.animationDelay = `${categoryIndex * 0.2}s`;
+            const categoryHeader = document.createElement('h3');
+            categoryHeader.className = 'category-header';
+            categoryHeader.textContent = category.name;
+            if (category.icon) {
+                const icon = document.createElement('i');
+                icon.className = category.icon;
+                icon.style.color = 'var(--primary-color)';
+                categoryHeader.prepend(icon);
+            }
+            categoryElement.appendChild(categoryHeader);
+            const itemsRow = document.createElement('div');
+            itemsRow.className = 'row';
+            sortedItems.forEach((item, index) => {
+                const itemCol = document.createElement('div');
+                itemCol.className = 'col-md-6 col-lg-4 api-item';
+                itemCol.dataset.name = item.name;
+                itemCol.dataset.desc = item.desc;
+                itemCol.dataset.category = category.name;
+                itemCol.style.animationDelay = `${index * 0.05 + 0.3}s`;
+                const heroSection = document.createElement('div');
+                heroSection.className = 'hero-section';
+                const infoDiv = document.createElement('div');
+                const itemTitle = document.createElement('h5');
+                itemTitle.className = 'mb-0';
+                itemTitle.textContent = item.name;
+                const itemDesc = document.createElement('p');
+                itemDesc.className = 'text-muted mb-0';
+                itemDesc.textContent = item.desc;
+                infoDiv.appendChild(itemTitle);
+                infoDiv.appendChild(itemDesc);
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'api-actions';
+                const getBtn = document.createElement('button');
+                getBtn.className = 'btn get-api-btn';
+                getBtn.innerHTML = '<i class="fas fa-code"></i> GET';
+                getBtn.dataset.apiPath = item.path;
+                getBtn.dataset.apiName = item.name;
+                getBtn.dataset.apiDesc = item.desc;
+                getBtn.setAttribute('aria-label', `Get ${item.name} API`);
+                const statusIndicator = document.createElement('div');
+                statusIndicator.className = 'api-status';
+                const status = item.status || "ready";
+                let statusClass, statusIcon, statusTooltip;
+                switch (status) {
+                    case "error":
+                        statusClass = "status-error";
+                        statusIcon = "fa-exclamation-triangle";
+                        statusTooltip = "API has errors";
+                        break;
+                    case "update":
+                        statusClass = "status-update";
+                        statusIcon = "fa-arrow-up";
+                        statusTooltip = "Updates available";
+                        break;
+                    default:
+                        statusClass = "status-ready";
+                        statusIcon = "fa-circle";
+                        statusTooltip = "API is ready";
                 }
+                statusIndicator.classList.add(statusClass);
+                statusIndicator.setAttribute('title', statusTooltip);
+                const icon = document.createElement('i');
+                icon.className = `fas ${statusIcon}`;
+                statusIndicator.appendChild(icon);
+                const statusText = document.createElement('span');
+                statusText.textContent = status;
+                statusIndicator.appendChild(statusText);
+                actionsDiv.appendChild(getBtn);
+                actionsDiv.appendChild(statusIndicator);
+                heroSection.appendChild(infoDiv);
+                heroSection.appendChild(actionsDiv);
+                itemCol.appendChild(heroSection);
+                itemsRow.appendChild(itemCol);
+            });
+            categoryElement.appendChild(itemsRow);
+            apiContent.appendChild(categoryElement);
+        });
+    } else {
+        // ... (kode untuk jika kategori tidak ditemukan)
+    }
 
-                const contentType = response.headers.get('Content-Type');
-                if (contentType && contentType.startsWith('image/')) {
-                    // Handle image response with enhanced animation
-                    const blob = await response.blob();
-                    const imageUrl = URL.createObjectURL(blob);
+    // Panggil fungsi parallax di akhir, setelah semua elemen dijamin ada
+    parallaxEffect();
 
-                    const img = document.createElement('img');
-                    img.src = imageUrl;
-                    img.alt = apiName;
-                    img.className = 'response-image fade-in';
-                    img.style.maxWidth = '100%';
-                    img.style.height = 'auto';
-                    img.style.borderRadius = 'var(--border-radius)';
-                    img.style.boxShadow = 'var(--shadow)';
-                    img.style.transition = 'var(--transition)';
-                    
-                    // Add hover effect
-                    img.onmouseover = () => {
-                        img.style.transform = 'scale(1.02)';
-                        img.style.boxShadow = 'var(--hover-shadow)';
-                    };
-                    
-                    img.onmouseout = () => {
-                        img.style.transform = 'scale(1)';
-                        img.style.boxShadow = 'var(--shadow)';
-                    };
+    // Inisialisasi tooltips di akhir
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 
-                    modalRefs.content.innerHTML = '';
-                    modalRefs.content.appendChild(img);
-                    
-                    // Show download button for images
-                    const downloadBtn = document.createElement('button');
-                    downloadBtn.className = 'btn btn-primary mt-3';
-                    downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Image';
-                    downloadBtn.style.width = '100%';
-                    
-                    downloadBtn.onclick = () => {
-                        const link = document.createElement('a');
-                        link.href = imageUrl;
-                        link.download = `${apiName.toLowerCase().replace(/\s+/g, '-')}.${blob.type.split('/')[1]}`;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        
-                        // Show notification
-                        showToast('Image download started!', 'success');
-                    };
-                    
-                    modalRefs.content.appendChild(downloadBtn);
-                } else {
-                    // Handle JSON response with enhanced syntax highlighting and animation
-                    const data = await response.json();
-                    
-                    // Pretty-print JSON with enhanced syntax highlighting
-                    const formattedJson = syntaxHighlight(JSON.stringify(data, null, 2));
-                    modalRefs.content.innerHTML = formattedJson;
-                    
-                    // Add code folding for large responses with enhanced UI
-                    if (JSON.stringify(data, null, 2).split('\n').length > 15) {
-                        addCodeFolding(modalRefs.content);
-                    }
-                }
-
-                modalRefs.container.classList.remove('d-none');
-                modalRefs.content.classList.remove('d-none');
-                
-                // Animate the response container with enhanced animation
-                modalRefs.container.classList.add('slide-in-bottom');
-                
-                // Show success toast
-                showToast(`Successfully retrieved ${apiName}`, 'success');
-            } catch (error) {
+} catch (error) {
                 // Enhanced error display with more information
                 const errorContainer = document.createElement('div');
                 errorContainer.className = 'error-container fade-in';
