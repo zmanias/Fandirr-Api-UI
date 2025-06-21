@@ -424,6 +424,7 @@ a:hover {
     padding-left: 20px;
 }
 
+/* Kode Baru yang Sudah Diperbaiki */
 #searchInput {
     border: none;
     padding: 12px 50px 12px 20px;
@@ -431,6 +432,9 @@ a:hover {
     background-color: transparent;
     color: var(--text-color);
     flex: 1;
+    /* TAMBAHKAN DUA BARIS DI BAWAH INI */
+    position: relative;
+    z-index: 1;
 }
 
 #searchInput:focus {
