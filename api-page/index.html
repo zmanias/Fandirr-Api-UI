@@ -80,59 +80,24 @@
         </header>
         
         <!-- Hero Section -->
-        <section id="home" class="hero-section new-hero">
+<section id="home" class="hero-section">
     <div class="hero-content">
         <div class="hero-heading">
             <h1 id="name" class="gradient-text"></h1>
             <div id="version" class="badge-pill"></div>
         </div>
-        
         <p id="description" class="hero-description"></p>
-        
-        <div class="hero-stats">
-            <div class="stat-item">
-                <strong id="totalCategories">0</strong>
-                <span>Kategori API</span>
-            </div>
-            <div class="stat-item">
-                <strong id="totalEndpoints">0+</strong>
-                <span>Endpoint Aktif</span>
-            </div>
-        </div>
-        
         <div id="apiLinks" class="hero-actions"></div>
     </div>
-    
-    <div class="hero-visual bento-grid">
-        <div class="bento-box box-banner" id="parallax-container">
-            <div id="parallax-element">
-                <img id="dynamicImage" class="banner" src="/src/banner_fandirr.jpg" alt="API Banner">
-                <div class="banner-overlay">
-                    <p>Pusat Pelayanan API Terbaik</p>
-                </div>
-            </div>
+    <div class="hero-visual">
+        <div class="banner-container">
+            <img id="dynamicImage" class="banner" src="/src/banner_fandirr.jpg" alt="API Banner">
         </div>
-        
-        <div class="bento-box box-status">
-            <div class="status-light-container">
-                <div class="status-light"></div>
-                <span>API Status</span>
-            </div>
-            <strong id="apiStatusText">Online!</strong>
-        </div>
-
-        <div class="bento-box box-code">
-            <pre><code class="language-js">// Simple to use
-const fandirr = require('fandirr-api');
-
-async function getInfo() {
-  let data = await fandirr.ai('Hello');
-  console.log(data);
-}</code></pre>
-        </div>
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
     </div>
-
-    </section>
+</section>
         
         <!-- API Section -->
         <section id="apis" class="api-section">
