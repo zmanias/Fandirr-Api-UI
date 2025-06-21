@@ -192,7 +192,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('copyResponse').addEventListener('click', () => {
         copyToClipboard('apiResponseContent');
     });
+    // Fungsikan tombol 'x' untuk membersihkan pencarian
+document.getElementById('clearSearch').addEventListener('click', () => {
+    const searchInput = document.getElementById('searchInput');
 
+    // Cek apakah ada teks untuk dihapus
+    if (searchInput.value.length > 0) {
+        // Kosongkan nilai input
+        searchInput.value = '';
+
+        // Panggil event 'input' secara manual untuk mereset tampilan daftar API
+        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+        // Fokuskan kembali cursor ke kolom pencarian
+        searchInput.focus();
+    }
+});
     try {
         // Fetch settings with improved error handling
         const settingsResponse = await fetch('/src/settings.json');
