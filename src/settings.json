@@ -339,7 +339,7 @@
           "path": "/imgcreator/imglarger?imageUrl=&type=&scale",
           "status": "ready",
           "params": {
-            "image_url": "Masukan URL Gambar"
+            "imageUrl": "Masukan URL Gambar"
           }
         }
       ]
