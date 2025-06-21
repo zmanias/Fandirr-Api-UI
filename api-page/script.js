@@ -146,17 +146,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Improved clear search button functionality
     // Kode Final untuk Tombol Clear Search
 // Kode Baru dengan Perbaikan Visual
-document.getElementById('clearSearch').addEventListener('click', (event) => {
+// --- KODE FINAL UNTUK FUNGSI TOMBOL CLEAR SEARCH ---
+
+const clearSearchButton = document.getElementById('clearSearch');
+
+// Saat tombol 'x' di-klik
+clearSearchButton.addEventListener('click', () => {
     const searchInput = document.getElementById('searchInput');
-    
+
     if (searchInput.value.length > 0) {
         searchInput.value = '';
         searchInput.dispatchEvent(new Event('input', { bubbles: true }));
         searchInput.focus();
-
-        // TAMBAHKAN BARIS INI: Lepaskan fokus dari tombol 'x'
-        event.currentTarget.blur();
+        
+        // Tambahkan class untuk memblokir efek hover sementara
+        clearSearchButton.classList.add('no-hover');
     }
+});
+
+// Saat mouse meninggalkan area tombol 'x'
+clearSearchButton.addEventListener('mouseleave', () => {
+    // Hapus class pemblokir agar efek hover bisa aktif kembali
+    clearSearchButton.classList.remove('no-hover');
 });
 
     // Enhanced copy to clipboard functionality
