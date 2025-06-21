@@ -144,23 +144,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // Improved clear search button functionality
-    document.getElementById('clearSearch').addEventListener('click', () => {
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput.value.length > 0) {
-            searchInput.value = '';
-            searchInput.focus();
-            //Baru
-            event.currentTarget.blur();
-            clearButton.style.backgroundColor = 'transparent';
-            // Trigger input event to update the search results
-            searchInput.dispatchEvent(new Event('input'));
-            // Add haptic feedback animation
-            searchInput.classList.add('shake-animation');
-            setTimeout(() => {
-                searchInput.classList.remove('shake-animation');
-            }, 400);
-        }
-    });
+    // Kode Final untuk Tombol Clear Search
+document.getElementById('clearSearch').addEventListener('click', (event) => {
+    const searchInput = document.getElementById('searchInput');
+    const clearButton = event.currentTarget;
+    
+    if (searchInput.value.length > 0) {
+        searchInput.value = '';
+        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+        searchInput.focus();
+        
+        // Nonaktifkan sementara interaksi mouse untuk mereset status :hover
+        clearButton.style.pointerEvents = 'none';
+        
+        // Aktifkan kembali setelah jeda singkat
+        setTimeout(() => {
+            clearButton.style.pointerEvents = 'auto';
+        }, 150); // Jeda 150 milidetik
+    }
+});
 
     // Enhanced copy to clipboard functionality
     const copyToClipboard = (elementId) => {
