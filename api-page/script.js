@@ -151,6 +151,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             searchInput.focus();
             //Baru
             event.currentTarget.blur();
+            clearButton.style.backgroundColor = 'transparent';
             // Trigger input event to update the search results
             searchInput.dispatchEvent(new Event('input'));
             // Add haptic feedback animation
