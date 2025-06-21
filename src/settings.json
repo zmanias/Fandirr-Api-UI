@@ -339,7 +339,9 @@
           "path": "/imgcreator/imglarger?imageUrl=&type=&scale",
           "status": "ready",
           "params": {
-            "imageUrl": "Masukan URL Gambar"
+            "imageUrl": "Masukan URL Gambar",
+            "type": "Pilih upscale, enhance atau sharpener",
+            "scale": "Opsional untuk enhance dan sharpener"
           }
         }
       ]
