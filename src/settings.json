@@ -325,9 +325,9 @@
           }
         },
         {
-          "name": "Upscale/HD",
+          "name": "HD",
           "desc": "Gambar anda burik? Solusi nya HD in aja bang:v",
-          "path": "/imgcreator/upscale?image_url=",
+          "path": "/imgcreator/hd?image_url=",
           "status": "ready",
           "params": {
             "image_url": "Masukan URL Gambar"
