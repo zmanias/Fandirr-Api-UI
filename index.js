@@ -35,6 +35,22 @@ app.use((req, res, next) => {
     next();
 });
 
+//APIKEYS
+const validateApiKey = (req, res, next) => {
+  const userApiKey = req.query.apikey;
+  const validApiKeys = settings.apiSettings.apikey;
+
+  if (!userApiKey) {
+    return res.status(401).json({ status: 401, message: 'Unauthorized. Please provide an API key.' });
+  }
+
+  if (validApiKeys.includes(userApiKey)) {
+    next();
+  } else {
+    return res.status(403).json({ status: 403, message: 'Forbidden. Invalid API key.' });
+  }
+};
+
 // Api Route
 let totalRoutes = 0;
 const apiFolder = path.join(__dirname, './src/api');
