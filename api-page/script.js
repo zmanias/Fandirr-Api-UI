@@ -284,6 +284,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 
                 const categoryElement = document.createElement('div');
                 categoryElement.className = 'category-section';
+                categoryElement.dataset.categoryName = category.name.toLowerCase();
                 categoryElement.style.animationDelay = `${categoryIndex * 0.2}s`;
                 
                 const categoryHeader = document.createElement('h3');
