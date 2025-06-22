@@ -269,7 +269,7 @@
         {
           "name": "BRAT",
           "desc": "Brat Bret Brot",
-          "path": "/imgcreator/brat?text=",
+          "path": "/imgcreator/brat?apikey=&text=",
           "status": "ready",
           "params": {
             "apikey": "Masukan Apikeys Nya",
