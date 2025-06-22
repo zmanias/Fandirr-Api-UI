@@ -427,6 +427,15 @@
           "params": {
             "url": "Masukan URL WEB nya"
           }
+        },
+        {
+          "name": "BACA QR",
+          "desc": "Membaca sebuah kode QR",
+          "path": "/tools/qrscan?imageUrl=",
+          "status": "ready",
+          "params": {
+            "imageUrl": "Masukan URL WEB nya"
+          }
         }
         ]
     }
