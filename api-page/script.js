@@ -548,46 +548,49 @@ document.addEventListener('DOMContentLoaded', async () => {
     const categorySections = document.querySelectorAll('.category-section');
     let totalResults = 0;
 
-    // Loop 1: Sembunyikan atau tampilkan setiap item API berdasarkan pencarian
+    // Loop 1: Tambah/Hapus class pada setiap item API
+    // MENGGUNAKAN CLASS, BUKAN STYLE LANGSUNG
     apiItems.forEach(item => {
         const name = item.dataset.name.toLowerCase();
+        const category = item.dataset.category.toLowerCase();
         
-        // --- PERUBAHAN ADA DI SINI ---
-        // Hanya mencari berdasarkan nama item
-        if (name.includes(searchTerm)) {
-            item.style.display = ''; // Tampilkan item jika cocok
+        const isMatch = name.includes(searchTerm) || category.includes(searchTerm);
+        
+        if (isMatch) {
+            item.classList.remove('hidden-by-search'); // Tampilkan item
         } else {
-            item.style.display = 'none'; // Sembunyikan item jika tidak cocok
+            item.classList.add('hidden-by-search'); // Sembunyikan item
         }
     });
 
     // Loop 2: Sembunyikan atau tampilkan seluruh bagian kategori
     categorySections.forEach(section => {
-        // Temukan semua item yang terlihat di dalam kategori ini
-        const visibleItems = section.querySelectorAll('.api-item[style*="display: ;"], .api-item:not([style])');
+        // Cek item yang TIDAK memiliki class .hidden-by-search
+        const visibleItems = section.querySelectorAll('.api-item:not(.hidden-by-search)');
         
         if (visibleItems.length > 0) {
-            section.style.display = ''; // Tampilkan kategori jika ada item yang terlihat
+            section.classList.remove('hidden-by-search'); // Tampilkan kategori
             totalResults += visibleItems.length;
         } else {
-            section.style.display = 'none'; // Sembunyikan kategori jika semua item tersembunyi
+            section.classList.add('hidden-by-search'); // Sembunyikan kategori
         }
     });
 
-    // Tampilkan pesan "No results" jika tidak ada hasil sama sekali
+    // Tampilkan pesan "No results"
     let noResultsMsg = document.getElementById('noResultsMessage');
+    const apiContent = document.getElementById('apiContent');
     if (totalResults === 0 && searchTerm.length > 0) {
         if (!noResultsMsg) {
             noResultsMsg = document.createElement('div');
             noResultsMsg.id = 'noResultsMessage';
             noResultsMsg.className = 'no-results-message fade-in';
-            document.getElementById('apiContent').appendChild(noResultsMsg);
+            apiContent.appendChild(noResultsMsg);
         }
         noResultsMsg.style.display = 'flex';
         noResultsMsg.innerHTML = `
             <i class="fas fa-search"></i>
             <p>No results found for "<span>${searchInput.value}</span>"</p>
-            <button id="clearSearchFromMsg" class="btn btn-primary" onclick="document.getElementById('searchInput').value=''; document.getElementById('searchInput').dispatchEvent(new Event('input'));">
+            <button class="btn btn-primary" onclick="document.getElementById('searchInput').value=''; document.getElementById('searchInput').dispatchEvent(new Event('input'));">
                 <i class="fas fa-times"></i> Clear Search
             </button>
         `;
