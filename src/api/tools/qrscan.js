@@ -5,7 +5,7 @@ const QrCode = require('qrcode-reader');
 
 module.exports = function(app) {
 
-app.get('/tools/qrdecode', async (req, res) => {
+app.get('/tools/qrscan', async (req, res) => {
   const imageUrl = req.query.url;
 
   if (!imageUrl) {
