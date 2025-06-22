@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             searchInput.parentElement.classList.remove('search-focused');
         });
         
-        searchInput.addEventListener('input', () => {
+        /*searchInput.addEventListener('input', () => {
             const searchTerm = searchInput.value.toLowerCase();
             
             // Show/hide clear button based on search input with animation
@@ -529,6 +529,71 @@ document.addEventListener('DOMContentLoaded', async () => {
                 noResultsMsg.style.display = 'none';
             }
         });
+        */
+        searchInput.addEventListener('input', () => {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    const clearSearchBtn = document.getElementById('clearSearch');
+
+    // Tampilkan/sembunyikan tombol clear
+    if (searchTerm.length > 0) {
+        clearSearchBtn.style.opacity = '1';
+        clearSearchBtn.style.pointerEvents = 'auto';
+    } else {
+        clearSearchBtn.style.opacity = '0';
+        clearSearchBtn.style.pointerEvents = 'none';
+    }
+
+    const apiItems = document.querySelectorAll('.api-item');
+    const categorySections = document.querySelectorAll('.category-section');
+    let totalResults = 0;
+
+    // Loop 1: Sembunyikan atau tampilkan setiap item API berdasarkan pencarian
+    apiItems.forEach(item => {
+        const name = item.dataset.name.toLowerCase();
+        
+        // --- PERUBAHAN ADA DI SINI ---
+        // Hanya mencari berdasarkan nama item
+        if (name.includes(searchTerm)) {
+            item.style.display = ''; // Tampilkan item jika cocok
+        } else {
+            item.style.display = 'none'; // Sembunyikan item jika tidak cocok
+        }
+    });
+
+    // Loop 2: Sembunyikan atau tampilkan seluruh bagian kategori
+    categorySections.forEach(section => {
+        // Temukan semua item yang terlihat di dalam kategori ini
+        const visibleItems = section.querySelectorAll('.api-item[style*="display: ;"], .api-item:not([style])');
+        
+        if (visibleItems.length > 0) {
+            section.style.display = ''; // Tampilkan kategori jika ada item yang terlihat
+            totalResults += visibleItems.length;
+        } else {
+            section.style.display = 'none'; // Sembunyikan kategori jika semua item tersembunyi
+        }
+    });
+
+    // Tampilkan pesan "No results" jika tidak ada hasil sama sekali
+    let noResultsMsg = document.getElementById('noResultsMessage');
+    if (totalResults === 0 && searchTerm.length > 0) {
+        if (!noResultsMsg) {
+            noResultsMsg = document.createElement('div');
+            noResultsMsg.id = 'noResultsMessage';
+            noResultsMsg.className = 'no-results-message fade-in';
+            document.getElementById('apiContent').appendChild(noResultsMsg);
+        }
+        noResultsMsg.style.display = 'flex';
+        noResultsMsg.innerHTML = `
+            <i class="fas fa-search"></i>
+            <p>No results found for "<span>${searchInput.value}</span>"</p>
+            <button id="clearSearchFromMsg" class="btn btn-primary" onclick="document.getElementById('searchInput').value=''; document.getElementById('searchInput').dispatchEvent(new Event('input'));">
+                <i class="fas fa-times"></i> Clear Search
+            </button>
+        `;
+    } else if (noResultsMsg) {
+        noResultsMsg.style.display = 'none';
+    }
+});
 
         // Enhanced API Button click handler
         document.addEventListener('click', event => {
