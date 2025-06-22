@@ -143,21 +143,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         showToast(`Switched to ${isDarkMode ? 'dark' : 'light'} mode`, 'success');
     });
 
-    // Improved clear search button functionality
-    document.getElementById('clearSearch').addEventListener('click', () => {
-        const searchInput = document.getElementById('searchInput');
-        if (searchInput.value.length > 0) {
-            searchInput.value = '';
-            searchInput.focus();
-            // Trigger input event to update the search results
-            searchInput.dispatchEvent(new Event('input'));
-            // Add haptic feedback animation
-            searchInput.classList.add('shake-animation');
-            setTimeout(() => {
-                searchInput.classList.remove('shake-animation');
-            }, 400);
-        }
-    });
+// --- KODE FINAL UNTUK FUNGSI TOMBOL CLEAR SEARCH ---
+
+const clearSearchButton = document.getElementById('clearSearch');
+
+// Saat tombol 'x' di-klik
+clearSearchButton.addEventListener('click', () => {
+    const searchInput = document.getElementById('searchInput');
+
+    if (searchInput.value.length > 0) {
+        searchInput.value = '';
+        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+        searchInput.focus();
+        
+        // Tambahkan class untuk memblokir efek hover sementara
+        clearSearchButton.classList.add('no-hover');
+    }
+});
+
+// Saat mouse meninggalkan area tombol 'x'
+clearSearchButton.addEventListener('mouseleave', () => {
+    // Hapus class pemblokir agar efek hover bisa aktif kembali
+    clearSearchButton.classList.remove('no-hover');
+});
 
     // Enhanced copy to clipboard functionality
     const copyToClipboard = (elementId) => {
