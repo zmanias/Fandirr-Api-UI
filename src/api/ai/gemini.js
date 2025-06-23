@@ -4,7 +4,13 @@ const axios = require('axios');
 module.exports = function(app) {
 
 const GEMINI_API_KEY = 'AIzaSyAG1wIhfHreufPqO6Jg5Z6e1E8xZAVhg4w'; // Ganti dengan API key Gemini kamu
-const MODELS = ['gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.5-pro-preview-05-06'];
+
+// Mapping model pilihan
+const modelMap = {
+  pro: 'gemini-2.5-pro',
+  flash: 'gemini-2.5-flash',
+  'pro-preview': 'gemini-2.5-pro-preview-05-06',
+};
 
 app.get('/ai/gemini', async (req, res) => {
   const { prompt, model } = req.query;
@@ -12,19 +18,20 @@ app.get('/ai/gemini', async (req, res) => {
   if (!prompt || !model) {
     return res.status(400).json({
       error: 'Parameter "prompt" dan "model" wajib diisi',
-      models: MODELS,
+      available_models: Object.keys(modelMap),
     });
   }
 
-  if (!MODELS.includes(model)) {
+  const modelId = modelMap[model];
+  if (!modelId) {
     return res.status(400).json({
-      error: `Model tidak valid. Gunakan salah satu dari: ${MODELS.join(', ')}`,
+      error: `Model tidak valid. Gunakan salah satu dari: ${Object.keys(modelMap).join(', ')}`,
     });
   }
 
   try {
     const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${modelId}:generateContent?key=${GEMINI_API_KEY}`,
       {
         contents: [{ parts: [{ text: prompt }] }],
       },
@@ -35,7 +42,7 @@ app.get('/ai/gemini', async (req, res) => {
 
     const result = response.data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Tidak ada hasil.';
     res.json({
-      model,
+      model: modelId,
       prompt,
       result,
     });
@@ -46,5 +53,10 @@ app.get('/ai/gemini', async (req, res) => {
       detail: error.response?.data || error.message,
     });
   }
+});
+
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`✅ Server berjalan di http://localhost:${PORT}`);
 });
 }
