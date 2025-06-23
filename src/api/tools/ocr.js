@@ -1,0 +1,43 @@
+const express = require('express');
+const axios = require('axios');
+const Tesseract = require('tesseract.js');
+
+const app = express();
+
+app.get('/api/ocrurl', async (req, res) => {
+  const { img } = req.query;
+  if (!img) return res.status(400).json({ error: 'Parameter ?img= harus disertakan.' });
+
+  try {
+    const response = await axios.get(img, { responseType: 'arraybuffer' });
+    const buffer = Buffer.from(response.data);
+
+    const result = await Tesseract.recognize(buffer, 'eng+ind', {
+      logger: m => console.log(m) // log progress
+    });
+
+    const text = result.data.text.trim();
+
+    if (!text) {
+      return res.json({ status: 'success', message: 'Teks tidak terbaca dari gambar.' });
+    }
+
+    res.json({
+      status: 'success',
+      source: img,
+      text
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      error: 'Gagal membaca teks dari gambar',
+      detail: err.message
+    });
+  }
+});
+
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`✅ OCR URL API berjalan di http://localhost:${PORT}`);
+});
