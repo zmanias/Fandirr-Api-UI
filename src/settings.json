@@ -8,7 +8,7 @@
   },
   "apiSettings": {
     "creator": "Fandirr Store", 
-    "apikey": ["falcon-api"]
+    "apikey": ["falcon-api", "fandirrganteng"]
   },
   "categories": [
     {
