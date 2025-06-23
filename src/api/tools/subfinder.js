@@ -1,3 +1,10 @@
+//Menggunakan Tools Subfindee
+//apt update && apt install wget && apt inztall unzip
+//wget https://github.com/projectdiscovery/subfinder/releases/download/v2.8.0/subfinder_2.8.0_linux_amd64.zip
+//unzip subfinder_2.8.0_linux_amd64.unzip
+//chmod +x subfinder
+//mv subfinder /usr/local/bin
+
 const express = require('express');
 const { exec } = require('child_process');
 const cors = require('cors');
