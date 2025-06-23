@@ -103,7 +103,7 @@
         },
         {
           "name": "Gemini",
-          "desc": "AI Google Geminj",
+          "desc": "AI Google Gemini",
           "path": "/ai/gemini?prompt=",
           "status": "ready",
           "params": {
