@@ -104,10 +104,11 @@
         {
           "name": "Gemini",
           "desc": "AI Google Gemini",
-          "path": "/ai/gemini?prompt=",
+          "path": "/ai/gemini?prompt=&model=",
           "status": "ready",
           "params": {
-            "prompt": "Text for luminai to respond to"
+            "prompt": "Text for luminai to respond to",
+            "model": "Pilih (flash, pro dan pro-preview)"
           }
         },
         {
