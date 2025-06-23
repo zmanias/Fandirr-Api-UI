@@ -423,9 +423,10 @@
         {
           "name": "SSWEB (Screenshot Web)",
           "desc": "Screenshot Sebuah Web Menggunakan URL",
-          "path": "/tools/ssweb?url=",
+          "path": "/tools/ssweb?apikey=&url=",
           "status": "ready",
           "params": {
+            "apikey": "Masukan Apikey Nya",
             "url": "Masukan URL WEB nya"
           }
         },
