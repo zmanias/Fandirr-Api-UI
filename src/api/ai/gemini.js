@@ -13,7 +13,7 @@ const modelMap = {
   'pro-preview': 'gemini-2.5-pro-preview-05-06',
 };
 
-app.get('/api/gemini-simulate', async (req, res) => {
+app.get('/ai/gemini', async (req, res) => {
   const { prompt, model } = req.query;
 
   if (!prompt || !model) {
