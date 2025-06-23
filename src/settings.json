@@ -438,6 +438,16 @@
           "params": {
             "imageUrl": "Masukan URL WEB nya"
           }
+        },
+        {
+          "name": "Subfinder",
+          "desc": "Mencari Sebuah Subdomain Dari Indux Domain",
+          "path": "/tools/subfinder?apikey=&domain=",
+          "status": "ready",
+          "params": {
+            "apikey": "Masukan Apikey Kamu, Gapunya? Yhaa Beli Lah Ama Bang Fandirr",
+            "domain": "Masukan Indux Domainnya"
+          }
         }
         ]
     }
