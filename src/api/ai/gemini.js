@@ -5,7 +5,7 @@ module.exports = function(app) {
 
 const GEMINI_API_KEY = 'AIzaSyAG1wIhfHreufPqO6Jg5Z6e1E8xZAVhg4w'; // Ganti dengan API KEY kamu
 
-app.get('/api/gemini', async (req, res) => {
+app.get('/ai/gemini', async (req, res) => {
   const prompt = req.query.prompt;
 
   if (!prompt) {
