@@ -39,31 +39,31 @@ class Xnxx {
     }
   }
 
-  async download(url) {
-    try {
-      const resp = await fetch(url);
-      const $ = cheerio.load(await resp.text());
-
-      const scriptContent = $('#video-player-bg > script:nth-child(6)').html();
-      const extractData = (regex) => (scriptContent.match(regex) || [])[1];
-
-      const videos = {
-        low: extractData(/html5player\.setVideoUrlLow'(.*?)';/),
-        high: extractData(/html5player\.setVideoUrlHigh'(.*?)';/),
-        HLS: extractData(/html5player\.setVideoHLS'(.*?)';/)
-      };
-
-      const thumb = extractData(/html5player\.setThumbUrl'(.*?)';/);
-
-      return {
-        videos,
-        thumb
-      };
-    } catch (error) {
-      console.error(error.message);
-      throw new Error('No result found');
+  download = async function (url) {
+        try {
+            const resp = await fetch(url);
+            const $ = cheerio.load(await resp.text());
+    
+            const scriptContent = $('#video-player-bg > script:nth-child(6)').html();
+            const extractData = (regex) => (scriptContent.match(regex) || [])[1];
+    
+            const videos = {
+                low: extractData(/html5player\.setVideoUrlLow\('(.*?)'\);/),
+                high: extractData(/html5player\.setVideoUrlHigh\('(.*?)'\);/),
+                HLS: extractData(/html5player\.setVideoHLS\('(.*?)'\);/)
+            }
+            
+            const thumb = extractData(/html5player\.setThumbUrl\('(.*?)'\);/)
+    
+            return {
+                videos,
+                thumb
+            };
+        } catch (error) {
+            console.error(error.message);
+            throw new Error('No result found');
+        }
     }
-  }
 }
 
 const xnxx = new Xnxx();
