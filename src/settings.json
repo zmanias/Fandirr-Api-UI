@@ -102,6 +102,15 @@
           }
         },
         {
+          "name": "Gemini",
+          "desc": "AI Google Geminj",
+          "path": "/ai/gemini?prompt=",
+          "status": "ready",
+          "params": {
+            "prompt": "Text for luminai to respond to"
+          }
+        },
+        {
           "name": "BlackBox AI",
           "desc": "AI Buatan BlackBox",
           "path": "/ai/blackbox?text=",
