@@ -445,7 +445,7 @@
           "path": "/tools/ocr?img=",
           "status": "ready",
           "params": {
-            "img": "Masukan URL WEB nya"
+            "img": "Masukan URL Gambar nya"
           }
         },
         {
