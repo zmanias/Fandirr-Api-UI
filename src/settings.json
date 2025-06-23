@@ -440,6 +440,15 @@
           }
         },
         {
+          "name": "OCR (GambarToText)",
+          "desc": "Membaca sebuah text dari gambar",
+          "path": "/tools/ocr?img=",
+          "status": "ready",
+          "params": {
+            "img": "Masukan URL WEB nya"
+          }
+        },
+        {
           "name": "Subfinder",
           "desc": "Mencari Sebuah Subdomain Dari Indux Domain",
           "path": "/tools/subfinder?apikey=&domain=",
