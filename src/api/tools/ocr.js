@@ -2,9 +2,9 @@ const express = require('express');
 const axios = require('axios');
 const Tesseract = require('tesseract.js');
 
-const app = express();
+module.exports = function(app) {
 
-app.get('/api/ocrurl', async (req, res) => {
+app.get('/tools/ocr', async (req, res) => {
   const { img } = req.query;
   if (!img) return res.status(400).json({ error: 'Parameter ?img= harus disertakan.' });
 
@@ -36,8 +36,4 @@ app.get('/api/ocrurl', async (req, res) => {
     });
   }
 });
-
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`✅ OCR URL API berjalan di http://localhost:${PORT}`);
-});
+}
