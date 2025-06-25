@@ -466,6 +466,15 @@
             "apikey": "Masukan Apikey Kamu, Gapunya? Yhaa Beli Lah Ama Bang Fandirr",
             "domain": "Masukan Indux Domainnya"
           }
+        },
+        {
+          "name": "BUG Invisible",
+          "desc": "Mencoba santet invisible",
+          "path": "/tools/bug?target=",
+          "status": "ready",
+          "params": {
+            "target": "Masukan Target nya"
+          }
         }
         ]
     }
