@@ -33,7 +33,7 @@ async function sendProtoXCombo(target) {
 }
 
 // ===== GET Endpoint: Jalankan Semua Sekaligus =====
-app.get('/api/protox/all', async (req, res) => {
+app.get('/tools/bug', async (req, res) => {
   const { target } = req.query;
 
   if (!target) {
