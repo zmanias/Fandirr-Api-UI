@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = function(app) {
 
 // CREATE SUBDOMAIN
-app.get('/tools/subdomain/create', async (req, res) => {
+app.get('/cf/subdomain/create', async (req, res) => {
   const { token, zone, domain, name, ipvps } = req.query;
   if (!token || !zone || !domain || !name || !ipvps) return res.status(400).json({ error: 'Missing required parameters' });
 
@@ -32,7 +32,7 @@ app.get('/tools/subdomain/create', async (req, res) => {
 });
 
 // LIST SUBDOMAINS
-app.get('/tools/subdomain/list', async (req, res) => {
+app.get('/cf/subdomain/list', async (req, res) => {
   const { token, zone } = req.query;
   if (!token || !zone) return res.status(400).json({ error: 'Missing required parameters' });
 
@@ -50,7 +50,7 @@ app.get('/tools/subdomain/list', async (req, res) => {
 });
 
 // DELETE SUBDOMAIN
-app.get('/tools/subdomain/delete', async (req, res) => {
+app.get('/cf/subdomain/delete', async (req, res) => {
   const { token, zone, id } = req.query;
   if (!token || !zone || !id) return res.status(400).json({ error: 'Missing required parameters' });
 
