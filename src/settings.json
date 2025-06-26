@@ -475,10 +475,14 @@
         {
           "name": "Create Subdomain",
           "desc": "Membuat Subdomain Cloudpeler",
-          "path": "/tools/ocr?img=",
+          "path": "/cf/subdomain/create?token=&zone=&domain=&name=&ipvps=",
           "status": "ready",
           "params": {
-            "img": "Masukan URL Gambar nya"
+            "token": "Masukan Apikey Cloudpeler Kamu",
+            "zone": "Masukan ZoneID Domain Kamu",
+            "domain": "Masukan Domain Kamu",
+            "name": "Masukan Nama Buat Subdomainnya",
+            "ipvps": "Masukan Alamat IPVPS kamu"
           }
         },
         ]
