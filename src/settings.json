@@ -466,16 +466,21 @@
             "apikey": "Masukan Apikey Kamu, Gapunya? Yhaa Beli Lah Ama Bang Fandirr",
             "domain": "Masukan Indux Domainnya"
           }
-        },
+        }
+        ]
+    },
+    {
+      "name": "Cloudflare",
+      "items": [
         {
-          "name": "BUG Invisible",
-          "desc": "Mencoba santet invisible",
-          "path": "/tools/bug?target=",
+          "name": "Create Subdomain",
+          "desc": "Membuat Subdomain Cloudpeler",
+          "path": "/tools/ocr?img=",
           "status": "ready",
           "params": {
-            "target": "Masukan Target nya"
+            "img": "Masukan URL Gambar nya"
           }
-        }
+        },
         ]
     }
   ]
