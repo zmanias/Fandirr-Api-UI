@@ -23,6 +23,7 @@
     "https": "^1.0.0",
     "jimp": "^0.16.1",
     "multer": "^2.0.0",
+    "nanoid": "^5.1.5",
     "node-fetch": "^2.7.0",
     "puppeteer": "^24.10.1",
     "qrcode-reader": "^1.0.4",
