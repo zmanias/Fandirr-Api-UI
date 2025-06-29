@@ -432,7 +432,7 @@
           "name": "List All Short URLs",
           "desc": "Menampilkan semua URL pendek yang telah dibuat.",
           "path": "/shorturl/list?apikey=",
-          "status": "ready"
+          "status": "ready",
           "params": {
             "apikey": "Masukan Apikey Nya"
           }
