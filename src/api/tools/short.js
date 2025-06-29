@@ -24,7 +24,7 @@ const writeDb = (data) => {
 module.exports = function(app, validateApiKey) {
 
     // 1. ENDPOINT: Membuat Short URL Baru
-    app.get('/shorturl/create', validateApiKey, async (req, res) => {
+    app.get('/tools/shorturl/create', validateApiKey, async (req, res) => {
         const { url } = req.query;
 
         // Validasi URL
@@ -60,7 +60,7 @@ module.exports = function(app, validateApiKey) {
     });
 
     // 2. ENDPOINT: Menampilkan Semua Short URL
-    app.get('/shorturl/list', validateApiKey, (req, res) => {
+    app.get('/tools/shorturl/list', validateApiKey, (req, res) => {
         const db = readDb();
         res.json({
             status: 200,
@@ -70,7 +70,7 @@ module.exports = function(app, validateApiKey) {
     });
 
     // 3. ENDPOINT: Menghapus Short URL
-    app.get('/shorturl/delete', validateApiKey, (req, res) => {
+    app.get('/tools/shorturl/delete', validateApiKey, (req, res) => {
         const { short } = req.query;
 
         if (!short) {
