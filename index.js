@@ -68,6 +68,33 @@ fs.readdirSync(apiFolder).forEach((subfolder) => {
         });
     }
 });
+// ... setelah loop 'fs.readdirSync(apiFolder).forEach(...)'
+
+// ENDPOINT UNTUK REDIRECT SHORT URL
+app.get('/:shortcode', (req, res, next) => {
+    const { shortcode } = req.params;
+    const dbPathRedirect = path.join(__dirname, './src/database/urls.json');
+
+    try {
+        const data = fs.readFileSync(dbPathRedirect, 'utf8');
+        const db = JSON.parse(data);
+        const urlEntry = db.find(entry => entry.short === shortcode);
+
+        if (urlEntry) {
+            // Jika ditemukan, lakukan redirect
+            res.redirect(301, urlEntry.long);
+        } else {
+            // Jika tidak ditemukan, lanjutkan ke handler selanjutnya (yaitu 404)
+            next();
+        }
+    } catch (error) {
+        // Jika ada error (misal file tidak ada), lanjutkan saja
+        next();
+    }
+});
+
+// app.use((req, res, next) => { res.status(404).sendFile... })
+// ... sisa kode Anda
 console.log(chalk.bgHex('#90EE90').hex('#333').bold(' Load Complete! ✓ '));
 console.log(chalk.bgHex('#90EE90').hex('#333').bold(` Total Routes Loaded: ${totalRoutes} `));
 
