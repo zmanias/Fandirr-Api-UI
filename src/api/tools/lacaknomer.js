@@ -21,8 +21,8 @@ app.get('/tools/lacaknomer', async (req, res) => {
     // 2️⃣ (Opsional) Lookup balik via Proxycurl
     let reverse = null;
     if (proxycurl_key) {
-      try {
-        const pc = await axios.get('https://nubela.co/proxycurl/api/v2/resolve/phone', {
+      try { //https://enrichlayer.com/
+        const pc = await axios.get('https://nubela.co/proxycurl/api/resolve/phone', {
           params: { phone_number: phone },
           headers: { Authorization: `Bearer ${proxycurl_key}` }
         });
