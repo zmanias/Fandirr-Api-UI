@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = function(app) {
 
 // Endpoint lacak IP
-app.get('/api/iplookup', async (req, res) => {
+app.get('/tools/lacakip', async (req, res) => {
   const { ip } = req.query;
   if (!ip) return res.status(400).json({ error: 'Parameter "ip" diperlukan' });
 
