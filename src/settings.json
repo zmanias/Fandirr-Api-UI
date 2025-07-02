@@ -459,7 +459,7 @@
           "status": "ready",
           "params": {
             "secret": "Masukan Kode A2F nya"
-        }
+        },
         {
           "name": "Translate By Lara",
           "desc": "Terjemahkan Bahasa Anda Pakai Ini",
