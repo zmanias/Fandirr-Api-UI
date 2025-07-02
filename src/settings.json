@@ -453,6 +453,14 @@
       "name": "Tools",
       "items": [
         {
+          "name": "A2F",
+          "desc": "Menampilkan kode dari secret A2F",
+          "path": "/tools/a2f/generate?secret=",
+          "status": "ready",
+          "params": {
+            "secret": "Masukan Kode A2F nya"
+        }
+        {
           "name": "Translate By Lara",
           "desc": "Terjemahkan Bahasa Anda Pakai Ini",
           "path": "/tools/translate-lara?text=&target=&mode=",
