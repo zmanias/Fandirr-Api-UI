@@ -463,7 +463,7 @@
         {
           "name": "Lacak Nomer",
           "desc": "Melacak menggunakan Nomer Telfon",
-          "path": "/tools/lacaknomer?num=&numverify_key=proxycurl_key",
+          "path": "/tools/lacaknomer?num=&numverify_key=&proxycurl_key=",
           "status": "ready",
           "params": {
             "num": "Masukan Nomer nya (+628***)",
