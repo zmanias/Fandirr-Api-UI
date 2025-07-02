@@ -461,6 +461,16 @@
           }
         },
         {
+          "name": "Lacak Nomer",
+          "desc": "Melacak menggunakan Nomer Telfon",
+          "path": "/tools/lacaknomer?num=&numverify_key=",
+          "status": "ready",
+          "params": {
+            "num": "Masukan Nomer nya (+628***)",
+            "numverify_key": "Masukan Token Untuk Melacak"
+          }
+        },
+        {
           "name": "Lacak IP",
           "desc": "Melacak dari IP Target",
           "path": "/tools/lacakip?ip=",
@@ -475,8 +485,8 @@
           "path": "/tools/gmap?lat=&lon=",
           "status": "ready",
           "params": {
-            "latitude": "Masukan Kode Latitude nya",
-            "longitude": "Masukan Kode Longitude"
+            "lat": "Masukan Kode Latitude nya",
+            "lon": "Masukan Kode Longitude"
           }
         },
         {
