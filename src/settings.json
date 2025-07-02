@@ -278,10 +278,9 @@
         {
           "name": "BRAT",
           "desc": "Brat Bret Brot",
-          "path": "/imgcreator/brat?apikey=&text=",
+          "path": "/imgcreator/brat?&text=",
           "status": "ready",
           "params": {
-            "apikey": "Masukan Apikeys Nya",
             "text": "Masukan Tulisannya"
           }
         },
