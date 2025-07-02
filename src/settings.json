@@ -459,6 +459,7 @@
           "status": "ready",
           "params": {
             "secret": "Masukan Kode A2F nya"
+          }
         },
         {
           "name": "Translate By Lara",
