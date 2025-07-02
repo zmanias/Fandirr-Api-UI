@@ -461,6 +461,25 @@
           }
         },
         {
+          "name": "Lacak IP",
+          "desc": "Melacak dari IP Target",
+          "path": "/tools/lacakip?ip=",
+          "status": "ready",
+          "params": {
+            "ip": "Masukan IP nya"
+          }
+        },
+        {
+          "name": "GMAPS",
+          "desc": "Menampilkan url lokasi target",
+          "path": "/tools/gmap?lat=&lon=",
+          "status": "ready",
+          "params": {
+            "latitude": "Masukan Kode Latitude nya",
+            "longitude": "Masukan Kode Longitude"
+          }
+        },
+        {
           "name": "Translate By Lara",
           "desc": "Terjemahkan Bahasa Anda Pakai Ini",
           "path": "/tools/translate-lara?text=&target=&mode=",
