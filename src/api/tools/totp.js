@@ -16,7 +16,7 @@ app.get('/api/totp/secret', (req, res) => {
 });
 
 // Endpoint generate kode TOTP
-app.get('/tools/totp/generate', (req, res) => {
+app.get('/tools/a2f/generate', (req, res) => {
   const { secret } = req.query;
   if (!secret) return res.status(400).json({ error: 'Parameter secret diperlukan' });
 
