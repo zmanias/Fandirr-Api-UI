@@ -22,7 +22,7 @@ app.get('/tools/a2f/generate', (req, res) => {
 
   try {
     const token = authenticator.generate(secret);
-    res.json({ kode });
+    res.json({ token });
   } catch (err) {
     res.status(500).json({ error: 'Gagal generate token', detail: err.message });
   }
