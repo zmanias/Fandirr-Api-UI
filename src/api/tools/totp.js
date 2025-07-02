@@ -1,10 +1,7 @@
 const express = require('express');
 const { authenticator } = require('otplib');
 
-const app = express();
-app.use(express.json());
-
-const PORT = 5000;
+module.exports = function(app) {
 
 // Endpoint untuk generate secret
 app.get('/api/totp/secret', (req, res) => {
