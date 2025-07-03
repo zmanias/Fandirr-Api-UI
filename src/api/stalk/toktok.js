@@ -38,7 +38,7 @@ app.get('/stalk/tt/profile', async (req, res) => {
 });
 
 // Endpoint: GET /api/tokviewer/posts?username=...&offset=0&limit=5
-app.get('/stalk/tt/posts', async (req, res) => {
+app.get('/stalk/tt/post', async (req, res) => {
   const { username, offset = 0, limit = 10 } = req.query;
   if (!username) return res.status(400).json({ status: false, error: 'Parameter username diperlukan' });
 
