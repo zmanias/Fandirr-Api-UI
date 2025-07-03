@@ -102,6 +102,15 @@
           }
         },
         {
+          "name": "Felo AI",
+          "desc": "AI dari si Felo Canggih",
+          "path": "/ai/felo?query=",
+          "status": "ready",
+          "params": {
+            "query": "Text for Felo to respond to"
+          }
+        },
+        {
           "name": "Gemini",
           "desc": "AI Google Gemini",
           "path": "/ai/gemini?prompt=",
