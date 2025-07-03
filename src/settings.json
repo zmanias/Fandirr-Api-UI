@@ -367,6 +367,26 @@
             "kota": "Masukan Nama Kota"
           }
         },
+        
+          "name": "TokTok Profil",
+          "desc": "Cek Profil TikTok Kalian",
+          "path": "/stalk/tt/profile?username=",
+          "status": "ready",
+          "params": {
+            "username": "Masukan Username nya"
+          }
+        },
+        
+          "name": "TokTok Postingan",
+          "desc": "Cek Postingan TikTok Kalian",
+          "path": "/stalk/tt/post?username=&offset=&limit=",
+          "status": "ready",
+          "params": {
+            "username": "Masukan Username",
+            "offset": "Masukan Offset",
+            "limit": "Masukan Limit Nya"
+          }
+        },
         {
           "name": "Capcut",
           "desc": "Kepoin Cangcut Orang",
