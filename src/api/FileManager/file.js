@@ -8,7 +8,7 @@ module.exports = function(app) {
 // Direktori untuk file publik
 const FILES_DIR = path.join(__dirname, 'public_files');
 // Kunci rahasia HANYA untuk login
-const SECRET_LOGIN_KEY = 'password-saya-untuk-masuk';
+const SECRET_LOGIN_KEY = 'Gatau';
 // --- Middleware ---
 
 // Middleware untuk membuat file publik bisa diakses lewat URL
