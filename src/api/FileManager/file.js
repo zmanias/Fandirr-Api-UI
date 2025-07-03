@@ -9,8 +9,6 @@ module.exports = function(app) {
 const FILES_DIR = path.join(__dirname, 'public_files');
 
 // --- Middleware ---
-app.use(cors()); // Mengizinkan Cross-Origin Resource Sharing
-app.use(express.json()); // Mem-parsing body request JSON
 
 // Middleware untuk membuat file publik bisa diakses lewat URL
 // Contoh: file 'catatan.txt' bisa diakses di http://localhost:3000/files/catatan.txt
