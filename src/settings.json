@@ -376,7 +376,7 @@
             "username": "Masukan Username nya"
           }
         },
-        
+        {
           "name": "TokTok Postingan",
           "desc": "Cek Postingan TikTok Kalian",
           "path": "/stalk/tt/post?username=&offset=&limit=",
