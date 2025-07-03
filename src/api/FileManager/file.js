@@ -7,13 +7,25 @@ module.exports = function(app) {
 
 // Direktori untuk file publik
 const FILES_DIR = path.join(__dirname, 'public_files');
-
+// Kunci rahasia HANYA untuk login
+const SECRET_LOGIN_KEY = 'password-saya-untuk-masuk';
 // --- Middleware ---
 
 // Middleware untuk membuat file publik bisa diakses lewat URL
 // Contoh: file 'catatan.txt' bisa diakses di http://localhost:3000/files/catatan.txt
 app.use('/files', express.static(FILES_DIR));
+// --- Endpoint BARU untuk Cek Kunci ---
+app.post('/api/check-key', (req, res) => {
+    const { key } = req.body;
 
+    if (key && key === SECRET_LOGIN_KEY) {
+        // Jika kunci benar, kirim respons sukses
+        res.status(200).json({ status: 'success', message: 'Kunci benar.' });
+    } else {
+        // Jika kunci salah, kirim error
+        res.status(401).json({ status: 'error', message: 'Kunci yang Anda masukkan salah.' });
+    }
+});
 
 // Fungsi untuk memastikan direktori publik ada
 const ensureDirExists = async () => {
