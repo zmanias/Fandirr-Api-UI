@@ -12,6 +12,17 @@
   },
   "categories": [
     {
+      "name": "Payment Gateaway(Orkut)",
+      "items": [
+        {
+          "name": "Buat Pembayaran",
+          "desc": "Membuat pembayaran QRIS",
+          "path": "/api/orkut/createpayment?apikey=&amount=&codeqr",
+          "status": "ready"
+        }
+      ]
+    },
+    {
       "name": "Panel Pterodactyl",
       "items": [
         {
