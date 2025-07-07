@@ -433,6 +433,15 @@
           }
         },
         {
+          "name": "Free Fire Checker",
+          "desc": "Cek Data Free Fire Kamu Beserta Outfit nya",
+          "path": "/stalk/ffcek?uid=",
+          "status": "ready",
+          "params": {
+            "uid": "Masukan ID Free Fire"
+          }
+        },
+        {
           "name": "An1 Com",
           "desc": "Melihat detail dari url AN1.com",
           "path": "/stalk/an1?url=",
