@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // REST API endpoint - GET
 app.get('/imgcreator/hitamkan', async (req, res) => {
