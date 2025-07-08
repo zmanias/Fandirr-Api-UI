@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const moment = require('moment');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 app.get('/stalk/ffcek', async (req, res) => {
   const uid = req.query.uid;
