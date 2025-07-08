@@ -1,5 +1,5 @@
 const axios = require('axios');
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
     async function bluearchive() {
         try {
             const { data } = await axios.get(`https://raw.githubusercontent.com/rynxzyy/blue-archive-r-img/refs/heads/main/links.json`)
