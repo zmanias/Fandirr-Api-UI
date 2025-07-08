@@ -90,4 +90,4 @@ module.exports = function(app, validateApiKey) {
         writeDb(db);
         res.json({ status: 200, message: `Short URL with code '${short}' has been deleted.` });
     });
-};
+}
