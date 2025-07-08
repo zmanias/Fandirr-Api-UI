@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Plugin Lara Translate langsung di sini
 const lara = {
