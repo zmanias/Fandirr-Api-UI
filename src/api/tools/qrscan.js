@@ -3,7 +3,7 @@ const axios = require('axios');
 const Jimp = require('jimp');
 const QrCode = require('qrcode-reader');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 app.get('/tools/qrscan', async (req, res) => {
   const imageUrl = req.query.url;
