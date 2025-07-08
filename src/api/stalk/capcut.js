@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
   // Fungsi scraping data CapCut
   async function scrapeCapcutStalk(url) {
