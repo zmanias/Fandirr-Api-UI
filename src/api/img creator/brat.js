@@ -4,7 +4,7 @@ const express = require('express');
 const { createCanvas, registerFont } = require('canvas');
 const path = require('path');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Daftarkan font
 try {
