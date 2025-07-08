@@ -4,7 +4,7 @@ const FormData = require('form-data');
 const cheerio = require('cheerio');
 const cors = require('cors');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Fungsi utama ssyoutube
 const ssyoutube = {
