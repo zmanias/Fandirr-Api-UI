@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Endpoint Terabox
 app.get('/download/terabox', async (req, res) => {
