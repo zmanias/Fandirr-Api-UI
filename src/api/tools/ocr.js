@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const Tesseract = require('tesseract.js');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 app.get('/tools/ocr', async (req, res) => {
   const { img } = req.query;
