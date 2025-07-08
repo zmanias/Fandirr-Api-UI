@@ -21,10 +21,10 @@ const writeDb = (data) => {
     fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 };
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
     // 1. ENDPOINT: Membuat Short URL Baru
-    app.get('/shorturl/create', async (req, res, validateApiKey) => {
+    app.get('/shorturl/create', async (req, res) => {
         const { url } = req.query;
 
         // Validasi URL
@@ -60,7 +60,7 @@ module.exports = function(app, validateApiKey) {
     });
 
     // 2. ENDPOINT: Menampilkan Semua Short URL
-    app.get('/shorturl/list', async (req, res, validateApiKey) => {
+    app.get('/shorturl/list', async (req, res) => {
         const db = readDb();
         res.json({
             status: 200,
@@ -70,7 +70,7 @@ module.exports = function(app, validateApiKey) {
     });
 
     // 3. ENDPOINT: Menghapus Short URL
-    app.get('/shorturl/delete', async (req, res, validateApiKey) => {
+    app.get('/shorturl/delete', async (req, res) => {
         const { short } = req.query;
 
         if (!short) {
