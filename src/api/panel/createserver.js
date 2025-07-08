@@ -2,7 +2,7 @@ const express = require('express')
 const fetch = require('node-fetch');
 const crypto = require('crypto');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 // Fungsi bantu
 const capital = (text) => text.charAt(0).toUpperCase() + text.slice(1);
