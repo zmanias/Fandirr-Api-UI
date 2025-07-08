@@ -2,7 +2,7 @@ const express = require('express');
 const { fetch } = require('undici');
 const cheerio = require('cheerio');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 class Xnxx {
   async search(query) {
