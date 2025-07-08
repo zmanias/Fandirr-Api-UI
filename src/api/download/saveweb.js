@@ -3,7 +3,7 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 async function saveweb2zip(url, options = {}) {
     try {
