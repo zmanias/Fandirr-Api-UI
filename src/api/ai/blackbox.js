@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 // Fungsi blackbox yang Anda berikan
 async function blackbox(queryText) { // Mengubah nama parameter menjadi queryText agar lebih jelas
