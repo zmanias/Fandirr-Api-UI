@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const Tesseract = require('tesseract.js');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 const upload = multer({ storage: multer.memoryStorage() });
 
 app.post('/api/ocr', upload.single('image'), async (req, res) => {
