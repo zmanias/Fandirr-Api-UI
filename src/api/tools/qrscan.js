@@ -3,11 +3,7 @@ const axios = require('axios');
 const Jimp = require('jimp');
 const jsQR = require('jsqr');
 
-const app = express();
-const PORT = 3000;
-
-// Middleware untuk membaca body JSON, diperlukan untuk metode POST
-app.use(express.json());
+module.exports = function(app) {
 
 /**
  * Handler utama untuk memproses gambar QR.
@@ -70,8 +66,4 @@ const decodeQrHandler = async (req, res) => {
 // Kedua route ini akan menggunakan handler yang sama
 app.get('/tools/qrscan', decodeQrHandler);
 app.post('/tools/qrscan', decodeQrHandler);
-
-
-app.listen(PORT, () => {
-    console.log(`Server QR Code Decoder berjalan di http://localhost:${PORT}`);
-});
+}
