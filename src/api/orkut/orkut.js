@@ -6,7 +6,7 @@ const QRCode = require('qrcode');
 const cors = require('cors');
 const path = require('path');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 app.enable("trust proxy");
 app.set("json spaces", 2);
