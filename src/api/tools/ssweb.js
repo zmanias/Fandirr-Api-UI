@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const puppeteer = require('puppeteer');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Endpoint Screenshot Website
 app.get('/tools/ssweb', async (req, res) => {
