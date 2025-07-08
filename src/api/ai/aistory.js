@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
   async function generateStory(question) {
     let { data } = await axios.get(
       'https://aistorygenerator.co/index.php?wpaicg_stream=yes&' +
