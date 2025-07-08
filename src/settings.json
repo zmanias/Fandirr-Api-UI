@@ -312,7 +312,7 @@
         {
           "name": "BRAT",
           "desc": "Brat Bret Brot",
-          "path": "/imgcreator/brat?&text=",
+          "path": "/imgcreator/brat?text=",
           "status": "ready",
           "params": {
             "text": "Masukan Tulisannya"
@@ -379,7 +379,7 @@
         {
           "name": "IMGLARGER",
           "desc": "Untuk Memperbesar Gambar, Memperjelas Gambar Dan Menajamkan Gambar",
-          "path": "/imgcreator/imglarger?imageUrl=&type=&scale",
+          "path": "/imgcreator/imglarger?imageUrl=&type=&scale=",
           "status": "ready",
           "params": {
             "imageUrl": "Masukan URL Gambar",
@@ -504,7 +504,7 @@
           "name": "List All Short URLs",
           "desc": "Menampilkan semua URL pendek yang telah dibuat.",
           "path": "/shorturl/list",
-          "status": "ready",
+          "status": "ready"
         },
         {
           "name": "Delete Short URL",
