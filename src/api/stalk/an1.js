@@ -3,7 +3,7 @@ const fetch = require('node-fetch'); // versi 2, agar bisa pakai require
 const cheerio = require('cheerio');
 const cors = require('cors');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36';
 
