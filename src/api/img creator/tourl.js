@@ -32,7 +32,7 @@ app.post('/api/tourl', upload.single('image'), (req, res) => {
 });
 
 /** 📋 List semua gambar yang diupload */
-app.get('/api/listurl', (req, res) => {
+app.get('/api/listurl', async (req, res) => {
   fs.readdir(UPLOAD_FOLDER, (err, files) => {
     if (err) return res.status(500).json({ error: 'Gagal membaca folder upload.' });
 
@@ -45,7 +45,7 @@ app.get('/api/listurl', (req, res) => {
 });
 
 /** ❌ Hapus gambar dari server */
-app.get('/api/delurl', (req, res) => {
+app.get('/api/delurl', async (req, res) => {
   const filename = req.query.file;
   if (!filename) return res.status(400).json({ error: 'Parameter "file" wajib diisi.' });
 
