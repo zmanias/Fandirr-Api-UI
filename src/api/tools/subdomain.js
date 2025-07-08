@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // CREATE SUBDOMAIN
 app.get('/cf/subdomain/create', async (req, res) => {
