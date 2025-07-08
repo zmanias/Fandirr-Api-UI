@@ -24,7 +24,7 @@ const writeDb = (data) => {
 module.exports = function(app, validateApiKey) {
 
     // 1. ENDPOINT: Membuat Short URL Baru
-    app.get('/shorturl/create', validateApiKey, async (req, res) => {
+    app.get('/shorturl/create', async (req, res, validateApiKey) => {
         const { url } = req.query;
 
         // Validasi URL
