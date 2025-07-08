@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // GET /api/phone-lookup?num=+628123456789&numverify_key=YOUR_NUMVERIFY_KEY&proxycurl_key=YOUR_PROXYCURL_KEY
 app.get('/tools/lacaknomer', async (req, res) => {
