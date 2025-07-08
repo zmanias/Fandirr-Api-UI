@@ -3,7 +3,7 @@ const axios = require('axios')
 const FormData = require('form-data')
 const stream = require('stream')
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Endpoint: /api/removal?image_url=https://example.com/image.jpg
 app.get('/imgcreator/rmbg', async (req, res) => {
