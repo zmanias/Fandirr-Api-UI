@@ -6,7 +6,7 @@ const QRCode = require('qrcode');
 const cors = require('cors');
 const path = require('path');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 app.enable("trust proxy");
 app.set("json spaces", 2);
@@ -77,7 +77,7 @@ async function createQRIS(amount, codeqr) {
 }
 
 // QRIS Payment Endpoint
-app.get('/api/orkut/createpayment', async (req, res) => {
+app.get('/api/orkut/createpayment', async (req, res, validateApiKey) => {
     const { amount, codeqr } = req.query;
 
     if (!amount || !codeqr) {
@@ -103,7 +103,7 @@ app.get('/api/orkut/createpayment', async (req, res) => {
 });
 
 // Check Status Endpoint
-app.get('/api/orkut/cekstatus', async (req, res) => {
+app.get('/api/orkut/cekstatus', async (req, res, validateApiKey) => {
     const { merchant, keyorkut } = req.query;
     if (!merchant || !keyorkut) {
         return res.status(400).json({
