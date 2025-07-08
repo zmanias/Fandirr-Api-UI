@@ -9,7 +9,7 @@ const express = require('express');
 const { exec } = require('child_process');
 const cors = require('cors');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 app.get('/tools/subfinder', async (req, res) => {
   const domain = req.query.domain;
