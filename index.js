@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 });
 
 //APIKEYS
-/*const validateApiKey = (req, res, next) => {
+const validateApiKey = (req, res, next) => {
   const userApiKey = req.query.apikey;
   const validApiKeys = settings.apiSettings.apikey;
 
@@ -49,7 +49,7 @@ app.use((req, res, next) => {
   } else {
     return res.status(403).json({ status: 403, message: 'Forbidden. Invalid API key.' });
   }
-};*/
+};
 
 // Api Route
 let totalRoutes = 0;
