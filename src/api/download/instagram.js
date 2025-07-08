@@ -3,7 +3,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const cors = require("cors");
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 async function yt5sIo(url) {
     try {
