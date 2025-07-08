@@ -1,5 +1,5 @@
 const axios = require('axios');
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
     async function fetchContent(content) {
         try {
             const response = await axios.post('https://luminai.my.id/', { content });
