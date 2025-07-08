@@ -388,7 +388,18 @@
             "type": "Pilih upscale, enhance atau sharpener",
             "scale": "Opsional untuk enhance dan sharpener"
           }
-        }
+        },
+        {
+          "name": "QR Static To Dinamis",
+          "desc": "Ubah Qris Kamu Menjaadi Dinams Supaya Tidak Memasukan Nominal Lagi",
+          "path": "/imgcreator/qrconvert?static_qris=&amount=&order_id=",
+          "status": "ready",
+          "params": {
+            "static_qris": "Masukan Kode Qris Nya",
+            "amount": "Masukan jumlah uang nya",
+            "order_id": "ID transaksi Bebas apa aja dah"
+          }
+        },
       ]
     },
     {
