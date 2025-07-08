@@ -9,9 +9,9 @@ const express = require('express');
 const { exec } = require('child_process');
 const cors = require('cors');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
-app.get('/tools/subfinder', async (req, res, validateApiKey) => {
+app.get('/tools/subfinder', async (req, res) => {
   const domain = req.query.domain;
 
   if (!domain) {
