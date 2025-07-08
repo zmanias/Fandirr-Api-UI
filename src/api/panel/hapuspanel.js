@@ -1,7 +1,7 @@
 const express = require('express');
 const fetch = require('node-fetch');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 app.get('/panel/delpanel', async (req, res) => {
   const { domain, plta, pltc, id } = req.query;
