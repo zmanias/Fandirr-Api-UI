@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 async function imglarger(buffer, options = {}) { const { scale = '2', type = 'upscale' } = options;
 
