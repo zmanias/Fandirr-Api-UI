@@ -60,7 +60,7 @@ module.exports = function(app, validateApiKey) {
     });
 
     // 2. ENDPOINT: Menampilkan Semua Short URL
-    app.get('/shorturl/list', (req, res, validateApiKey) => {
+    app.get('/shorturl/list', async (req, res, validateApiKey) => {
         const db = readDb();
         res.json({
             status: 200,
@@ -70,7 +70,7 @@ module.exports = function(app, validateApiKey) {
     });
 
     // 3. ENDPOINT: Menghapus Short URL
-    app.get('/shorturl/delete', (req, res, validateApiKey) => {
+    app.get('/shorturl/delete', async (req, res, validateApiKey) => {
         const { short } = req.query;
 
         if (!short) {
