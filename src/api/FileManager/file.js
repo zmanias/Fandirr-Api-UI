@@ -3,7 +3,7 @@ const fs = require('fs').promises; // Menggunakan fs.promises untuk async/await
 const path = require('path');
 const cors = require('cors');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 // Direktori untuk file publik
 const FILES_DIR = path.join(__dirname, 'public_files');
