@@ -17,10 +17,9 @@
         {
           "name": "Buat Pembayaran",
           "desc": "Membuat pembayaran QRIS",
-          "path": "/api/orkut/createpayment?apikey=&amount=&codeqr=",
+          "path": "/api/orkut/createpayment?amount=&codeqr=",
           "status": "ready",
           "params": {
-            "apikey": "Masukin apikey Rest Api",
             "amount": "Masukan Jumlah/Nominal nya",
             "codeqr": "Masukan Kode QR Orkut kamu yha"
           }
@@ -28,10 +27,9 @@
         {
           "name": "Cek Status Pembayaran",
           "desc": "Cek Status pembayaran QRIS",
-          "path": "/api/orkut/cekstatus?apikey=&merchant=&keyorkut=",
+          "path": "/api/orkut/cekstatus?merchant=&keyorkut=",
           "status": "ready",
           "params": {
-            "apikey": "Masukin apikey Rest Api",
             "merchant": "Masukan MeechantID Orkut",
             "keyorkut": "Masukan apikey orkut lu"
           }
@@ -496,29 +494,24 @@
         {
           "name": "Create Short URL",
           "desc": "Membuat URL pendek dari URL panjang.",
-          "path": "/shorturl/create?apikey=&url=",
+          "path": "/shorturl/create?url=",
           "status": "ready",
           "params": {
-            "apikey": "Masukan Apikey Nya",
             "url": "URL panjang yang ingin disingkat (harus diawali http/https)."
           }
         },
         {
           "name": "List All Short URLs",
           "desc": "Menampilkan semua URL pendek yang telah dibuat.",
-          "path": "/shorturl/list?apikey=",
+          "path": "/shorturl/list",
           "status": "ready",
-          "params": {
-            "apikey": "Masukan Apikey Nya"
-          }
         },
         {
           "name": "Delete Short URL",
           "desc": "Menghapus URL pendek berdasarkan kodenya.",
-          "path": "/shorturl/delete?apikey=&short=",
+          "path": "/shorturl/delete?short=",
           "status": "ready",
           "params": {
-            "apikey": "Masukan Apikey Nya",
             "short": "Kode pendek unik yang ingin dihapus."
           }
         }
@@ -580,10 +573,9 @@
         {
           "name": "SSWEB (Screenshot Web)",
           "desc": "Screenshot Sebuah Web Menggunakan URL",
-          "path": "/tools/ssweb?apikey=&url=",
+          "path": "/tools/ssweb?url=",
           "status": "ready",
           "params": {
-            "apikey": "Masukan Apikey Nya",
             "url": "Masukan URL WEB nya"
           }
         },
@@ -608,10 +600,9 @@
         {
           "name": "Subfinder",
           "desc": "Mencari Sebuah Subdomain Dari Indux Domain",
-          "path": "/tools/subfinder?apikey=&domain=",
+          "path": "/tools/subfinder?domain=",
           "status": "ready",
           "params": {
-            "apikey": "Masukan Apikey Kamu, Gapunya? Yhaa Beli Lah Ama Bang Fandirr",
             "domain": "Masukan Indux Domainnya"
           }
         }
