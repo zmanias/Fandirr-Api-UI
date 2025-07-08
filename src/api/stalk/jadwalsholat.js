@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
   // Fungsi utama untuk mengambil jadwal sholat
   const jadwalSholat = {
     kota: async (kota) => {
