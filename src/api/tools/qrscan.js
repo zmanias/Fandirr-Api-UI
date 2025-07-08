@@ -3,18 +3,26 @@ const axios = require('axios');
 const Jimp = require('jimp');
 const jsQR = require('jsqr');
 
-module.exports = function(app) {
+const app = express();
+const PORT = 3000;
 
-// Middleware express.json() tidak diperlukan untuk endpoint GET
-// app.use(express.json());
+// Middleware untuk membaca body JSON, diperlukan untuk metode POST
+app.use(express.json());
 
-// UBAH DARI app.post MENJADI app.get
-app.get('/tools/qrscan', async (req, res) => {
-    // UBAH DARI req.body MENJADI req.query
-    const { imageUrl } = req.query;
+/**
+ * Handler utama untuk memproses gambar QR.
+ * Fungsi ini akan dipanggil oleh route GET dan POST.
+ */
+const decodeQrHandler = async (req, res) => {
+    // Cek apakah ini request POST atau GET untuk mengambil imageUrl
+    // Jika POST, ambil dari body. Jika GET, ambil dari query.
+    const imageUrl = req.method === 'POST' ? req.body.imageUrl : req.query.imageUrl;
 
     if (!imageUrl) {
-        return res.status(400).json({ success: false, error: "Mohon sertakan parameter 'imageUrl' di URL." });
+        const errorMessage = req.method === 'POST' 
+            ? "Mohon sertakan 'imageUrl' di body request."
+            : "Mohon sertakan parameter 'imageUrl' di URL.";
+        return res.status(400).json({ success: false, error: errorMessage });
     }
 
     try {
@@ -56,5 +64,14 @@ app.get('/tools/qrscan', async (req, res) => {
             message: error.message
         });
     }
+};
+
+// --- Mendefinisikan Routes ---
+// Kedua route ini akan menggunakan handler yang sama
+app.get('/tools/qrscan', decodeQrHandler);
+app.post('/tools/qrscan', decodeQrHandler);
+
+
+app.listen(PORT, () => {
+    console.log(`Server QR Code Decoder berjalan di http://localhost:${PORT}`);
 });
-}
