@@ -1,6 +1,6 @@
 const express = require('express');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 app.get('/tools/gmap', (req, res) => {
   const { lat, lon } = req.query;
