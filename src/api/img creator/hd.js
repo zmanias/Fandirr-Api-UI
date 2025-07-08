@@ -2,7 +2,7 @@ const express = require('express')
 const fetch = require('node-fetch') // versi 2, wajib!
 const FormData = require('form-data')
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 app.get('/imgcreator/hd', async (req, res) => {
   const imageUrl = req.query.image_url
