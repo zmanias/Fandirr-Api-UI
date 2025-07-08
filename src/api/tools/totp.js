@@ -1,7 +1,7 @@
 const express = require('express');
 const { authenticator } = require('otplib');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Endpoint untuk generate secret
 app.get('/api/totp/secret', (req, res) => {
