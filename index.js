@@ -61,7 +61,7 @@ fs.readdirSync(apiFolder).forEach((subfolder) => {
             const filePath = path.join(subfolderPath, file);
             if (path.extname(file) === '.js') {
               ///Baru Apikeys
-                require(filePath)(app, validateApiKey);
+                require(filePath)(app);
                 totalRoutes++;
                 console.log(chalk.bgHex('#FFFF99').hex('#333').bold(` Loaded Route: ${path.basename(file)} `));
             }
