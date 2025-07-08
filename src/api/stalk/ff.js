@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Fungsi ffstalk
 async function ffstalk(id) {
