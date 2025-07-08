@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 app.get('/download/tiktok', async (req, res) => {
   const { url } = req.query;
