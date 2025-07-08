@@ -1,4 +1,4 @@
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
     const yts = require('yt-search');
     app.get('/search/youtube', async (req, res) => {
         const { q } = req.query;
