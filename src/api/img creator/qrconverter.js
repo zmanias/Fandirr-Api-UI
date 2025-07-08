@@ -45,7 +45,7 @@ function calculateCRC16(data) {
 }
 
 // UBAH DARI app.post MENJADI app.get
-app.get('/imgcreator/qrconvert', (req, res) => {
+app.get('/imgcreator/qrconvert', async (req, res) => {
     // UBAH DARI req.body MENJADI req.query
     const { static_qris, amount, order_id } = req.query;
 
