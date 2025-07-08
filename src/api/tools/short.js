@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const { nanoid } = require('nanoid');
 
+module.exports = function(app) {
+
 // Path menuju file database JSON kita
 const dbPath = path.join(__dirname, '../../../src/database/urls.json');
 
@@ -20,8 +22,6 @@ const readDb = () => {
 const writeDb = (data) => {
     fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
 };
-
-module.exports = function(app) {
 
     // 1. ENDPOINT: Membuat Short URL Baru
     app.get('/shorturl/create', async (req, res) => {
