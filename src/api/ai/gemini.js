@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 const GEMINI_API_KEY = 'AIzaSyAG1wIhfHreufPqO6Jg5Z6e1E8xZAVhg4w'; // Ganti dengan API KEY kamu
 
