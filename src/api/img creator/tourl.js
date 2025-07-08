@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 const DOMAIN = 'https://api.fandirr.my.id'; // Ganti ke domainmu
 
 const UPLOAD_FOLDER = path.join(__dirname, 'public/uploads');
