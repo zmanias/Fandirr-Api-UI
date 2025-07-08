@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Endpoint lacak IP
 app.get('/tools/lacakip', async (req, res) => {
