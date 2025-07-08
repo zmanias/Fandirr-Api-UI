@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { nanoid } = require('nanoid');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Path menuju file database JSON kita
 const dbPath = path.join(__dirname, '../../../src/database/urls.json');
