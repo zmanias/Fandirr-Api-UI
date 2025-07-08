@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 function formatSize(bytes) {
   if (!bytes) return '';
