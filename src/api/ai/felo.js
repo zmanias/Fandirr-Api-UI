@@ -3,7 +3,7 @@ const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 const { JSDOM } = require('jsdom');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 const USER_AGENTS = [
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
