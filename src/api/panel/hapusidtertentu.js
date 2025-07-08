@@ -1,7 +1,7 @@
 const express = require('express');
 const fetch = require('node-fetch');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 app.get('/panel/hapusserverid', async (req, res) => {
   const { domain, plta, pltc, only } = req.query;
