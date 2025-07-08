@@ -1,7 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 
 const headers = {
   'Content-Type': 'application/json',
