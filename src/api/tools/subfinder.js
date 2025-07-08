@@ -11,7 +11,7 @@ const cors = require('cors');
 
 module.exports = function(app, validateApiKey) {
 
-app.get('/tools/subfinder', (req, res, validateApiKey) => {
+app.get('/tools/subfinder', async (req, res, validateApiKey) => {
   const domain = req.query.domain;
 
   if (!domain) {
