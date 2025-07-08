@@ -3,7 +3,7 @@ const axios = require('axios');
 const fetch = require('node-fetch');
 const multer = require('multer');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
   
   const upload = multer({ storage: multer.memoryStorage() });
 
