@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const cors = require('cors');
 
-module.exports = function(app, validateApiKey) {
+module.exports = function(app) {
 const baseUrl = 'https://an1.com/';
 
 async function scrapeAn1(searchQuery) {
