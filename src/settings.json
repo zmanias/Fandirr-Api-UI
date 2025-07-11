@@ -179,6 +179,16 @@
       "name": "Search Tools",
       "items": [
         {
+          "name": "Pinterest",
+          "desc": "Pinterest search",
+          "path": "/search/pin?query=&limit=",
+          "status": "ready",
+          "params": {
+            "query": "Mau cari gambar apa om?",
+            "limit": "Berapa gambar?"
+          }
+        },
+        {
           "name": "YouTube",
           "desc": "Video search",
           "path": "/search/youtube?q=",
