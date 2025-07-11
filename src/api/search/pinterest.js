@@ -43,7 +43,7 @@ async function pinterestSearch(keyword, max = 20) {
 /* ================================================================
    Endpoint GET /api/pinterest?query=<keyword>&limit=<angka>
    ================================================================ */
-app.get('/api/pinterest', async (req, res) => {
+app.get('/search/pin', async (req, res) => {
   const { query, limit = 20 } = req.query;
 
   if (!query)
