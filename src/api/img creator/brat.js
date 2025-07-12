@@ -77,32 +77,30 @@ app.get('/imgcreator/bratvid', async (req, res) => {
     const text = (req.query.text || 'hallo').trim();
     if (!text) return res.status(400).json({ error: 'Parameter text wajib diisi' });
 
-    // Siapkan canvas untuk setiap frame
-    const base = await generateCanvasImage(text);
-    const w = base.canvas.width;
-    const h = base.canvas.height;
-
-    const encoder = new GIFEncoder(w, h);
-    encoder.start();
-    encoder.setRepeat(0);   // 0 = loop selamanya
-    encoder.setQuality(10);
-
-    const ctx = base.canvas.getContext('2d');
-
     const words = text.split(/\s+/);
+    const width = 500;
+    const height = 500;
+    const padding = 25;
+
+    const canvas = createCanvas(width, height);
+    const ctx = canvas.getContext('2d');
+    const encoder = new GIFEncoder(width, height);
+
+    encoder.start();
+    encoder.setRepeat(0); // loop forever
+    encoder.setQuality(10);
+    encoder.setDelay(600); // delay per frame in ms
 
     if (words.length === 1) {
-      encoder.setDelay(0);
-      encoder.addFrame(ctx);          // 1 frame statis
+      drawWrappedText(ctx, words[0], width, height, padding);
+      encoder.addFrame(ctx);
     } else {
-      encoder.setDelay(500);          // 500 ms tiap frame
-
-      // Frame-1 → kata pertama
-      await drawLine(ctx, words[0]);
+      // Frame 1: kata pertama
+      drawWrappedText(ctx, words[0], width, height, padding);
       encoder.addFrame(ctx);
 
-      // Frame-2 → kalimat penuh
-      await drawLine(ctx, text);
+      // Frame 2: full kalimat
+      drawWrappedText(ctx, text, width, height, padding);
       encoder.addFrame(ctx);
     }
 
@@ -113,6 +111,54 @@ app.get('/imgcreator/bratvid', async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+
+function drawWrappedText(ctx, text, width, height, padding) {
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, width, height);
+
+  ctx.fillStyle = '#000000';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'top';
+
+  let fontSize = 150;
+  let lines;
+  const maxHeight = height - padding * 2;
+
+  do {
+    ctx.font = `${fontSize}px Arial`;
+    const lineHeight = fontSize * 1.2;
+    const maxWidth = width - padding * 2;
+
+    const words = text.split(' ');
+    let currentLine = '';
+    lines = [];
+
+    for (const word of words) {
+      const testLine = currentLine + word + ' ';
+      if (ctx.measureText(testLine).width > maxWidth && currentLine.length > 0) {
+        lines.push(currentLine.trim());
+        currentLine = word + ' ';
+      } else {
+        currentLine = testLine;
+      }
+    }
+    lines.push(currentLine.trim());
+
+    if (lines.length * lineHeight > maxHeight) {
+      fontSize -= 5;
+    } else {
+      break;
+    }
+  } while (fontSize > 10);
+
+  ctx.font = `${fontSize}px Arial`;
+  const lineHeight = fontSize * 1.2;
+
+  for (let i = 0; i < lines.length; i++) {
+    const drawY = padding + i * lineHeight;
+    ctx.fillText(lines[i], padding, drawY);
+  }
+}
 
 // Fungsi helper menggambar ulang teks pada context
 async function drawLine(ctx, text) {
