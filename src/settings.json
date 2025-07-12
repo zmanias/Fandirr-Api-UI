@@ -329,6 +329,15 @@
           }
         },
         {
+          "name": "BRAT VIDEO",
+          "desc": "Brat Bret Brot",
+          "path": "/imgcreator/bratvid?text=",
+          "status": "ready",
+          "params": {
+            "text": "Masukan Tulisannya"
+          }
+        },
+        {
           "name": "Hitamkan",
           "desc": "Hitamkan Warna Kulit",
           "path": "/imgcreator/hitamkan?imageUrl=",
