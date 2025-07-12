@@ -5,9 +5,7 @@ const { createCanvas, registerFont } = require('canvas');
 const GIFEncoder = require('gifencoder');
 const path       = require('path');
 
-const app  = express();
-const PORT = process.env.PORT || 3000;
-app.use(cors());
+module.exports = function (app) {
 
 // Daftarkan font lokal (sesuaikan path bila perlu)
 try {
@@ -126,9 +124,4 @@ async function drawLine(ctx, text) {
   await generateCanvasImage(text, { width, height });
   // generateCanvasImage menggambar langsung pada context global (karena share canvas)
 }
-
-app.use((_, res) => res.status(404).json({ error: 'Endpoint not found' }));
-
-app.listen(PORT, () => {
-  console.log(`🚀 Image Creator API running on http://localhost:${PORT}`);
-});
+}
