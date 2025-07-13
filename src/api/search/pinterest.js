@@ -1,44 +1,59 @@
+// Impor library yang dibutuhkan
 const express = require('express');
-const puppeteer = require('puppeteer');
-const cors = require('cors');
+const axios = require('axios');
 
 module.exports = function(app) {
 
-async function pinterestSearch(keyword, max = 20) {
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
-  const page = await browser.newPage();
+// ⬇️ Letakkan token Anda langsung di sini ⬇️
+// PERINGATAN: Tidak disarankan untuk aplikasi produksi!
+const PINTEREST_ACCESS_TOKEN = "PASTE_YOUR_ACCESS_TOKEN_HERE";
 
-  await page.setUserAgent(
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' +
-    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
-  );
-  await page.goto(`https://www.pinterest.com/search/pins/?q=${encodeURIComponent(keyword)}`, {
-    waitUntil: 'networkidle2'
-  });
+// Middleware untuk membaca body request dalam format JSON
+app.use(express.json());
 
-  const results = await page.evaluate((maxItems) => {
-    const imgs = Array.from(document.querySelectorAll('img[src^="https://i.pinimg.com/"]'));
-    return imgs.slice(0, maxItems).map(img => ({
-      image: img.src,
-      alt: img.alt || '',
-      link: img.closest('a')?.href || ''
-    }));
-  }, max);
-
-  await browser.close();
-  return results;
-}
-
+// Endpoint utama untuk pencarian
 app.get('/search/pin', async (req, res) => {
-  const { query, limit = 20 } = req.query;
-  if (!query) return res.status(400).json({ status: false, message: 'Parameter "query" wajib diisi' });
+  const searchQuery = req.query.q;
+
+  if (!searchQuery) {
+    return res.status(400).json({ error: 'Parameter "q" (query) tidak boleh kosong.' });
+  }
+  
+  // Validasi sederhana untuk memastikan token sudah diisi
+  if (!PINTEREST_ACCESS_TOKEN || PINTEREST_ACCESS_TOKEN === "PASTE_YOUR_ACCESS_TOKEN_HERE") {
+    return res.status(500).json({
+      error: 'Pinterest Access Token belum diatur di dalam variabel.'
+    });
+  }
 
   try {
-    const data = await pinterestSearch(query, Number(limit));
-    res.json({ status: true, total: data.length, results: data });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ status: false, message: 'Gagal mengambil data', error: err.message });
+    console.log(`Meneruskan pencarian ke Pinterest untuk: "${searchQuery}"`);
+    
+    const response = await axios.get('https://api.pinterest.com/v5/search/pins', {
+      headers: {
+        // Gunakan variabel token yang sudah didefinisikan di atas
+        'Authorization': `Bearer ${PINTEREST_ACCESS_TOKEN}`
+      },
+      params: {
+        'query': searchQuery,
+        'limit': 10
+      }
+    });
+
+    // Olah hasil untuk disajikan ke pengguna
+    const pins = response.data.items;
+    const simplifiedResults = pins.map(pin => ({
+      id: pin.id,
+      description: pin.title,
+      image_url: pin.media.images['1200x']?.url || pin.media.images.original.url,
+      pinterest_url: pin.link
+    }));
+
+    res.status(200).json(simplifiedResults);
+
+  } catch (error) {
+    console.error("Error saat menghubungi API Pinterest:", error.response?.data || error.message);
+    res.status(500).json({ error: 'Terjadi kesalahan saat mengambil data dari Pinterest.' });
   }
 });
 }
