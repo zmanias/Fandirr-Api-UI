@@ -55,7 +55,7 @@ async function scrapeAn1(searchQuery) {
   }
 }
 
-app.get('/search/and1', async (req, res) => {
+app.get('/search/an1', async (req, res) => {
   const { query } = req.query;
   if (!query) return res.status(400).json({ error: 'Query parameter is required' });
 
