@@ -298,7 +298,7 @@
         {
           "name": "YouTube V2",
           "desc": "Download Video/Musik Dari YouTube",
-          "path": "/download/youtube?url=",
+          "path": "/download/youtube2?url=&format=",
           "status": "ready",
           "params": {
             "url": "Masukan URL nya",
