@@ -21,7 +21,7 @@ app.get('/search/pin', async (req, res) => {
   const accessToken = process.env.PINTEREST_ACCESS_TOKEN;
 
   // Validasi: pastikan Access Token sudah diatur di .env
-  if (!accessToken || accessToken === "PASTE_YOUR_ACCESS_TOKEN_HERE") {
+  if (!accessToken || accessToken === "pina_AMAUMRYXAC3YIBAAGBAE2DQPYCFARGABQBIQDISOEIU7RZRUNH2NTAUA6KEWCROWSIXZ2UG72I7SMXBBSZ3A2GBGEF3JIMAA") {
     return res.status(500).json({
       error: 'Pinterest Access Token belum diatur di file .env'
     });
