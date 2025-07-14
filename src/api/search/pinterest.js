@@ -6,7 +6,7 @@ module.exports = function(app) {
 
 // ⬇️ Letakkan token Anda langsung di sini ⬇️
 // PERINGATAN: Tidak disarankan untuk aplikasi produksi!
-const PINTEREST_ACCESS_TOKEN = "PASTE_YOUR_ACCESS_TOKEN_HERE";
+const PINTEREST_ACCESS_TOKEN = "pina_AMAUMRYXAC3YIBAAGBAE2DWAXFUAJGABQBIQDODC3J6AQQM4WRV5MNEB2NLOJXIZ536BNAROYAFU3HVZN63OXLNLDVVQX6YA";
 
 // Middleware untuk membaca body request dalam format JSON
 app.use(express.json());
