@@ -188,6 +188,15 @@
           }
         },
         {
+          "name": "Pinterest",
+          "desc": "Cari Gambar Kamu Disinj",
+          "path": "/search/pin?q=",
+          "status": "ready",
+          "params": {
+            "q": "Masukan nama gambar yang mau kamu cari"
+          }
+        },
+        {
           "name": "An1 Com",
           "desc": "Pencarian Aplikasi Mod Dari Web an1.com",
           "path": "/search/an1?query=",
