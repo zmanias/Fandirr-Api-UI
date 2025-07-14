@@ -9,7 +9,6 @@ module.exports = function(app) {
 const PINTEREST_ACCESS_TOKEN = "pina_AMAUMRYXAC3YIBAAGBAE2DWAXFUAJGABQBIQDODC3J6AQQM4WRV5MNEB2NLOJXIZ536BNAROYAFU3HVZN63OXLNLDVVQX6YA";
 
 // Middleware untuk membaca body request dalam format JSON
-app.use(express.json());
 
 // Endpoint utama untuk pencarian
 app.get('/search/pin', async (req, res) => {
