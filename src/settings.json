@@ -296,6 +296,16 @@
           }
         },
         {
+          "name": "YouTube V2",
+          "desc": "Download Video/Musik Dari YouTube",
+          "path": "/download/youtube?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya",
+            "format": "best,720p,240p,mp3"
+          }
+        },
+        {
           "name": "Mediafire",
           "desc": "Download Mediafire Via API",
           "path": "/download/mediafire?url=",
