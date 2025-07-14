@@ -19,7 +19,7 @@ app.get('/search/pin', async (req, res) => {
   }
   
   // Validasi sederhana untuk memastikan token sudah diisi
-  if (!PINTEREST_ACCESS_TOKEN || PINTEREST_ACCESS_TOKEN === "PASTE_YOUR_ACCESS_TOKEN_HERE") {
+  if (!PINTEREST_ACCESS_TOKEN || PINTEREST_ACCESS_TOKEN === "pina_AMAUMRYXAC3YIBAAGBAE2DWAXFUAJGABQBIQDODC3J6AQQM4WRV5MNEB2NLOJXIZ536BNAROYAFU3HVZN63OXLNLDVVQX6YA") {
     return res.status(500).json({
       error: 'Pinterest Access Token belum diatur di dalam variabel.'
     });
