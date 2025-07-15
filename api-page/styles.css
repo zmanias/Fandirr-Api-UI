@@ -1600,3 +1600,20 @@ input:checked + .slider:before {
 .hidden-by-search {
     display: none !important;
 }
+/* Style untuk Statistik Sederhana di Hero */
+.hero-stats-simple {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.stat-item-simple strong {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+
+.stat-item-simple span {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+}
