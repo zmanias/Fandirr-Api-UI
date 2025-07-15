@@ -6,7 +6,7 @@ module.exports = function(app) {
 
 // 3. Definisikan endpoint API
 // Rute diubah menjadi /stalkig. Username akan diambil dari query string.
-app.get('/stalkig', async (req, res) => {
+app.get('/stalk/igv2', async (req, res) => {
   // Ambil username dari parameter query URL (?username=...)
   // Ubah dari req.params menjadi req.query
   const { username } = req.query;
