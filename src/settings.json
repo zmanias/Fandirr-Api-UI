@@ -127,6 +127,16 @@
           }
         },
         {
+          "name": "OpenAI - Edit Gambar",
+          "desc": "Edit gambar kamu dengan openai",
+          "path": "/ai/edit-image?imageUrl=&prompt=",
+          "status": "ready",
+          "params": {
+            "imageUrl": "Masukan link gambar kamu",
+            "prompt": "Masukan perintahnya"
+          }
+        },
+        {
           "name": "Felo AI",
           "desc": "AI dari si Felo Canggih",
           "path": "/ai/felo?query=",
