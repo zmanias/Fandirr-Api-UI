@@ -498,6 +498,15 @@
           }
         },
         {
+          "name": "Cek Nomer HP",
+          "desc": "Deteksi Kartu Apa Yang Di Pake",
+          "path": "/stalk/ceknomer?number=",
+          "status": "ready",
+          "params": {
+            "number": "Masukan Nomer Nya"
+          }
+        },
+        {
           "name": "Lirik",
           "desc": "Pengen Karaokean Yha Bang?",
           "path": "/stalk/lirik?q=",
