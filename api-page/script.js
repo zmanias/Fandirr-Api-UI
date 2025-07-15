@@ -202,8 +202,113 @@ clearSearchButton.addEventListener('mouseleave', () => {
     });
 
     try {
+      // GANTI SEMUA KODE DARI 'try {' HINGGA SEBELUM '} catch (error) {' DENGAN INI:
+
+// Definisikan fungsi setContent di bagian paling atas agar bisa diakses oleh kode di bawahnya.
+const setContent = (id, property, value, fallback = '') => {
+    const element = document.getElementById(id);
+    if (element) element[property] = value || fallback;
+};
+
+// Ambil data dari settings.json
+const settingsResponse = await fetch('/src/settings.json');
+if (!settingsResponse.ok) {
+    throw new Error(`Failed to load settings: ${settingsResponse.status}`);
+}
+const settings = await settingsResponse.json();
+
+// Set konten halaman utama
+const currentYear = new Date().getFullYear();
+setContent('page', 'textContent', settings.name, "Falcon-Api");
+setContent('wm', 'textContent', `© ${currentYear} ${settings.apiSettings?.creator || 'FlowFalcon'}. All rights reserved.`);
+setContent('name', 'textContent', settings.name, "Skyzopedia UI");
+setContent('version', 'textContent', settings.version, "v1.0");
+setContent('versionHeader', 'textContent', settings.header?.status, "Active!");
+setContent('description', 'textContent', settings.description, "Simple API's");
+
+// Hitung dan tampilkan total endpoint
+if (settings.categories && Array.isArray(settings.categories)) {
+    const totalEndpoints = settings.categories.reduce((acc, category) => acc + (category.items?.length || 0), 0);
+    setContent('totalEndpointsStat', 'textContent', `${totalEndpoints}+`);
+}
+
+const dynamicImage = document.getElementById('dynamicImage');
+if (dynamicImage && settings.bannerImage) {
+    dynamicImage.src = settings.bannerImage;
+}
+
+const apiLinksContainer = document.getElementById('apiLinks');
+if (apiLinksContainer && settings.links?.length) {
+    apiLinksContainer.innerHTML = '';
+    settings.links.forEach(({ url, name }) => {
+        const link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.innerHTML = `<i class="fas fa-external-link-alt"></i> ${name}`;
+        apiLinksContainer.appendChild(link);
+    });
+}
+
+// Buat konten kategori dan item API
+const apiContent = document.getElementById('apiContent');
+if (apiContent && settings.categories?.length) {
+    apiContent.innerHTML = ''; // Hapus konten lama sebelum mengisi yang baru
+    settings.categories.forEach((category) => {
+        const categoryElement = document.createElement('div');
+        categoryElement.className = 'category-section';
+        categoryElement.dataset.categoryName = category.name.toLowerCase();
+        
+        const categoryHeader = document.createElement('h3');
+        categoryHeader.className = 'category-header';
+        categoryHeader.textContent = category.name;
+        categoryElement.appendChild(categoryHeader);
+
+        const itemsRow = document.createElement('div');
+        itemsRow.className = 'row';
+        category.items.sort((a, b) => a.name.localeCompare(b.name)).forEach((item) => {
+            const itemCol = document.createElement('div');
+            itemCol.className = 'col-md-6 col-lg-4 api-item';
+            itemCol.dataset.name = item.name;
+            itemCol.dataset.desc = item.desc;
+            itemCol.dataset.category = category.name;
+
+            const card = document.createElement('div');
+            card.className = 'hero-section'; // Menggunakan kembali class untuk gaya kartu
+
+            const infoDiv = document.createElement('div');
+            infoDiv.innerHTML = `<h5 class="mb-0">${item.name}</h5><p class="text-muted mb-0">${item.desc}</p>`;
+
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'api-actions';
+            
+            const getBtn = document.createElement('button');
+            getBtn.className = 'btn get-api-btn';
+            getBtn.innerHTML = '<i class="fas fa-code"></i> GET';
+            Object.assign(getBtn.dataset, { apiPath: item.path, apiName: item.name, apiDesc: item.desc });
+
+            const status = item.status || "ready";
+            const statusMap = {
+                error: { class: "status-error", icon: "fa-exclamation-triangle" },
+                update: { class: "status-update", icon: "fa-arrow-up" },
+                ready: { class: "status-ready", icon: "fa-circle" }
+            };
+            const currentStatus = statusMap[status] || statusMap.ready;
+            const statusIndicator = document.createElement('div');
+            statusIndicator.className = `api-status ${currentStatus.class}`;
+            statusIndicator.title = `API is ${status}`;
+            statusIndicator.innerHTML = `<i class="fas ${currentStatus.icon}"></i><span>${status}</span>`;
+            
+            actionsDiv.append(getBtn, statusIndicator);
+            card.append(infoDiv, actionsDiv);
+            itemCol.appendChild(card);
+            itemsRow.appendChild(itemCol);
+        });
+        categoryElement.appendChild(itemsRow);
+        apiContent.appendChild(categoryElement);
+    });
+}
         // Fetch settings with improved error handling
-        const settingsResponse = await fetch('/src/settings.json');
+        /*const settingsResponse = await fetch('/src/settings.json');
         
         if (!settingsResponse.ok) {
             throw new Error(`Failed to load settings: ${settingsResponse.status} ${settingsResponse.statusText}`);
@@ -412,7 +517,7 @@ clearSearchButton.addEventListener('mouseleave', () => {
                 categoryElement.appendChild(itemsRow);
                 apiContent.appendChild(categoryElement);
             });
-        }
+        }*/
 
         // Enhanced search functionality with improved UX
         const searchInput = document.getElementById('searchInput');
