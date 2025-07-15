@@ -213,6 +213,16 @@
           "params": {
             "q": "Search query"
           }
+        },
+        {
+          "name": "Nekopoi",
+          "desc": "Video Nekopoi Search",
+          "path": "/search/nekopoi?query=&page=",
+          "status": "ready",
+          "params": {
+            "query": "Search query",
+            "page": "Halaman berapa"
+          }
         }
       ]
     },
@@ -232,6 +242,15 @@
           "name": "Facebook",
           "desc": "Download Reel/Video FB",
           "path": "/download/facebook?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
+        },
+        {
+          "name": "Nekopoi",
+          "desc": "Download Video Nekopoi",
+          "path": "/download/nekopoi?url=",
           "status": "ready",
           "params": {
             "url": "Masukan URL nya"
