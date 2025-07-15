@@ -56,7 +56,7 @@ async function handleImageEdit(imageUrl, prompt) {
 }
 
 // Endpoint untuk metode GET
-app.get('/openai/edit-image', async (req, res) => {
+app.get('/ai/edit-image', async (req, res) => {
   const { imageUrl, prompt } = req.query; // Ambil dari query parameter
 
   if (!imageUrl || !prompt) {
