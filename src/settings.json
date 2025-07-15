@@ -498,6 +498,15 @@
           }
         },
         {
+          "name": "Instagram V2",
+          "desc": "Kepoin Username Orang",
+          "path": "/stalk/igv2?username=",
+          "status": "ready",
+          "params": {
+            "username": "Masukan Username Nya"
+          }
+        },
+        {
           "name": "Cek Nomer HP",
           "desc": "Deteksi Kartu Apa Yang Di Pake",
           "path": "/stalk/ceknomer?number=",
