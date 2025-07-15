@@ -4,10 +4,7 @@ const cors     = require('cors');
 const axios    = require('axios');
 const cheerio  = require('cheerio');
 
-const app  = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(cors());
+module.exports = function(app) {
 
 /* ────────────────────────────────────────────────────────────────
    Function: Ambil detail Nekopoi
@@ -101,7 +98,4 @@ app.get('/download/nekopoi', async (req, res) => {
     res.status(500).json({ status: false, message: err.message });
   }
 });
-
-app.use((_, res) => res.status(404).json({ error: 'Endpoint not found' }));
-
-app.listen(PORT, () => console.log(`🚀 Nekopoi Detail API • http://localhost:${PORT}`));
+}
