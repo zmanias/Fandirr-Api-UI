@@ -210,6 +210,11 @@ clearSearchButton.addEventListener('mouseleave', () => {
         }
         
         const settings = await settingsResponse.json();
+        // Menghitung dan menampilkan total endpoint
+        if (settings.categories && Array.isArray(settings.categories)) {
+        const totalEndpoints = settings.categories.reduce((acc, category) => acc + (category.items?.length || 0), 0);
+        setContent('totalEndpointsStat', 'textContent', `${totalEndpoints}+`);
+        }
 
         // Enhanced content setter function
         const setContent = (id, property, value, fallback = '') => {
