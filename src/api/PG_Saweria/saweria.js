@@ -22,7 +22,7 @@ if (!SAWERIA_USERNAME || !SAWERIA_STREAM_KEY) {
  * Metode: GET
  * Query Params: ?amount=10000&message=Donasi+untuk+kopi
  */
-app.get('/saweria/create', (req, res) => {
+app.get('/saweria/createpayment', (req, res) => {
   // Ambil data dari query parameter (req.query)
   const { amount, message } = req.query;
   
