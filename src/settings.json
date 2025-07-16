@@ -12,6 +12,31 @@
   },
   "categories": [
     {
+      "name": "Payment Gateaway(Saweria)",
+      "items": [
+        {
+          "name": "Buat Pembayaran",
+          "desc": "Membuat pembayaran QRIS",
+          "path": "/saweria/createpayment?amount=&message=&username=",
+          "status": "ready",
+          "params": {
+            "amount": "Masukan Jumlah/Nominal nya",
+            "message": "Masukan Pesan kamu yha",
+            "username": "Masukan username Saweria Kamu"
+          }
+        },
+        {
+          "name": "Cek Status Pembayaran",
+          "desc": "Cek Status pembayaran QRIS",
+          "path": "/saweria/cekstatus?streamKey=",
+          "status": "ready",
+          "params": {
+            "streamKey": "Masukan KunciStream Saweria Kamu",
+          }
+        }
+      ]
+    },
+    {
       "name": "Payment Gateaway(Orkut)",
       "items": [
         {
