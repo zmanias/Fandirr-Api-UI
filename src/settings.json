@@ -17,7 +17,7 @@
         {
           "name": "Buat Pembayaran",
           "desc": "Membuat pembayaran QRIS",
-          "path": "/saweria/createpayment?amount=&message=&username=",
+          "path": "/saweria/create?amount=&message=&username=",
           "status": "ready",
           "params": {
             "amount": "Masukan Jumlah/Nominal nya",
