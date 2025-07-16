@@ -31,7 +31,7 @@
           "path": "/saweria/cekstatus?streamKey=",
           "status": "ready",
           "params": {
-            "streamKey": "Masukan KunciStream Saweria Kamu",
+            "streamKey": "Masukan KunciStream Saweria Kamu"
           }
         }
       ]
