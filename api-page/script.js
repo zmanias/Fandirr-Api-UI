@@ -1110,28 +1110,40 @@ if (apiContent && settings.categories?.length) {
             new bootstrap.Tooltip(tooltipTriggerEl);
         });
 
-                    // --- FUNGSI UNTUK TOMBOL LONCeng NOTIFIKASI ---
+// ======================================================
+// BAGIAN UNTUK MENERIMA NOTIFIKASI REAL-TIME
+// ======================================================
+
 const notificationBell = document.querySelector('.notification-bell');
-if (notificationBell) {
-    notificationBell.addEventListener('click', () => {
-        const badge = notificationBell.querySelector('.notification-badge');
-        const notificationCount = badge ? badge.textContent : 'beberapa';
+const badge = notificationBell ? notificationBell.querySelector('.notification-badge') : null;
+let notificationCount = badge ? parseInt(badge.textContent) : 0;
 
-        // Anda bisa mengubah isi notifikasi di sini
-        const notifications = [
-            "API 'Stalk Capcut' telah diupdate.",
-            "Endpoint baru telah ditambahkan di kategori AI."
-        ];
+// Mulai koneksi ke endpoint /events
+const eventSource = new EventSource('/events');
 
-        // Menampilkan notifikasi menggunakan fungsi toast yang sudah ada
-        showToast(`Anda memiliki ${notificationCount} notifikasi baru:\n- ${notifications.join('\n- ')}`, 'info');
+// Listener untuk setiap pesan yang datang dari server
+eventSource.onmessage = function(event) {
+    // Jangan tampilkan pesan koneksi awal
+    if (event.data === 'Connection established') {
+        console.log('Real-time notification connection ready.');
+        return;
+    }
+    
+    // Tampilkan notifikasi sebagai toast
+    showToast(event.data, 'info');
 
-        // Sembunyikan badge setelah notifikasi dilihat
-        if (badge) {
-            badge.style.display = 'none';
-        }
-    });
-}
+    // Perbarui angka pada badge notifikasi
+    notificationCount++;
+    if (badge) {
+        badge.textContent = notificationCount;
+        badge.style.display = 'inline-flex'; // Pastikan badge terlihat
+    }
+};
+
+// Listener jika terjadi error koneksi
+eventSource.onerror = function(err) {
+    console.error('EventSource failed:', err);
+};
         // Add bell notification dropdown on click
         /*const notificationBell = document.querySelector('.notification-bell');
         if (notificationBell) {
