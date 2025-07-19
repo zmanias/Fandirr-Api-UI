@@ -861,28 +861,7 @@ if (apiContent && settings.categories?.length) {
             };
             
             typeEndpoint();
-            // --- FUNGSI UNTUK TOMBOL LONCeng NOTIFIKASI ---
-const notificationBell = document.querySelector('.notification-bell');
-if (notificationBell) {
-    notificationBell.addEventListener('click', () => {
-        const badge = notificationBell.querySelector('.notification-badge');
-        const notificationCount = badge ? badge.textContent : 'beberapa';
 
-        // Anda bisa mengubah isi notifikasi di sini
-        const notifications = [
-            "API 'Stalk Capcut' telah diupdate.",
-            "Endpoint baru telah ditambahkan di kategori AI."
-        ];
-
-        // Menampilkan notifikasi menggunakan fungsi toast yang sudah ada
-        showToast(`Anda memiliki ${notificationCount} notifikasi baru:\n- ${notifications.join('\n- ')}`, 'info');
-
-        // Sembunyikan badge setelah notifikasi dilihat
-        if (badge) {
-            badge.style.display = 'none';
-        }
-    });
-}
             try {
                 // Add request timeout for better UX
                 const controller = new AbortController();
@@ -1131,13 +1110,35 @@ if (notificationBell) {
             new bootstrap.Tooltip(tooltipTriggerEl);
         });
 
+                    // --- FUNGSI UNTUK TOMBOL LONCeng NOTIFIKASI ---
+const notificationBell = document.querySelector('.notification-bell');
+if (notificationBell) {
+    notificationBell.addEventListener('click', () => {
+        const badge = notificationBell.querySelector('.notification-badge');
+        const notificationCount = badge ? badge.textContent : 'beberapa';
+
+        // Anda bisa mengubah isi notifikasi di sini
+        const notifications = [
+            "API 'Stalk Capcut' telah diupdate.",
+            "Endpoint baru telah ditambahkan di kategori AI."
+        ];
+
+        // Menampilkan notifikasi menggunakan fungsi toast yang sudah ada
+        showToast(`Anda memiliki ${notificationCount} notifikasi baru:\n- ${notifications.join('\n- ')}`, 'info');
+
+        // Sembunyikan badge setelah notifikasi dilihat
+        if (badge) {
+            badge.style.display = 'none';
+        }
+    });
+}
         // Add bell notification dropdown on click
-        const notificationBell = document.querySelector('.notification-bell');
+        /*const notificationBell = document.querySelector('.notification-bell');
         if (notificationBell) {
             notificationBell.addEventListener('click', () => {
                 showToast('2 new updates available', 'info');
             });
-        }
+        }*/
         
     } catch (error) {
         console.error('Error loading settings:', error);
