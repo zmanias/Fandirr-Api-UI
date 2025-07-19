@@ -97,7 +97,10 @@ fs.readdirSync(apiFolder).forEach((subfolder) => {
     }
 });
 // ... setelah loop 'fs.readdirSync(apiFolder).forEach(...)'
-
+app.post('/', (req, res) => {
+    console.log('Webhook diterima:', req.body);
+    res.json({ status: 200, message: 'Webhook received' });
+});
 // ENDPOINT UNTUK REDIRECT SHORT URL
 app.get('/:shortcode', (req, res, next) => {
     const { shortcode } = req.params;
