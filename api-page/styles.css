@@ -1638,3 +1638,32 @@ input:checked + .slider:before {
     font-size: 0.85rem;
     color: var(--text-muted);
 }
+
+/* =================================== */
+/* PERBAIKAN TAMPILAN DESKTOP */
+/* =================================== */
+
+/* 1. Membuat semua kartu dalam satu baris memiliki tinggi yang sama */
+.api-item {
+    display: flex; /* Mengaktifkan flexbox untuk penyelarasan */
+    align-items: stretch; /* Membuat item meregang setinggi item terpanjang */
+}
+
+/* Kita menggunakan kembali kelas .hero-section untuk kartu, 
+   jadi kita targetkan di dalam .api-item agar lebih spesifik 
+*/
+.api-item .hero-section {
+    width: 100%; /* Memastikan kartu mengisi seluruh ruang kolom */
+    display: flex;
+    flex-direction: column; /* Mengatur konten kartu (teks dan tombol) secara vertikal */
+}
+
+.api-item .hero-section > div:first-of-type {
+    flex-grow: 1; /* Memaksa bagian konten teks untuk tumbuh dan mengisi ruang kosong */
+}
+
+
+/* 2. Menambah jarak antara judul kategori dan kartu-kartu di bawahnya */
+.category-header {
+    margin-bottom: 30px; /* Menambah jarak bawah pada setiap judul kategori */
+}
