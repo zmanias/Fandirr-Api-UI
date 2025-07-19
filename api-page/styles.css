@@ -538,7 +538,7 @@ a:hover {
     align-items: center;
     flex-wrap: wrap;
     gap: 16px;
-    margin-bottom: 24px;
+    /*margin-bottom: 24px;*/
 }
 
 #name {
@@ -1600,20 +1600,41 @@ input:checked + .slider:before {
 .hidden-by-search {
     display: none !important;
 }
-/* Style untuk Statistik Sederhana di Hero */
+/* Perbaikan untuk Grup Judul Utama */
+.hero-heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap; /* Memastikan item turun ke bawah jika layar sempit */
+    gap: 16px; /* Jarak antar badge/judul */
+}
+
+/* Hapus margin yang tidak perlu dari container stat */
 .hero-stats-simple {
-    margin-top: 24px;
-    margin-bottom: 24px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-.stat-item-simple strong {
-    font-size: 2rem;
-    font-weight: 700;
+/* Ubah gaya stat menjadi seperti badge */
+.stat-item-simple {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    background-color: var(--highlight-color);
     color: var(--primary-color);
-    margin-right: 8px;
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    font-weight: 600;
 }
 
+/* Sesuaikan ukuran font angka */
+.stat-item-simple strong {
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    margin-right: 0;
+}
+
+/* Sesuaikan ukuran font teks */
 .stat-item-simple span {
-    font-size: 1.1rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
 }
