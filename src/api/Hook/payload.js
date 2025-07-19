@@ -1,25 +1,20 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const { exec } = require('child_process');
 
 module.exports = function(app) {
-const SECRET = 'fandirr123'; // ganti dengan secret kamu
+  
+const SECRET = 'fandirr123';
 
-// Middleware untuk menangkap raw body
-app.use(bodyParser.json({
-  verify: (req, res, buf) => {
-    req.rawBody = buf;
-  }
-}));
+// Gunakan raw parser untuk mendapatkan rawBody
+app.use('/webhook', express.raw({ type: '*/*' }));
 
-// Fungsi validasi signature
 function verifySignature(req) {
   const signature = req.headers['x-hub-signature-256'];
   if (!signature) return false;
 
   const hmac = crypto.createHmac('sha256', SECRET);
-  const digest = 'sha256=' + hmac.update(req.rawBody).digest('hex');
+  const digest = 'sha256=' + hmac.update(req.body).digest('hex');
   try {
     return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(digest));
   } catch (err) {
@@ -27,16 +22,23 @@ function verifySignature(req) {
   }
 }
 
-// Endpoint Webhook
 app.post('/webhook', (req, res) => {
   if (!verifySignature(req)) {
     console.log('❌ Signature tidak valid!');
     return res.status(401).send('Invalid signature');
   }
 
-  console.log('✅ Webhook valid diterima:', req.body);
+  let payload;
+  try {
+    payload = JSON.parse(req.body.toString());
+  } catch (err) {
+    console.error('❌ Gagal parse JSON:', err);
+    return res.status(400).send('Invalid JSON');
+  }
 
-  // Eksekusi perintah git pull
+  console.log('✅ Webhook valid diterima:', payload);
+
+  // Jalankan git pull
   exec('git pull', (err, stdout, stderr) => {
     if (err) {
       console.error('❌ Gagal git pull:', stderr);
