@@ -650,6 +650,15 @@
           }
         },
         {
+          "name": "Lacak KTP",
+          "desc": "Melacak dari KTP Target",
+          "path": "/tools/lacak-ktp?nik=",
+          "status": "ready",
+          "params": {
+            "nik": "Masukan NIK nya"
+          }
+        },
+        {
           "name": "GMAPS",
           "desc": "Menampilkan url lokasi target",
           "path": "/tools/gmap?lat=&lon=",
