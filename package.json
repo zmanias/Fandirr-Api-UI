@@ -27,6 +27,7 @@
     "jsdom": "^26.1.0",
     "jsqr": "^1.4.0",
     "moment": "^2.30.1",
+    "nik-parser": "^1.0.1",
     "multer": "^2.0.0",
     "nanoid": "^5.1.5",
     "node-fetch": "^2.7.0",
