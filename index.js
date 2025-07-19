@@ -35,6 +35,34 @@ app.use((req, res, next) => {
     next();
 });
 
+// ======================================================
+// BAGIAN UNTUK REAL-TIME NOTIFICATION (SERVER-SENT EVENTS)
+// ======================================================
+
+// Endpoint khusus yang akan terus membuka koneksi
+app.get('/events', (req, res) => {
+    // Atur header khusus untuk SSE
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Connection', 'keep-alive');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.flushHeaders(); // Kirim header segera
+
+    // Kirim komentar untuk menjaga koneksi tetap terbuka
+    res.write('data: Connection established\n\n');
+
+    // SIMULASI: Kirim notifikasi setiap 15 detik
+    const intervalId = setInterval(() => {
+        const message = `Update baru pada ${new Date().toLocaleTimeString()}`;
+        // Kirim data dengan format 'data: ...\n\n'
+        res.write(`data: ${message}\n\n`);
+    }, 15000);
+
+    // Jika koneksi ditutup oleh klien, hentikan pengiriman notifikasi
+    req.on('close', () => {
+        clearInterval(intervalId);
+    });
+});
+
 //APIKEYS
 const validateApiKey = (req, res, next) => {
   const userApiKey = req.query.apikey;
