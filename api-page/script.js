@@ -267,7 +267,7 @@ if (apiContent && settings.categories?.length) {
         itemsRow.className = 'row';
         category.items.sort((a, b) => a.name.localeCompare(b.name)).forEach((item) => {
             const itemCol = document.createElement('div');
-            itemCol.className = 'col-md-6 col-lg-4 api-item';
+            itemCol.className = 'col-md-6 col-lg-4 col-xl-3 api-item';
             itemCol.dataset.name = item.name;
             itemCol.dataset.desc = item.desc;
             itemCol.dataset.category = category.name;
