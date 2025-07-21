@@ -24,6 +24,21 @@
 },
   "categories": [
     {
+      "name": "API Key Management",
+      "items": [
+        {
+          "name": "Create API Key",
+          "desc": "Membuat API key baru dengan masa berlaku tertentu.",
+          "path": "/apikey/create?masterkey=&days=",
+          "status": "ready",
+          "params": {
+            "masterkey": "Master API Key rahasia untuk otorisasi.",
+            "days": "Jumlah hari masa berlaku kunci (contoh: 30). Default 30 hari."
+          }
+        }
+      ]
+    },
+    {
       "name": "Payment Gateaway(Saweri )",
       "items": [
         {
