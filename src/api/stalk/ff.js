@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 
-module.exports = function(app) {
+module.exports = function(app, validateApiKey) {
 
 // Fungsi ffstalk
 async function ffstalk(id) {
@@ -37,7 +37,7 @@ async function ffstalk(id) {
 }
 
 // Endpoint /api/stalk/ff
-app.get('/stalk/ff', async (req, res) => {
+app.get('/stalk/ff', validateApiKey, async (req, res) => {
   const { id } = req.query;
 
   if (!id) {
