@@ -37,6 +37,17 @@
           }
         },
         {
+           "name": "Create Custom API Key",
+           "desc": "Membuat API key baru dengan nama/teks kustom.",
+           "path": "/apikey/create-custom?masterkey=&customkey=&days=",
+           "status": "ready",
+           "params": {
+             "masterkey": "Master API Key rahasia untuk otorisasi.",
+            "customkey": "Teks yang ingin Anda jadikan sebagai API key baru.",
+            "days": "Opsional. Jumlah hari masa berlaku (contoh: 7)."
+          }
+        },
+        {
           "name": "List API Keys",
           "desc": "Menampilkan semua API key yang terdaftar.",
           "path": "/apikey/list?masterkey=",
