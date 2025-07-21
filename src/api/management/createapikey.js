@@ -34,6 +34,7 @@ app.get('/apikey/list', validateMasterKey, (req, res) => {
         res.status(500).json({ status: 500, message: 'Internal Server Error', error: error.message });
     }
 });
+
     // Endpoint untuk membuat API key baru
     app.get('/apikey/create', validateMasterKey, (req, res) => {
         try {
