@@ -1,6 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+// Tambahkan di bagian atas file apikey.js
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const settingsFilePath = path.join(__dirname, '../../../src/settings.json');
 
