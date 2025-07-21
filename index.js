@@ -63,20 +63,42 @@ app.get('/events', (req, res) => {
     });
 });
 
-//APIKEYS
+// Middleware untuk memvalidasi API key pada setiap permintaan
 const validateApiKey = (req, res, next) => {
-  const userApiKey = req.query.apikey;
-  const validApiKeys = settings.apiSettings.apikey;
+    const userApiKey = req.query.apikey;
 
-  if (!userApiKey) {
-    return res.status(401).json({ status: 401, message: 'Unauthorized. Please provide an API key.' });
-  }
+    if (!userApiKey) {
+        return res.status(401).json({
+            status: 401,
+            message: 'Unauthorized. Please provide an API key.'
+        });
+    }
 
-  if (validApiKeys.includes(userApiKey)) {
-    next();
-  } else {
-    return res.status(403).json({ status: 403, message: 'Forbidden. Invalid API key.' });
-  }
+    // Baca ulang settings setiap kali ada request untuk data terbaru
+    const currentSettings = JSON.parse(fs.readFileSync(settingsPath, 'utf-8'));
+    const validApiKeys = currentSettings.apiSettings.apikeys;
+
+    // Cari kunci yang cocok di dalam array objek
+    const keyData = validApiKeys.find(k => k.key === userApiKey);
+
+    if (keyData) {
+        // Jika kunci ditemukan, periksa tanggal kedaluwarsa
+        if (keyData.expires && new Date(keyData.expires) < new Date()) {
+            // Jika kunci sudah kedaluwarsa
+            return res.status(403).json({
+                status: 403,
+                message: 'Forbidden. Your API key has expired.'
+            });
+        }
+        // Jika kunci valid dan tidak kedaluwarsa
+        next();
+    } else {
+        // Jika kunci tidak ditemukan
+        return res.status(403).json({
+            status: 403,
+            message: 'Forbidden. The API key you provided is not valid.'
+        });
+    }
 };
 
 // Api Route
