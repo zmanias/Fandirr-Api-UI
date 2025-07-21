@@ -619,9 +619,10 @@
         {
           "name": "Free Fire",
           "desc": "Cek ID Free Fire",
-          "path": "/stalk/ff?id=",
+          "path": "/stalk/ff?apikey=&id=",
           "status": "ready",
           "params": {
+            "apikey": "Masukan apikey nya"
             "id": "Masukan ID Free Fire"
           }
         },
