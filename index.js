@@ -65,6 +65,7 @@ app.get('/events', (req, res) => {
 
 // Middleware untuk memvalidasi API key pada setiap permintaan
 const validateApiKey = (req, res, next) => {
+  console.log('--- FUNGSI VALIDATE API KEY DIPANGGIL! ---');
     const userApiKey = req.query.apikey;
 
     if (!userApiKey) {
