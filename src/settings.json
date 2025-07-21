@@ -757,7 +757,7 @@
         {
           "name": "Hapus Semua Subdomain",
           "desc": "Menghapus Semua Subdomain Cloudpeler",
-          "path": "/cf/subdomain/delete?token=&zone=",
+          "path": "/cf/subdomain/deleteall?zone=&token=",
           "status": "ready",
           "params": {
             "token": "Masukan Apikey Cloudpeler Kamu",
