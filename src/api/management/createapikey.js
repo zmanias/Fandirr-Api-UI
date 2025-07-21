@@ -84,7 +84,7 @@ module.exports = function(app, validateApiKey) {
 
             const keyExists = apiKeysList.some(k => k.key === customkey);
             if (keyExists) {
-                return res.status(409).json({ status: 409, message: 'Conflict. This API key already exists.' });
+                return res.status(409).json({ status: 409, message: 'Maaf om Apikey tersebut sudah terpakai.' });
             }
 
             let expirationDateObject = null;
