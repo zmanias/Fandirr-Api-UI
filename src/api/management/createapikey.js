@@ -48,14 +48,14 @@ app.get('/apikey/create-custom', validateMasterKey, (req, res) => {
         if (days && !isNaN(parseInt(days))) {
             const validityDays = parseInt(days);
             const now = new Date();
-            expirationDate = new Date(now.setDate(now.getDate() + validityDays)).toISOString();
+            expirationDate = dayjs(now).add(validityDays, 'day').tz('Asia/Jakarta').format();
         }
 
         // 4. Buat objek kunci baru
         const newKeyObject = {
             key: customkey,
             expires: expirationDate,
-            createdAt: new Date().toISOString()
+            createdAt: dayjs().tz('Asia/Jakarta').format()
         };
 
         // 5. Tambahkan kunci baru dan simpan ke file
@@ -109,9 +109,9 @@ app.get('/apikey/list', validateMasterKey, (req, res) => {
 
             // Buat objek kunci baru
             const newKeyObject = {
-                key: newApiKey,
-                expires: expirationDate.toISOString(),
-                createdAt: new Date().toISOString()
+              key: newApiKey,
+              expires: dayjs(expirationDate).tz('Asia/Jakarta').format(),
+              createdAt: dayjs().tz('Asia/Jakarta').format()
             };
 
             // Tambahkan kunci baru ke dalam array
