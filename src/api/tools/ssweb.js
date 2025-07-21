@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 module.exports = function(app, validateApiKey) {
 
 // Endpoint Screenshot Website
-app.get('/tools/ssweb', async (req, res) => {
+app.get('/tools/ssweb', validateApiKey, async (req, res) => {
   const { url } = req.query;
 
   if (!url || !url.startsWith('http')) {
