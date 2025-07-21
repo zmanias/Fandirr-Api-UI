@@ -17,6 +17,56 @@ const validateMasterKey = (req, res, next) => {
 
 
 module.exports = function(app) {
+// Endpoint untuk membuat API key KUSTOM
+app.get('/apikey/create-custom', validateMasterKey, (req, res) => {
+    try {
+        const { customkey, days } = req.query;
+
+        // 1. Validasi input
+        if (!customkey) {
+            return res.status(400).json({ status: 400, message: 'Parameter "customkey" is required.' });
+        }
+
+        // Baca file settings.json
+        const settings = JSON.parse(fs.readFileSync(settingsFilePath, 'utf-8'));
+        const apiKeysList = settings.apiSettings.apikeys;
+
+        // 2. Cek apakah custom key sudah digunakan
+        const keyExists = apiKeysList.some(k => k.key === customkey);
+        if (keyExists) {
+            return res.status(409).json({ status: 409, message: 'Conflict. This API key already exists.' });
+        }
+
+        // 3. Tentukan tanggal kedaluwarsa
+        let expirationDate = null; // Default: tidak pernah kedaluwarsa
+        if (days && !isNaN(parseInt(days))) {
+            const validityDays = parseInt(days);
+            const now = new Date();
+            expirationDate = new Date(now.setDate(now.getDate() + validityDays)).toISOString();
+        }
+
+        // 4. Buat objek kunci baru
+        const newKeyObject = {
+            key: customkey,
+            expires: expirationDate,
+            createdAt: new Date().toISOString()
+        };
+
+        // 5. Tambahkan kunci baru dan simpan ke file
+        settings.apiSettings.apikeys.push(newKeyObject);
+        fs.writeFileSync(settingsFilePath, JSON.stringify(settings, null, 2));
+
+        res.status(201).json({
+            status: 201,
+            message: `Custom API key '${customkey}' created successfully.`,
+            data: newKeyObject
+        });
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: 'Internal Server Error', error: error.message });
+    }
+});
+
     // Endpoint untuk melihat daftar semua API key
 app.get('/apikey/list', validateMasterKey, (req, res) => {
     try {
