@@ -35,6 +35,15 @@
             "masterkey": "Master API Key rahasia untuk otorisasi.",
             "days": "Jumlah hari masa berlaku kunci (contoh: 30). Default 30 hari."
           }
+        },
+        {
+          "name": "List API Keys",
+          "desc": "Menampilkan semua API key yang terdaftar.",
+          "path": "/apikey/list?masterkey=",
+          "status": "ready",
+          "params": {
+            "masterkey": "Master API Key rahasia untuk otorisasi."
+           }
         }
       ]
     },
