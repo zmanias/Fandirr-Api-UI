@@ -87,7 +87,7 @@ const validateApiKey = (req, res, next) => {
             // Jika kunci sudah kedaluwarsa
             return res.status(403).json({
                 status: 403,
-                message: 'Forbidden. Your API key has expired.'
+                message: 'Maaf kawan, Apikey nya udah mokad/Expired. Hubungi Wa 083155619441 Untuk membeli apikey lagi'
             });
         }
         // Jika kunci valid dan tidak kedaluwarsa
