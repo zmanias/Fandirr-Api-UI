@@ -622,7 +622,7 @@
           "path": "/stalk/ff?apikey=&id=",
           "status": "ready",
           "params": {
-            "apikey": "Masukan apikey nya"
+            "apikey": "Masukan apikey nya",
             "id": "Masukan ID Free Fire"
           }
         },
