@@ -753,6 +753,16 @@
             "zone": "Masukan ZoneID Domain Kamu",
             "id": "Masukan ID yang mau di hapus"
           }
+        },
+        {
+          "name": "Hapus Semua Subdomain",
+          "desc": "Menghapus Semua Subdomain Cloudpeler",
+          "path": "/cf/subdomain/delete?token=&zone=",
+          "status": "ready",
+          "params": {
+            "token": "Masukan Apikey Cloudpeler Kamu",
+            "zone": "Masukan ZoneID Domain Kamu"
+          }
         }
         ]
     }
