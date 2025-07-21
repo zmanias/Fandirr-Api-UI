@@ -17,7 +17,23 @@ const validateMasterKey = (req, res, next) => {
 
 
 module.exports = function(app) {
+    // Endpoint untuk melihat daftar semua API key
+app.get('/apikey/list', validateMasterKey, (req, res) => {
+    try {
+        // Baca file settings.json
+        const settings = JSON.parse(fs.readFileSync(settingsFilePath, 'utf-8'));
+        const apiKeysList = settings.apiSettings.apikeys;
 
+        res.status(200).json({
+            status: 200,
+            count: apiKeysList.length,
+            data: apiKeysList
+        });
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: 'Internal Server Error', error: error.message });
+    }
+});
     // Endpoint untuk membuat API key baru
     app.get('/apikey/create', validateMasterKey, (req, res) => {
         try {
