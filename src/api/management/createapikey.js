@@ -129,4 +129,41 @@ module.exports = function(app, validateApiKey) {
             res.status(500).json({ status: 500, message: 'Internal Server Error', error: error.message });
         }
     });
+    // Endpoint untuk menghapus API key
+app.get('/apikey/delete', validateMasterKey, (req, res) => {
+    try {
+        const { key } = req.query;
+
+        // 1. Validasi input
+        if (!key) {
+            return res.status(400).json({ status: 400, message: 'Parameter "key" is required.' });
+        }
+
+        // 2. Baca file settings.json
+        const settings = JSON.parse(fs.readFileSync(settingsFilePath, 'utf-8'));
+        let apiKeysList = settings.apiSettings.apikeys;
+
+        const initialLength = apiKeysList.length;
+
+        // 3. Filter array untuk menghapus key yang cocok
+        const updatedApiKeysList = apiKeysList.filter(apiKeyObj => apiKeyObj.key !== key);
+
+        // 4. Cek apakah ada kunci yang benar-benar dihapus
+        if (updatedApiKeysList.length === initialLength) {
+            return res.status(404).json({ status: 404, message: `API key '${key}' not found.` });
+        }
+        
+        // 5. Perbarui objek settings dan tulis kembali ke file
+        settings.apiSettings.apikeys = updatedApiKeysList;
+        fs.writeFileSync(settingsFilePath, JSON.stringify(settings, null, 2));
+
+        res.status(200).json({
+            status: 200,
+            message: `API key '${key}' has been successfully deleted.`
+        });
+
+    } catch (error) {
+        res.status(500).json({ status: 500, message: 'Internal Server Error', error: error.message });
+    }
+});
 };
