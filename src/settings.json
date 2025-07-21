@@ -55,6 +55,16 @@
           "params": {
             "masterkey": "Master API Key rahasia untuk otorisasi."
            }
+        },
+        {
+          "name": "Delete API Key",
+          "desc": "Menghapus API key yang sudah ada.",
+          "path": "/apikey/delete?masterkey=&key=",
+          "status": "ready",
+          "params": {
+            "masterkey": "Master API Key rahasia untuk otorisasi.",
+            "key": "API key yang ingin Anda hapus."
+          }
         }
       ]
     },
