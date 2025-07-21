@@ -96,7 +96,7 @@ const validateApiKey = (req, res, next) => {
         // Jika kunci tidak ditemukan
         return res.status(403).json({
             status: 403,
-            message: 'Forbidden. The API key you provided is not valid.'
+            message: 'Maaf Apikey Tersebut Tidak ada, jangan di paksa om kalo gaada mah:v'
         });
     }
 };
