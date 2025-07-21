@@ -159,11 +159,4 @@ app.get('/cf/subdomain/deleteall', async (req, res) => {
     });
   }
 });
-
-// Jalankan server
-app.listen(PORT, () => {
-  console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
-  console.warn("PERINGATAN: Server ini memiliki endpoint GET yang melakukan tindakan destruktif. SANGAT BERISIKO!");
-});
-
 }
