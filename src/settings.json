@@ -6,10 +6,22 @@
   "header": {
     "status": "Online!"
   },
-  "apiSettings": {
-    "creator": "Fandirr Store", 
-    "apikey": ["falcon-api", "fandirrganteng"]
-  },
+"apiSettings": {
+  "creator": "Fandirr Store",
+  "masterApiKey": "FANDIRR-DEV",
+  "apikeys": [
+    {
+      "key": "falcon-api",
+      "expires": null,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "key": "fandirrganteng",
+      "expires": null,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+},
   "categories": [
     {
       "name": "Payment Gateaway(Saweri )",
