@@ -275,6 +275,12 @@
           "desc": "Bermain kuis bersama caklontong",
           "path": "/game/caklontong",
           "status": "ready"
+        },
+        {
+          "name": "Game Tebak Gambar",
+          "desc": "Bermain tebak gambar biar pinter",
+          "path": "/game/tebakgambar",
+          "status": "ready"
         }
       ]
     },
