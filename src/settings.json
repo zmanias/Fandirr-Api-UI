@@ -287,6 +287,12 @@
           "desc": "Bermain siapakah aku",
           "path": "/game/siapakahaku",
           "status": "ready"
+        },
+        {
+          "name": "Game Susun Kata",
+          "desc": "Bermain menyusun sebuah kata yang acak",
+          "path": "/game/susunkata",
+          "status": "ready"
         }
       ]
     },
