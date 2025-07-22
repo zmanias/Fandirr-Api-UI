@@ -9,7 +9,8 @@ module.exports = function(app) {
 
 let cakLontongData = [];
 let tebakGambarData = [];
-let siapakahAkuData = []; // Array baru untuk data "Siapakah Aku?"
+let siapakahAkuData = [];
+let susunKataData = []; // Array baru untuk data "Susun Kata"
 
 // Fungsi untuk memuat data JSON dengan aman
 function loadGameData(fileName, dataContainer) {
@@ -29,14 +30,14 @@ function loadGameData(fileName, dataContainer) {
 // Muat semua data game saat server dimulai
 loadGameData('caklontong.json', cakLontongData);
 loadGameData('tebakgambar.json', tebakGambarData);
-loadGameData('siapakahaku.json', siapakahAkuData); // Memuat data game baru
+loadGameData('siapakahaku.json', siapakahAkuData);
+loadGameData('susunkata.json', susunKataData); // Memuat data game baru
 
 
 // --- Endpoint Game ---
 
 /**
  * Endpoint untuk game Cak Lontong.
- * Metode: GET
  */
 app.get('/game/caklontong', (req, res) => {
   if (cakLontongData.length === 0) {
@@ -56,7 +57,6 @@ app.get('/game/caklontong', (req, res) => {
 
 /**
  * Endpoint untuk game Tebak Gambar.
- * Metode: GET
  */
 app.get('/game/tebakgambar', (req, res) => {
   if (tebakGambarData.length === 0) {
@@ -75,8 +75,7 @@ app.get('/game/tebakgambar', (req, res) => {
 });
 
 /**
- * Endpoint BARU untuk game Siapakah Aku.
- * Metode: GET
+ * Endpoint untuk game Siapakah Aku.
  */
 app.get('/game/siapakahaku', (req, res) => {
   if (siapakahAkuData.length === 0) {
@@ -92,4 +91,24 @@ app.get('/game/siapakahaku', (req, res) => {
     }
   });
 });
+
+/**
+ * Endpoint BARU untuk game Susun Kata.
+ */
+app.get('/game/susunkata', (req, res) => {
+    if (susunKataData.length === 0) {
+      return res.status(500).json({ success: false, error: "Data soal Susun Kata tidak tersedia." });
+    }
+    const randomIndex = Math.floor(Math.random() * susunKataData.length);
+    const randomQuestion = susunKataData[randomIndex];
+    res.status(200).json({
+      success: true,
+      data: {
+        soal: randomQuestion.soal,
+        tipe: randomQuestion.tipe,
+        jawaban: randomQuestion.jawaban
+      }
+    });
+  });
+}
 }
