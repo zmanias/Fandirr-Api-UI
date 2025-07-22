@@ -38,7 +38,7 @@ loadGameData('siapakahaku.json', siapakahAkuData); // Memuat data game baru
  * Endpoint untuk game Cak Lontong.
  * Metode: GET
  */
-app.get('/caklontong', (req, res) => {
+app.get('/game/caklontong', (req, res) => {
   if (cakLontongData.length === 0) {
     return res.status(500).json({ success: false, error: "Data soal Cak Lontong tidak tersedia." });
   }
@@ -58,7 +58,7 @@ app.get('/caklontong', (req, res) => {
  * Endpoint untuk game Tebak Gambar.
  * Metode: GET
  */
-app.get('/tebakgambar', (req, res) => {
+app.get('/game/tebakgambar', (req, res) => {
   if (tebakGambarData.length === 0) {
     return res.status(500).json({ success: false, error: "Data soal Tebak Gambar tidak tersedia." });
   }
@@ -78,7 +78,7 @@ app.get('/tebakgambar', (req, res) => {
  * Endpoint BARU untuk game Siapakah Aku.
  * Metode: GET
  */
-app.get('/siapakahaku', (req, res) => {
+app.get('/game/siapakahaku', (req, res) => {
   if (siapakahAkuData.length === 0) {
     return res.status(500).json({ success: false, error: "Data soal Siapakah Aku tidak tersedia." });
   }
