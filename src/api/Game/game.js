@@ -111,4 +111,3 @@ app.get('/game/susunkata', (req, res) => {
     });
   });
 }
-}
