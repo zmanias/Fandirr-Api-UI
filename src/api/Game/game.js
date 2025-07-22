@@ -3,9 +3,7 @@ const express = require('express');
 const fs = require('fs'); // Modul File System untuk membaca file
 const path = require('path'); // Modul Path untuk menangani path file
 
-// Inisialisasi aplikasi Express
-const app = express();
-const PORT = process.env.PORT || 3000;
+module.exports = function(app) {
 
 // --- Memuat Data dari File JSON ---
 let cakLontongData = [];
@@ -27,7 +25,7 @@ try {
  * Endpoint untuk mendapatkan satu soal Cak Lontong secara acak.
  * Metode: GET
  */
-app.get('/caklontong', (req, res) => {
+app.get('/game/caklontong', (req, res) => {
   // Pastikan ada data untuk diproses
   if (cakLontongData.length === 0) {
     return res.status(500).json({
@@ -50,9 +48,4 @@ app.get('/caklontong', (req, res) => {
     }
   });
 });
-
-// Jalankan server
-app.listen(PORT, () => {
-  console.log(`🚀 Server Cak Lontong API berjalan di http://localhost:${PORT}`);
-  console.log(`Akses http://localhost:${PORT}/caklontong untuk mendapatkan soal acak.`);
-});
+}
