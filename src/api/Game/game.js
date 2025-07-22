@@ -8,15 +8,18 @@ module.exports = function(app) {
 // --- Memuat Data dari File JSON ---
 let cakLontongData = [];
 try {
-  // Tentukan path ke file caklontong.json
-  const filePath = path.join(__dirname, 'data/caklontong.json');
+  // Tentukan path ke file caklontong.json di dalam folder 'data'
+  const filePath = path.join(__dirname, 'data', 'caklontong.json');
+  
   // Baca file secara sinkron saat server pertama kali dijalankan
   const rawData = fs.readFileSync(filePath);
+  
   // Ubah data mentah (buffer) menjadi objek JavaScript
   cakLontongData = JSON.parse(rawData);
   console.log(`[INFO] Berhasil memuat ${cakLontongData.length} soal Cak Lontong.`);
+
 } catch (error) {
-  console.error("[ERROR] Gagal memuat file 'caklontong.json'. Pastikan file tersebut ada di folder yang sama dengan index.js.", error);
+  console.error("[ERROR] Gagal memuat file 'data/caklontong.json'. Pastikan struktur folder dan file sudah benar.", error);
   // Hentikan server jika data tidak bisa dimuat, karena API tidak akan berfungsi
   process.exit(1);
 }
@@ -25,7 +28,7 @@ try {
  * Endpoint untuk mendapatkan satu soal Cak Lontong secara acak.
  * Metode: GET
  */
-app.get('/game/caklontong', (req, res) => {
+app.get('/caklontong', (req, res) => {
   // Pastikan ada data untuk diproses
   if (cakLontongData.length === 0) {
     return res.status(500).json({
