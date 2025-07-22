@@ -28,7 +28,7 @@ try {
  * Endpoint untuk mendapatkan satu soal Cak Lontong secara acak.
  * Metode: GET
  */
-app.get('/caklontong', (req, res) => {
+app.get('/game/caklontong', (req, res) => {
   // Pastikan ada data untuk diproses
   if (cakLontongData.length === 0) {
     return res.status(500).json({
