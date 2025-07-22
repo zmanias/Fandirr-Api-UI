@@ -281,6 +281,12 @@
           "desc": "Bermain tebak gambar biar pinter",
           "path": "/game/tebakgambar",
           "status": "ready"
+        },
+        {
+          "name": "Game Siapakah Aku?",
+          "desc": "Bermain siapakah aku",
+          "path": "/game/siapakahaku",
+          "status": "ready"
         }
       ]
     },
