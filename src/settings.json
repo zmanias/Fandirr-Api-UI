@@ -1,6 +1,6 @@
 {
   "name": "Fandirr - API",
-  "version": "v1.0.0",
+  "version": "v3.0.0",
   "description": "Fandirr API adalah platform yang menyediakan berbagai layanan REST API yang mudah digunakan, cepat, dan handal untuk berbagai kebutuhan pengembangan aplikasi, website, maupun automasi digital. Dengan dokumentasi yang jelas dan endpoint yang lengkap, Fandirr API membantu kamu menghemat waktu dan tenaga dalam mengintegrasikan berbagai fitur ke dalam sistemmu.",
   "bannerImage": "/src/banner_fandirr.jpg",
   "header": {
