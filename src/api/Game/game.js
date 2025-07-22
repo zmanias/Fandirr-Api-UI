@@ -9,6 +9,7 @@ module.exports = function(app) {
 
 let cakLontongData = [];
 let tebakGambarData = [];
+let siapakahAkuData = []; // Array baru untuk data "Siapakah Aku?"
 
 // Fungsi untuk memuat data JSON dengan aman
 function loadGameData(fileName, dataContainer) {
@@ -28,22 +29,21 @@ function loadGameData(fileName, dataContainer) {
 // Muat semua data game saat server dimulai
 loadGameData('caklontong.json', cakLontongData);
 loadGameData('tebakgambar.json', tebakGambarData);
+loadGameData('siapakahaku.json', siapakahAkuData); // Memuat data game baru
 
 
 // --- Endpoint Game ---
 
 /**
- * Endpoint untuk mendapatkan satu soal Cak Lontong secara acak.
+ * Endpoint untuk game Cak Lontong.
  * Metode: GET
  */
-app.get('/game/caklontong', (req, res) => {
+app.get('/caklontong', (req, res) => {
   if (cakLontongData.length === 0) {
     return res.status(500).json({ success: false, error: "Data soal Cak Lontong tidak tersedia." });
   }
-
   const randomIndex = Math.floor(Math.random() * cakLontongData.length);
   const randomQuestion = cakLontongData[randomIndex];
-
   res.status(200).json({
     success: true,
     data: {
@@ -55,23 +55,40 @@ app.get('/game/caklontong', (req, res) => {
 });
 
 /**
- * Endpoint BARU untuk mendapatkan satu soal Tebak Gambar secara acak.
+ * Endpoint untuk game Tebak Gambar.
  * Metode: GET
  */
-app.get('/game/tebakgambar', (req, res) => {
+app.get('/tebakgambar', (req, res) => {
   if (tebakGambarData.length === 0) {
     return res.status(500).json({ success: false, error: "Data soal Tebak Gambar tidak tersedia." });
   }
-
   const randomIndex = Math.floor(Math.random() * tebakGambarData.length);
   const randomImage = tebakGambarData[randomIndex];
-
   res.status(200).json({
     success: true,
     data: {
       img: randomImage.img,
       jawaban: randomImage.jawaban,
       deskripsi: randomImage.deskripsi
+    }
+  });
+});
+
+/**
+ * Endpoint BARU untuk game Siapakah Aku.
+ * Metode: GET
+ */
+app.get('/siapakahaku', (req, res) => {
+  if (siapakahAkuData.length === 0) {
+    return res.status(500).json({ success: false, error: "Data soal Siapakah Aku tidak tersedia." });
+  }
+  const randomIndex = Math.floor(Math.random() * siapakahAkuData.length);
+  const randomQuestion = siapakahAkuData[randomIndex];
+  res.status(200).json({
+    success: true,
+    data: {
+      soal: randomQuestion.soal,
+      jawaban: randomQuestion.jawaban
     }
   });
 });
