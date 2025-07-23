@@ -209,6 +209,15 @@
           }
         },
         {
+          "name": "Kimi AI",
+          "desc": "Talk with kimi",
+          "path": "/ai/kimi?question=",
+          "status": "ready",
+          "params": {
+            "question": "Text for kimi to respond to"
+          }
+        },
+        {
           "name": "OpenAI - Edit Gambar",
           "desc": "Edit gambar kamu dengan openai",
           "path": "/ai/edit-image?imageUrl=&prompt=",
