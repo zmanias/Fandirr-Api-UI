@@ -1,55 +1,73 @@
 const express = require('express');
 const fs = require('fs');
 const axios = require('axios');
-const { spawn } = require('child_process');
 const path = require('path');
+const crypto = require('crypto');
+const { spawn } = require('child_process');
 
 module.exports = function(app) {
 
-app.get('/api/convert', async (req, res) => {
-  const url = req.query.url;
+const DOMAIN = 'https://api.fandirr.my.id'; // Ganti dengan domain API-mu
+const TEMP_DIR = path.join(__dirname, 'downloads');
+if (!fs.existsSync(TEMP_DIR)) fs.mkdirSync(TEMP_DIR);
 
-  if (!url) {
-    return res.status(400).json({ status: false, message: 'Parameter "url" wajib diisi.' });
-  }
-
-  const m4aPath = path.join(__dirname, 'temp_input.m4a');
-  const mp3Path = path.join(__dirname, 'output.mp3');
+// 🔄 Convert endpoint
+app.get('/convert/m4atomp3', async (req, res) => {
+  const { url } = req.query;
+  if (!url) return res.status(400).json({ error: 'Parameter ?url= dibutuhkan' });
 
   try {
-    // Download file .m4a
+    const randName = crypto.randomBytes(6).toString('hex');
+    const m4aPath = path.join(TEMP_DIR, `input_${randName}.m4a`);
+    const mp3Name = `${randName}.mp3`;
+    const mp3Path = path.join(TEMP_DIR, mp3Name);
+
+    // Download file
     const response = await axios.get(url, { responseType: 'stream' });
+    const writer = fs.createWriteStream(m4aPath);
     await new Promise((resolve, reject) => {
-      const writer = fs.createWriteStream(m4aPath);
       response.data.pipe(writer);
       writer.on('finish', resolve);
       writer.on('error', reject);
     });
 
-    // Konversi ke .mp3 menggunakan ffmpeg
+    // Convert to mp3
     await new Promise((resolve, reject) => {
       const ffmpeg = spawn('ffmpeg', ['-i', m4aPath, '-vn', '-ab', '192k', '-ar', '44100', '-y', mp3Path]);
-      ffmpeg.on('close', code => {
-        if (code === 0) resolve();
-        else reject(new Error('ffmpeg conversion failed'));
-      });
+      ffmpeg.on('close', code => (code === 0 ? resolve() : reject(new Error('Konversi gagal'))));
     });
 
-    // Kirim file mp3 ke response
-    res.set({
-      'Content-Type': 'audio/mpeg',
-      'Content-Disposition': 'attachment; filename=output.mp3'
-    });
+    // Hapus input
+    fs.unlinkSync(m4aPath);
 
-    fs.createReadStream(mp3Path).pipe(res).on('close', () => {
-      // Bersihkan file setelah dikirim
-      fs.unlinkSync(m4aPath);
-      fs.unlinkSync(mp3Path);
+    // Kirim response
+    res.json({
+      success: true,
+      download: `${DOMAIN}/downloads/${mp3Name}`
     });
 
   } catch (err) {
-    console.error('Error:', err.message);
-    res.status(500).json({ status: false, message: 'Terjadi kesalahan saat mengkonversi.' });
+    console.error('Gagal:', err.message);
+    res.status(500).json({ error: 'Gagal konversi audio' });
   }
 });
+
+// 📂 Static download
+app.use('/downloads', express.static(TEMP_DIR));
+
+// 🧹 Auto hapus file > 1 hari
+setInterval(() => {
+  const now = Date.now();
+  fs.readdir(TEMP_DIR, (err, files) => {
+    if (err) return;
+    files.forEach(file => {
+      const filePath = path.join(TEMP_DIR, file);
+      fs.stat(filePath, (err, stats) => {
+        if (!err && (now - stats.mtimeMs) > 86400000) {
+          fs.unlink(filePath, () => console.log(`🗑️ Dihapus: ${file}`));
+        }
+      });
+    });
+  });
+}, 60 * 60 * 1000); // Tiap 1 jam
 }
