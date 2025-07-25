@@ -604,6 +604,15 @@
           }
         },
         {
+          "name": "TikTok Transcript",
+          "desc": "Bisa di bilang Subtitle Otomatis",
+          "path": "/transcript/tt?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan Url/Link TikTok nya"
+          }
+        },
+        {
           "name": "TokTok Profil",
           "desc": "Cek Profil TikTok Kalian",
           "path": "/stalk/tt/profile?username=",
