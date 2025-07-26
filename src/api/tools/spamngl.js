@@ -57,7 +57,7 @@ async function spamngl(link, pesan, jumlah) {
 }
 
 // --- Endpoint API (Diubah ke GET) ---
-app.get('/spam-ngl', async (req, res) => {
+app.get('/tools/spamngl', async (req, res) => {
   // Ambil parameter dari query URL, bukan dari body
   const { link, pesan, jumlah } = req.query;
 
