@@ -818,6 +818,17 @@
           }
         },
         {
+          "name": "Spam Nglink",
+          "desc": "Spam Teross sampe mampus",
+          "path": "/tools/spamngl?link=&pesan=&jumlah=",
+          "status": "ready",
+          "params": {
+            "link": "Masukan Link NGL nya",
+            "pesan": "Masukan pesan nya",
+            "jumlah": "Masukan Jumlah Spam"
+          }
+        },
+        {
           "name": "OCR (GambarToText)",
           "desc": "Membaca sebuah text dari gambar",
           "path": "/tools/ocr?img=",
