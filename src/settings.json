@@ -208,6 +208,15 @@
             "text": "Text for luminai to respond to"
           }
         },
+         {
+          "name": "AI Mimpi",
+          "desc": "Menjelaskan tebtang aoa arti mimpi kamu semalam",
+          "path": "/ai/mimpi?text=",
+          "status": "ready",
+          "params": {
+            "text": "Jelaskan mimpi kamu di sini"
+          }
+        },
         {
           "name": "Kimi AI",
           "desc": "Talk with kimi",
