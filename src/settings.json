@@ -368,6 +368,15 @@
             "url": "Masukan URL nya"
           }
        },
+       {
+          "name": "Threads",
+          "desc": "Download video threads",
+          "path": "/download/threads?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
+        },
         {
           "name": "Facebook",
           "desc": "Download Reel/Video FB",
