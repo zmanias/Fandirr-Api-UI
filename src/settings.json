@@ -494,6 +494,15 @@
           "params": {
             "url": "Masukan url audio M4A nya"
           }
+        },
+        {
+          "name": "MP4 to MP3",
+          "desc": "Convert Mp4 Ke Mp3",
+          "path": "/convert/mp4tomp3?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan url audio M4A nya"
+          }
         }
       ]
     },
