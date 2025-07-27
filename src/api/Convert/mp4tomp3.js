@@ -95,8 +95,4 @@ app.get('/convert/mp4tomp3', async (req, res) => {
         });
     }
 });
-
-// Menjalankan server
-app.listen(PORT, () => {
-    console.log(`✅ Server API MP3 Converter berjalan di http://localhost:${PORT}`);
-});
+}
