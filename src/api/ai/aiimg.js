@@ -63,7 +63,7 @@ async function Txt2IMG(prompt, resolusi = 'square', upscale = 2) {
 // =======================================================
 // ENDPOINT REST API (Diubah ke GET)
 // =======================================================
-app.get('/txt2img', async (req, res) => {
+app.get('/ai/img', async (req, res) => {
     // Ambil parameter dari query URL
   const { prompt, resolusi, upscale } = req.query;
 
