@@ -941,6 +941,30 @@
           }
         }
         ]
+    },
+    {
+      "name": "Temp Mail",
+      "items": [
+        {
+          "name": "Create Mail",
+          "desc": "Buat mail nya",
+          "path": "/tempmail/create?prefix=",
+          "status": "ready",
+          "params": {
+            "prefix": "Masukan nama untuk mail nya"
+          }
+        },
+        {
+          "name": "Cek Inbox",
+          "desc": "Cek inbox mail nya",
+          "path": "/tempmail/inbox?token=&expiresAt=",
+          "status": "ready",
+          "params": {
+            "token": "Masukan token mail nya",
+            "expiresAt": "Masukan expired nya"
+          }
+        }
+      ]
     }
   ]
 }
