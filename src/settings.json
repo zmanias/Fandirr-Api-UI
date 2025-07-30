@@ -69,7 +69,7 @@
       ]
     },
     {
-      "name": "Payment Gateaway(Saweri )",
+      "name": "Payment Gateaway(Saweria)",
       "items": [
         {
           "name": "Buat Pembayaran",
@@ -94,7 +94,7 @@
       ]
     },
     {
-      "name": "Payment Gateaway(Orku)",
+      "name": "Payment Gateaway(Orkut)",
       "items": [
         {
           "name": "Buat Pembayaran",
@@ -252,6 +252,24 @@
           "status": "ready",
           "params": {
             "prompt": "Masukan Prompt Untuk Gemini"
+          }
+        },
+        {
+          "name": "AI Now Chat",
+          "desc": "AI NowChat Ai",
+          "path": "/ai/nowchat?q=",
+          "status": "ready",
+          "params": {
+            "q": "Masukan Prompt Untuk Gemini"
+          }
+        },
+        {
+          "name": "AI Now Art Img",
+          "desc": "AI Pembuat Gambar Art",
+          "path": "/ai/nowartimg?prompt=",
+          "status": "ready",
+          "params": {
+            "prompt": "Masukan Prompt Untuk Now Art Image"
           }
         },
         {
