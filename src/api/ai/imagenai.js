@@ -134,7 +134,7 @@ const imagen = {
 
 // Membuat endpoint/route untuk generate gambar
 // Contoh URL: http://localhost:3000/generate-image?prompt=a%20blue%20cat&type=Cartoon&size=1:1
-app.get('/generate-image', async (req, res) => {
+app.get('/ai/imagen', async (req, res) => {
   // Ambil parameter dari query URL
   const {
     prompt,
