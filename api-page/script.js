@@ -845,7 +845,7 @@ if (apiContent && settings.categories?.length) {
             modalRefs.container.classList.add('d-none');
             
             // Display the endpoint with enhanced typing animation
-            modalRefs.endpoint.textContent = '';
+            modalRefs.endpoint.textContent = decodeURIComponent(apiUrl.replace(/\+/g, ' '));
             modalRefs.endpoint.classList.remove('d-none');
             
             const typingSpeed = 20; // ms per character
