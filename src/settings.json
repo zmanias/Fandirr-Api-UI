@@ -725,10 +725,9 @@
         {
           "name": "Free Fire",
           "desc": "Cek ID Free Fire",
-          "path": "/stalk/ff?apikey=&id=",
+          "path": "/stalk/ff?id=",
           "status": "ready",
           "params": {
-            "apikey": "Masukan apikey nya",
             "id": "Masukan ID Free Fire"
           }
         },
@@ -791,6 +790,15 @@
           "status": "ready",
           "params": {
             "secret": "Masukan Kode A2F nya"
+          }
+        },
+        {
+          "name": "Free Proxi",
+          "desc": "Menampilkan Daftar Proxi Gratis",
+          "path": "/tools/freeproxi?apikey=",
+          "status": "ready",
+          "params": {
+            "apikey": "Masukan Apikey nya"
           }
         },
         {
