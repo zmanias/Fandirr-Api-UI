@@ -849,7 +849,7 @@ if (apiContent && settings.categories?.length) {
             modalRefs.endpoint.classList.remove('d-none');
             
             const typingSpeed = 20; // ms per character
-            const endpointText = decodeURIComponent(apiUrl);
+            const endpointText = decodeURIComponent(apiUrl.replace(/\+/g, ' '));
             let charIndex = 0;
             
             const typeEndpoint = () => {
