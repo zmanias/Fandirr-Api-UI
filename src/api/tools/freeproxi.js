@@ -51,7 +51,7 @@ async function scrapeProxies() {
 }
 
 // === ENDPOINT API ===
-app.get('/proxies', async (req, res) => {
+app.get('/tools/freeproxi', validateApiKey, async (req, res) => {
   try {
     const data = await scrapeProxies();
     res.json({
