@@ -12,7 +12,7 @@ module.exports = function(app) {
 async function callVirtusimAPI(queryData) {
   try {
     const formBody = new URLSearchParams(queryData).toString();
-    const response = await axios.post('https://virtusim.com/api/json.php', formBody, {
+    const response = await axios.post('https://virtusim.com/api/v2/json.php', formBody, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         'User-Agent': 'FandirrCoding-NodeJS/1.0',
