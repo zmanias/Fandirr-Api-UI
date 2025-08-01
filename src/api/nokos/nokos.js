@@ -3,102 +3,143 @@ const axios = require('axios');
 
 module.exports = function(app) {
 
-/**
- * Fungsi pembantu untuk memanggil API Virtusim.
- * Fungsi ini sekarang hanya meneruskan data yang diterima.
- * @param {object} queryData - Data yang akan dikirim ke Virtusim, harus sudah berisi api_key.
- * @returns {Promise<object>} - Hasil respons dari API Virtusim.
- */
-async function callVirtusimAPI(queryData) {
+const VIRTUSIM_API_URL = 'https://virtusim.com/api/v2/json.php';
+
+// --- FUNGSI UTAMA ---
+async function callVirtusimAPI(params) {
   try {
-    const formBody = new URLSearchParams(queryData).toString();
-    const response = await axios.post('https://virtusim.com/api/v2/json.php', formBody, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'User-Agent': 'FandirrCoding-NodeJS/1.0',
-      },
-    });
+    const response = await axios.get(VIRTUSIM_API_URL, { params });
     return response.data;
   } catch (error) {
-    console.error('Error calling Virtusim API:', error.message);
-    throw new Error('Gagal menghubungi API provider.');
+    const status = error.response ? error.response.status : 500;
+    const message = error.response ? error.response.data : { msg: 'Gagal menghubungi server provider.' };
+    throw { status, message };
   }
 }
 
-// Middleware untuk memeriksa API Key di semua request
+// --- MIDDLEWARE ---
 const checkApiKey = (req, res, next) => {
-  const { api_key } = req.query;
-  if (!api_key) {
-    return res.status(401).json({ status: 'error', message: 'Parameter "api_key" wajib diisi.' });
+  if (!req.query.api_key) {
+    return res.status(401).json({ status: false, data: { msg: 'Parameter "api_key" wajib diisi.' } });
   }
-  next(); // Lanjutkan ke handler jika api_key ada
+  next();
 };
 
-// Terapkan middleware ke semua rute
-app.use(checkApiKey);
+app.use(checkApiKey); // Terapkan middleware ke semua request
 
-// === Endpoint untuk API kita (API Key dari Pengguna) ===
+// --- ROUTERS ---
 
-// 1. Get Layanan
-app.get('/nokos/services', async (req, res) => {
+// Router untuk semua yang berhubungan dengan Akun
+const accountRouter = express.Router();
+
+accountRouter.get('/nokos/balance', async (req, res) => {
   try {
-    const data = await callVirtusimAPI({ ...req.query, action: 'services' });
+    const data = await callVirtusimAPI({ ...req.query, action: 'balance' });
     res.json(data);
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: error.message });
+  } catch (err) {
+    res.status(err.status).json(err.message);
   }
 });
 
-// 2. Membuat Pesanan
-app.get('/nokos/order', async (req, res) => {
-  const { service, operator } = req.query;
-  if (!service || !operator) {
-    return res.status(400).json({ status: 'error', message: 'Parameter "service" dan "operator" wajib diisi.' });
-  }
-
+accountRouter.get('/nokos/balance-logs', async (req, res) => {
   try {
-    const data = await callVirtusimAPI({ ...req.query, action: 'order' });
-    res.status(201).json(data);
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: error.message });
+    const data = await callVirtusimAPI({ ...req.query, action: 'balance_logs' });
+    res.json(data);
+  } catch (err) {
+    res.status(err.status).json(err.message);
   }
 });
 
-// 3. Get Pesanan Aktif
-app.get('/nokos/orders/active', async (req, res) => {
+accountRouter.get('/nokos/recent-activity', async (req, res) => {
+  try {
+    const data = await callVirtusimAPI({ ...req.query, action: 'recent_activity' });
+    res.json(data);
+  } catch (err) {
+    res.status(err.status).json(err.message);
+  }
+});
+
+
+// Router untuk semua yang berhubungan dengan Layanan (Service)
+const servicesRouter = express.Router();
+
+servicesRouter.get('/', async (req, res) => {
     try {
-        const data = await callVirtusimAPI({ ...req.query, action: 'active_order' });
+        const data = await callVirtusimAPI({ ...req.query, action: 'services' });
         res.json(data);
-    } catch (error) {
-        res.status(500).json({ status: 'error', message: error.message });
+    } catch (err) {
+        res.status(err.status).json(err.message);
     }
 });
 
-// 4. Check Status Pesanan berdasarkan ID
-app.get('/nokos/order/:id', async (req, res) => {
-  const { id } = req.params;
+servicesRouter.get('/nokos/countries', async (req, res) => {
+    try {
+        const data = await callVirtusimAPI({ ...req.query, action: 'get_countries' });
+        res.json(data);
+    } catch (err) {
+        res.status(err.status).json(err.message);
+    }
+});
+
+servicesRouter.get('/nokos/operators', async (req, res) => {
+    try {
+        const data = await callVirtusimAPI({ ...req.query, action: 'get_operators' });
+        res.json(data);
+    } catch (err) {
+        res.status(err.status).json(err.message);
+    }
+});
+
+
+// Router untuk semua yang berhubungan dengan Pesanan (Order/Transaction)
+const orderRouter = express.Router();
+
+orderRouter.get('/', async (req, res) => {
+  const { service, operator } = req.query;
+  if (!service || !operator) {
+    return res.status(400).json({ status: false, data: { msg: 'Parameter "service" dan "operator" wajib diisi.' } });
+  }
   try {
-    const data = await callVirtusimAPI({ ...req.query, action: 'status', id });
+    const data = await callVirtusimAPI({ ...req.query, action: 'order' });
     res.json(data);
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: error.message });
+  } catch (err) {
+    res.status(err.status).json(err.message);
   }
 });
 
-// 5. Mengubah Status Pesanan
-app.get('/nokos/order/:id/set-status', async (req, res) => {
-  const { id } = req.params;
-  const { status } = req.query;
-
-  if (!status) {
-    return res.status(400).json({ status: 'error', message: 'Parameter "status" wajib diisi.' });
-  }
-
+orderRouter.get('/nokos/:id', async (req, res) => {
   try {
-    const data = await callVirtusimAPI({ ...req.query, action: 'set_status', id });
+    const data = await callVirtusimAPI({ ...req.query, action: 'status', id: req.params.id });
     res.json(data);
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: error.message });
+  } catch (err) {
+    res.status(err.status).json(err.message);
   }
 });
+
+orderRouter.get('/nokos/:id/set-status', async (req, res) => {
+  if (!req.query.status) {
+    return res.status(400).json({ status: false, data: { msg: 'Parameter "status" wajib diisi.' } });
+  }
+  try {
+    const data = await callVirtusimAPI({ ...req.query, action: 'set_status', id: req.params.id });
+    res.json(data);
+  } catch (err) {
+    res.status(err.status).json(err.message);
+  }
+});
+
+orderRouter.get('/nokos/:id/get-sms', async (req, res) => {
+  try {
+    const data = await callVirtusimAPI({ ...req.query, action: 'get_sms', id: req.params.id });
+    res.json(data);
+  } catch (err) {
+    res.status(err.status).json(err.message);
+  }
+});
+
+
+// --- MOUNT ROUTERS ---
+app.use('/account', accountRouter);
+app.use('/services', servicesRouter);
+app.use('/order', orderRouter);
 }
