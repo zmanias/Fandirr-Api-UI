@@ -5,11 +5,6 @@ const cheerio = require('cheerio');
 
 module.exports = function(app) {
 
-/**
- * Fungsi inti untuk mengunduh dari Spotifydown.
- * @param {string} url - URL lagu Spotify.
- * @returns {Promise<string>} - URL unduhan langsung ke file audio.
- */
 async function spotifyDownload(url) {
   const form = new FormData();
   form.append('url', url);
@@ -37,7 +32,6 @@ async function spotifyDownload(url) {
   return downloadLink;
 }
 
-// === ENDPOINT UTAMA API ===
 app.get('/download/spotify', async (req, res) => {
   const { url } = req.query;
 
@@ -49,12 +43,12 @@ app.get('/download/spotify', async (req, res) => {
   }
 
   // --- PERUBAHAN DI SINI ---
-  // Regex diubah untuk memvalidasi format URL googleusercontent.com/spotify.com/
-  const validUrlRegex = /https?:\/\/googleusercontent\.com\/spotify\.com\/[a-zA-Z0-9]+/;
+  // Regex ini sekarang menerima DUA format: open.spotify.com/track/.. ATAU spotify.link/..
+  const validUrlRegex = /https?:\/\/(open\.spotify\.com\/track|spotify\.link)\/[a-zA-Z0-9]+/;
   if (!validUrlRegex.test(url)) {
     return res.status(400).json({
       status: 'error',
-      message: 'Format URL tidak valid. Gunakan format http://googleusercontent.com/spotify.com/...'
+      message: 'Format URL tidak valid. Gunakan link dari open.spotify.com atau spotify.link.'
     });
   }
 
@@ -64,6 +58,7 @@ app.get('/download/spotify', async (req, res) => {
 
     res.json({
       status: 'success',
+      creator: 'Fandirr Coding',
       download_url: downloadUrl
     });
 
@@ -71,6 +66,7 @@ app.get('/download/spotify', async (req, res) => {
     console.error(e);
     res.status(500).json({
       status: 'error',
+      creator: 'Fandirr Coding',
       message: e.message || 'Terjadi kesalahan internal pada server.'
     });
   }
