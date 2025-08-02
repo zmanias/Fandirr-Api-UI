@@ -113,15 +113,17 @@ app.get('/saweria/payment/create', async (req, res) => {
 });
 
 // 3. Endpoint untuk Cek Status Pembayaran (tetap GET)
-app.get('/saweria/payment/status/:id', async (req, res) => {
-    const { id } = req.params;
-    const { user_id } = req.query;
-    if (!user_id) {
-        return res.status(400).json({ status: false, message: 'Parameter "user_id" wajib diisi.' });
+app.get('/saweria/cekstatus', async (req, res) => {
+    // Mengambil 'id' dan 'user_id' dari query parameter
+    const { id, user_id } = req.query;
+
+    // Menambahkan validasi untuk 'id'
+    if (!id || !user_id) {
+        return res.status(400).json({ status: false, message: 'Parameter "id" dan "user_id" wajib diisi.' });
     }
     try {
         const saweria = new Saweria(user_id);
-        const result = await saweria.checkPayment(id);
+        const result = await saweria.checkPayment(id); // 'id' diteruskan ke fungsi
         res.json(result);
     } catch (error) {
         res.status(500).json({ status: false, message: error.message });
