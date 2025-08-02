@@ -973,6 +973,38 @@
           }
         }
       ]
+    },
+    {
+      "name": "VirtuSIM",
+      "items": [
+        {
+          "name": "Account Balance Check",
+          "desc": "Memeriksa sisa saldo akun VirtuSIM Anda.",
+          "path": "/virtusim/balance?key_otp=",
+          "status": "ready",
+          "params": {
+            "key_otp": "API Key VirtuSIM Anda."
+          }
+        },
+        {
+          "name": "Balance Mutation",
+          "desc": "Melihat riwayat mutasi saldo akun VirtuSIM.",
+          "path": "/virtusim/balance-logs?key_otp=",
+          "status": "ready",
+          "params": {
+            "key_otp": "API Key VirtuSIM Anda."
+          }
+        },
+        {
+          "name": "Recent Activity",
+          "desc": "Melihat aktivitas terbaru di akun VirtuSIM.",
+          "path": "/virtusim/recent-activity?key_otp=",
+          "status": "ready",
+          "params": {
+            "key_otp": "API Key VirtuSIM Anda."
+          }
+        }
+      ]
     }
   ]
 }
