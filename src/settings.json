@@ -405,6 +405,15 @@
           }
         },
         {
+          "name": "Spotify",
+          "desc": "Download video Spotify",
+          "path": "/download/spotify?url=",
+          "status": "ready",
+          "params": {
+            "url": "Masukan URL nya"
+          }
+        },
+        {
           "name": "Facebook",
           "desc": "Download Reel/Video FB",
           "path": "/download/facebook?url=",
