@@ -46,7 +46,7 @@ async function spotifyDownload(url) {
 }
 
 // === ENDPOINT UTAMA API ===
-app.get('/spotify/download', async (req, res) => {
+app.get('/download/spotify', async (req, res) => {
   // Ambil URL dari query parameter
   const { url } = req.query;
 
