@@ -1,106 +1,130 @@
 const express = require('express');
-const axios =require('axios');
-const { v4: uuidv4 } = require('uuid');
+const axios = require('axios');
+const qrcode = require('qrcode');
+const cheerio = require('cheerio');
+const moment = require('moment-timezone');
 
 module.exports = function(app) {
 
-/**
- * Endpoint untuk membuat link pembayaran Saweria.
- * Metode: GET
- * Query Params: ?amount=...&message=...&username=...
- */
-app.get('/saweria/create', (req, res) => {
-  // Ambil semua data dari query parameter, termasuk username
-  const { amount, message, username } = req.query;
-  
-  // Validasi untuk parameter baru
-  if (!username) {
-    return res.status(400).json({
-      success: false,
-      error: 'Parameter query "username" wajib diisi.'
-    });
-  }
-  
-  const numericAmount = parseInt(amount, 10);
-  if (!numericAmount || isNaN(numericAmount) || numericAmount < 1000) {
-    return res.status(400).json({
-      success: false,
-      error: 'Parameter query "amount" harus berupa angka dan minimal 1000.'
-    });
-  }
-
-  const uniqueId = uuidv4().split('-')[0];
-  const finalMessage = message ? `${message} (ID: ${uniqueId})` : `ID: ${uniqueId}`;
-  const encodedMessage = encodeURIComponent(finalMessage);
-  
-  // Gunakan username dari parameter untuk membuat URL
-  const paymentUrl = `https://saweria.co/payment?amount=${numericAmount}&msg=${encodedMessage}&username=${username}`;
-  
-  console.log(`Generated payment link for user ${username} with ID ${uniqueId}`);
-
-  res.status(200).json({
-    success: true,
-    data: {
-      payment_id: uniqueId,
-      amount: numericAmount,
-      message: finalMessage,
-      payment_url: paymentUrl,
-      note: "Arahkan pengguna ke payment_url untuk melakukan pembayaran."
+// --- Logika Inti dari Class Saweria (Tidak ada perubahan) ---
+class Saweria {
+    constructor(user_id) {
+        this.user_id = user_id;
+        this.baseUrl = 'https://saweria.co';
+        this.apiUrl = 'https://backend.saweria.co';
     }
-  });
+
+    async login(email, password) {
+        try {
+            const { data } = await axios.post(`${this.apiUrl}/auth/login`, { email, password });
+            if (!data.data || !data.data.id) throw new Error('Login failed, user ID not found');
+            return { creator: 'Saweria', status: true, data: { user_id: data.data.id } };
+        } catch (error) {
+            const message = error.response ? error.response.data.message : error.message;
+            throw new Error(message);
+        }
+    }
+
+    async createPayment(amount, msg = 'Order') {
+        if (!this.user_id) throw new Error('USER ID NOT FOUND');
+        try {
+            const payload = {
+                agree: true,
+                amount: Number(amount),
+                customer_info: { first_name: 'fandirr', email: "fandirrstore@gmail.com", phone: '' },
+                message: msg,
+                notUnderAge: true,
+                payment_type: 'qris',
+                vote: ''
+            };
+            const { data } = await axios.post(`${this.apiUrl}/donations/${this.user_id}`, payload);
+
+            if (!data.data || !data.data.id) throw new Error('Failed to create payment');
+            
+            const paymentData = data.data;
+            const qr_image = await qrcode.toDataURL(paymentData.qr_string, { scale: 8 });
+
+            return {
+                creator: 'Saweria',
+                status: true,
+                data: {
+                    ...paymentData,
+                    expired_at: moment(paymentData.created_at).add(10, 'minutes').tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss'),
+                    receipt: `${this.baseUrl}/qris/${paymentData.id}`,
+                    url: `${this.baseUrl}/qris/${paymentData.id}`,
+                    qr_image: qr_image
+                }
+            };
+        } catch (error) {
+            const message = error.response ? error.response.data.message : error.message;
+            throw new Error(message);
+        }
+    }
+
+    async checkPayment(id) {
+        if (!this.user_id) throw new Error('USER ID NOT FOUND');
+        try {
+            const { data: html } = await axios.get(`${this.baseUrl}/receipt/${id}`);
+            const $ = cheerio.load(html);
+            const msg = $('h2.chakra-heading.css-14dtuui').text();
+
+            if (!msg) throw new Error('Transaksi tidak ditemukan atau belum selesai.');
+
+            return { creator: 'Saweria', status: (msg === 'OA4xSN'), msg: msg.toUpperCase() };
+        } catch (error) {
+            const message = error.response ? `Gagal mengakses receipt: ${error.response.status}` : error.message;
+            throw new Error(message);
+        }
+    }
+}
+
+// === ENDPOINTS REST API (Versi GET Semua) ===
+
+// 1. Endpoint untuk Login (diubah ke GET)
+app.get('/saweria/login', async (req, res) => {
+    // Data diambil dari query parameter, bukan body
+    const { email, password } = req.query;
+    if (!email || !password) {
+        return res.status(400).json({ status: false, message: 'Parameter email dan password wajib diisi.' });
+    }
+    try {
+        const saweria = new Saweria();
+        const result = await saweria.login(email, password);
+        res.json(result);
+    } catch (error) {
+        res.status(401).json({ status: false, message: error.message });
+    }
 });
 
-/**
- * Endpoint untuk mengecek status donasi terakhir.
- * Metode: GET
- * Query Params: ?streamKey=...
- */
-app.get('/saweria/cekstatus', async (req, res) => {
-  // Ambil streamKey dari query parameter
-  const { streamKey } = req.query;
-
-  // Validasi untuk parameter baru
-  if (!streamKey) {
-    return res.status(400).json({
-      success: false,
-      error: 'Parameter query "streamKey" wajib diisi.'
-    });
-  }
-
-  try {
-    // Gunakan streamKey dari parameter untuk memanggil API Saweria
-    const saweriaApiUrl = `https://api.saweria.co/v1/stream/widget/event?streamKey=${streamKey}`;
-    
-    const response = await axios.get(saweriaApiUrl);
-
-    if (response.data && response.data.data && response.data.data.length > 0) {
-      const donations = response.data.data
-        .filter(event => event.type === 'donation')
-        .map(event => ({
-          donator: event.payload.donator,
-          amount: event.payload.amount,
-          message: event.payload.message,
-          created_at: event.created_at
-        }));
-      
-      res.status(200).json({
-        success: true,
-        data: donations
-      });
-    } else {
-      res.status(200).json({
-        success: true,
-        data: [],
-        message: "Belum ada donasi yang masuk."
-      });
+// 2. Endpoint untuk Membuat Pembayaran (diubah ke GET)
+app.get('/saweria/payment/create', async (req, res) => {
+    // Data diambil dari query parameter, bukan body
+    const { user_id, amount, message } = req.query;
+    if (!user_id || !amount) {
+        return res.status(400).json({ status: false, message: 'Parameter user_id dan amount wajib diisi.' });
     }
+    try {
+        const saweria = new Saweria(user_id);
+        const result = await saweria.createPayment(amount, message);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ status: false, message: error.message });
+    }
+});
 
-  } catch (error) {
-    console.error("Error saat menghubungi API Saweria:", error.message);
-    res.status(500).json({
-      success: false,
-      error: "Gagal mengambil data dari Saweria."
-    });
-  }
+// 3. Endpoint untuk Cek Status Pembayaran (tetap GET)
+app.get('/saweria/payment/status/:id', async (req, res) => {
+    const { id } = req.params;
+    const { user_id } = req.query;
+    if (!user_id) {
+        return res.status(400).json({ status: false, message: 'Parameter "user_id" wajib diisi.' });
+    }
+    try {
+        const saweria = new Saweria(user_id);
+        const result = await saweria.checkPayment(id);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ status: false, message: error.message });
+    }
 });
 }
