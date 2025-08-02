@@ -72,23 +72,34 @@
       "name": "Payment Gateaway(Saweria)",
       "items": [
         {
-          "name": "Buat Pembayaran",
-          "desc": "Membuat pembayaran QRIS",
-          "path": "/saweria/create?amount=&message=&username=",
+          "name": "Login Saweria",
+          "desc": "Login Untuk Dapatkan UserID nya",
+          "path": "/saweria/login?email=&password=",
           "status": "ready",
           "params": {
+            "email": "Masukan email saweria",
+            "password": "Masukan Password Saweria Nya"
+          }
+        },
+        {
+          "name": "Buat Pembayaran",
+          "desc": "Membuat pembayaran QRIS",
+          "path": "/saweria/payment/create?user_id=&amount=&message=",
+          "status": "ready",
+          "params": {
+            "user_id": "Masukan ID user saweria kamu",
             "amount": "Masukan Jumlah/Nominal nya",
-            "message": "Masukan Pesan kamu yha",
-            "username": "Masukan username Saweria Kamu"
+            "message": "Masukan Pesan kamu yha"
           }
         },
         {
           "name": "Cek Status Pembayaran",
           "desc": "Cek Status pembayaran QRIS",
-          "path": "/saweria/cekstatus?streamKey=",
+          "path": "/saweria/cekstatus?id=&user_id=",
           "status": "ready",
           "params": {
-            "streamKey": "Masukan KunciStream Saweria Kamu"
+            "id": "Masukan ID Pembayaran Kamu",
+            "user_id": "Masukan User ID nya"
           }
         }
       ]
